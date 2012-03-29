@@ -108,6 +108,7 @@ class Application extends CI_Controller
 			{
 				
 				unset($user_data['password']);
+				$user_data['user_id'] = $user_data['id']; 
 				unset($user_data['id']);
 
 				$this->ag_auth->login_user($user_data);
