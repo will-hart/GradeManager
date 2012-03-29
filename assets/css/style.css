@@ -1,0 +1,19 @@
+#container {
+	margin-left:auto;
+	margin-right:auto;
+	max-width: 960ps; 
+}
+
+#nav {
+	font-size: 2em;
+	font-weight: bolder;
+	color: white;
+	width: 100%;
+	background: #235B93;
+	border-bottom:1px solid;
+}
+
+#subnav { 
+	background-color: #BBDCFC;
+	margin-bottom: 30px;
+}
