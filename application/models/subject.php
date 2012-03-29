@@ -11,16 +11,26 @@ class Subject extends ORM {
 
 	function _init()
 	{
-		self::$fields = array(
-			'id' => ORM::field('auto[10]'),
-			'user_id' => ORM::field('int[10]'),
-			'code' => ORM::field('char[32]'),
-			'title' => ORM::field('char[255]'),
-			'notes' => ORM::field('string'),
-			'deleted' => ORM::field('numeric[1]'),
-			'created_on' => ORM::field('datetime'),
-			'modified_on' => ORM::field('datetime'),
+		
+		self::$relationships = array (
+			'user'			=> 		ORM::belongs_to('\\Model\\User');
+			'coursework'	=>		ORM::has_many('\\Model\\Coursework');
 		);
+		
+		
+		self::$fields = array(
+			'id' 			=> 		ORM::field('auto[10]'),
+			'user_id'		=> 		ORM::field('int[10]'),
+			'code' 			=> 		ORM::field('char[32]'),
+			'title' 		=> 		ORM::field('char[255]'),
+			'notes' 		=> 		ORM::field('string'),
+			'deleted' 		=> 		ORM::field('numeric[1]'),
+			'created_on' 	=> 		ORM::field('datetime'),
+			'modified_on' 	=> 		ORM::field('datetime'),
+		);
+		
+		
+		$this->_ts_fields('modified_on','[created_on');
 
 	}
 }

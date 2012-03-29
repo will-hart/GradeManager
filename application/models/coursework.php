@@ -8,21 +8,29 @@ use \Gas\ORM;
 class Coursework extends ORM {
 	
 	public $primary_key = 'id';
-
+	
 	function _init()
 	{
+			
+		self::$relationships = array (
+			'subject' 		=> 		ORM::belongs_to('\\Model\\Subject');
+			'user'			=>		ORM::belongs_to('\\Model\\User');
+		);		
+		
 		self::$fields = array(
-			'id' => ORM::field('auto[10]'),
-			'user_id' => ORM::field('int[10]'),
-			'subject_id' => ORM::field('int[10]'),
-			'title' => ORM::field('char[255]'),
-			'notes' => ORM::field('string'),
-			'score' => ORM::field('int[3]'),
-			'weighting' => ORM::field('int[3]'),
-			'deleted' => ORM::field('numeric[1]'),
-			'created_on' => ORM::field('datetime'),
-			'modified_on' => ORM::field('datetime'),
+			'id' 			=> 		ORM::field('auto[10]'),
+			'user_id' 		=> 		ORM::field('int[10]'),
+			'subject_id' 	=> 		ORM::field('int[10]'),
+			'title' 		=> 		ORM::field('char[255]'),
+			'notes' 		=> 		ORM::field('string'),
+			'score' 		=> 		ORM::field('int[3]'),
+			'weighting' 	=> 		ORM::field('int[3]'),
+			'deleted' 		=> 		ORM::field('numeric[1]'),
+			'created_on' 	=> 		ORM::field('datetime'),
+			'modified_on' 	=> 		ORM::field('datetime'),
 		);
+		
+		$this->_ts_fields('modified_on','[created_on]');
 
 	}
 }
