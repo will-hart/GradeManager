@@ -3,7 +3,7 @@
 	
 	class Dashboard extends CI_Controller {
 		
-		private $usr; // stores the user object
+		public $usr; // stores the user object
 		
 		public function __construct()
 		{
@@ -19,20 +19,9 @@
 	
 		public function index()
 		{
-			$content = "Hello ".$this->usr->username;
-			
-			$content .= "<br/>##########################<br/>";
-			
-			$content .=  "<table>";
-			foreach($this->usr->subject() as $subj)
-			{
-				$content .=  "<tr><td>" . $subj->code . "</td><td>" . $subj->title . "</td></tr>";
-			}
-			$content .=  "</table>";
-			
-			$content .=  "<br/><br/>##########################<br/>";
-			
-			$data['content'] = $content;
+
+			$data['username'] = $this->usr->username;
+			$data['content'] = $this->load->view('dashboard/subject_listing',$data,true);
 			$this->load->view('template',$data);
 		}
 	}
