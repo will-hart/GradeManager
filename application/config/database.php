@@ -75,7 +75,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['dsn']      = '';
+$db['default']['dbdriver'] = 'mysql';
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = '';
 $db['default']['password'] = '';

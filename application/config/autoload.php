@@ -75,7 +75,7 @@ $autoload['packages'] = array();
 |
 */
 
-$autoload['sparks'] = array();
+$autoload['sparks'] = array('gas');
 
 /*
 | -------------------------------------------------------------------
