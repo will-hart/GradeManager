@@ -75,7 +75,7 @@ $autoload['packages'] = array();
 |
 */
 
-$autoload['sparks'] = array('gas', 'auth');
+$autoload['sparks'] = array('gas', 'Auth');
 
 /*
 | -------------------------------------------------------------------
