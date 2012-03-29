@@ -75,7 +75,7 @@ $autoload['packages'] = array();
 |
 */
 
-$autoload['sparks'] = array('gas', 'Auth');
+$autoload['sparks'] = array('Auth');
 
 /*
 | -------------------------------------------------------------------
@@ -146,7 +146,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('subject','coursework');
+$autoload['model'] = array();
 
 
 /* End of file autoload.php */
