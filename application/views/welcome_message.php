@@ -95,19 +95,22 @@
 <body>
 
 <div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
+	<h1>Welcome to Grade Manager!</h1>
 
 	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
-	</div>
+		<p>This is a simple web program written by 
+			<a href="http://www.williamhart.info">William Hart</a> to 
+			allow the simple tracking of assignments, coursework and 
+			grades for university.  It lets you track subjects, grades
+			and due dates and can even send you email reminders when
+			something is due!
+		</p>
+		
+		<p>If this is your first time here, then have a look at the 
+			<a href="<?php echo base_url()."features.html"?>">Features</a>,
+			<?php echo anchor('register','Register'); ?> or if you are
+			already signed up then just go ahead and 
+			<?php echo anchor('login','Log In'); ?>!</p>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT == 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
