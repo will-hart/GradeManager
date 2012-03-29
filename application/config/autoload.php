@@ -75,7 +75,7 @@ $autoload['packages'] = array();
 |
 */
 
-$autoload['sparks'] = array('gas');
+$autoload['sparks'] = array('gas', 'auth');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['sparks'] = array('gas');
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array();
+$autoload['libraries'] = array('');
 
 
 /*
