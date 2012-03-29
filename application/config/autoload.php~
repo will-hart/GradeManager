@@ -75,7 +75,7 @@ $autoload['packages'] = array();
 |
 */
 
-$autoload['sparks'] = array('Auth');
+$autoload['sparks'] = array('Auth', 'DataMapper-ORM/1.8.2');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['sparks'] = array('Auth');
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('gas');
+$autoload['libraries'] = array('');
 
 
 /*
