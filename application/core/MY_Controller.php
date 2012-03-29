@@ -111,9 +111,8 @@ class Application extends CI_Controller
 				unset($user_data['id']);
 
 				$this->ag_auth->login_user($user_data);
-				
+
 				redirect($redirect);
-				
 				
 			} // if($user_data['password'] === $password)
 			else
