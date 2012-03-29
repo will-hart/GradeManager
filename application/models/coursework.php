@@ -13,13 +13,13 @@ class Coursework extends ORM {
 	{
 			
 		self::$relationships = array (
-			'subject' 		=> 		ORM::belongs_to('\\Model\\Subject');
-			'user'			=>		ORM::belongs_to('\\Model\\User');
+			'subject' 		=> 		ORM::belongs_to('\\Model\\Subject'),
+			'user'			=>		ORM::belongs_to('\\Model\\User'),
 		);		
 		
 		self::$fields = array(
 			'id' 			=> 		ORM::field('auto[10]'),
-			'user_id' 		=> 		ORM::field('int[10]'),
+			'users_id' 		=> 		ORM::field('int[10]'),
 			'subject_id' 	=> 		ORM::field('int[10]'),
 			'title' 		=> 		ORM::field('char[255]'),
 			'notes' 		=> 		ORM::field('string'),
@@ -30,7 +30,7 @@ class Coursework extends ORM {
 			'modified_on' 	=> 		ORM::field('datetime'),
 		);
 		
-		$this->_ts_fields('modified_on','[created_on]');
+		$this->_ts_fields = array('modified_on','[created_on]');
 
 	}
 }

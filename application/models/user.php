@@ -5,15 +5,17 @@
 use \Gas\Core;
 use \Gas\ORM;
 
-class Users extends ORM {
+class User extends ORM {
 	
 	public $primary_key = 'id';
+	public $table = 'users'; // users table to satisfy ag_auth
+	
 	function _init()
 	{
 		
 		self::$relationships = array (
-			'subject' 		=> 		ORM::has_many('\\Model\\Subject');
-			'coursework'	=>		ORM::has_many('\\Model\\Coursework');
+			'subject' 		=> 		ORM::has_many('\\Model\\Subject'),
+			'coursework'	=>		ORM::has_many('\\Model\\Coursework'),
 		);
 		
 		self::$fields = array(

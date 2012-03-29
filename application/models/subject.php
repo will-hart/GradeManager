@@ -13,14 +13,14 @@ class Subject extends ORM {
 	{
 		
 		self::$relationships = array (
-			'user'			=> 		ORM::belongs_to('\\Model\\User');
-			'coursework'	=>		ORM::has_many('\\Model\\Coursework');
+			'user'			=> 		ORM::belongs_to('\\Model\\User'),
+			'coursework'	=>		ORM::has_many('\\Model\\Coursework'),
 		);
 		
 		
 		self::$fields = array(
 			'id' 			=> 		ORM::field('auto[10]'),
-			'user_id'		=> 		ORM::field('int[10]'),
+			'users_id'		=> 		ORM::field('int[10]'),
 			'code' 			=> 		ORM::field('char[32]'),
 			'title' 		=> 		ORM::field('char[255]'),
 			'notes' 		=> 		ORM::field('string'),
@@ -30,7 +30,7 @@ class Subject extends ORM {
 		);
 		
 		
-		$this->_ts_fields('modified_on','[created_on');
+		$this->_ts_fields = array('modified_on','[created_on');
 
 	}
 }
