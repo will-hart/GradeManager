@@ -12,10 +12,7 @@
 		public function index()
 		{
 			echo "Hello dashboard";
-		}
-		
-		public function log_check()
-		{
-			$this->load->spark('fire_log/0.8.2');
+			$user = new Model\User();
+			
 		}
 	}
