@@ -17,6 +17,7 @@
 		<?php endforeach; ?>
 	</ol>
 	<?php endif; ?>
+	<?php echo anchor('reports/outstanding','See All Outstanding'); ?>
 </div>
 
 <?php 

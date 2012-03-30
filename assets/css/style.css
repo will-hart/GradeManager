@@ -39,7 +39,9 @@ div#subnav { font-style: italic; color: #CCC; margin: 0 0 40px 0; background: #8
 /**************************************/
 /*            MAIN CONTENT            */
 /**************************************/
-th { background: #EEE; }
+th { background: #DEDEDE; }
+tr.subheading { background: #EEEEEE; font-weight:bold; }
+tr.subheding td {text-align: left; }
 .legend table { width: auto; }
 
 .info_box {
