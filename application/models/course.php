@@ -5,7 +5,7 @@
 use \Gas\Core;
 use \Gas\ORM;
 
-class Subject extends ORM {
+class Course extends ORM {
 	
 	public $primary_key = 'id';
 
@@ -13,22 +13,15 @@ class Subject extends ORM {
 	{
 		
 		self::$relationships = array (
-			'user'			=> 		ORM::belongs_to('\\Model\\User'),
-			'course'		=>		ORM::belongs_to('\\Model\\Course'),
-			'coursework'	=>		ORM::has_many('\\Model\\Coursework'),
+			'user'			=> 		ORM::belongs_to('\\Model\\User'), 
+			'subject'		=>		ORM::has_many('\\Model\\Subject'),
 		);
 		
 		
 		self::$fields = array(
 			'id' 			=> 		ORM::field('auto[10]'),
 			'users_id'		=> 		ORM::field('int[10]'),
-			'course_id'		=>		ORM::field('int[10]'),
-			'code' 			=> 		ORM::field('char[32]'),
-			'title' 		=> 		ORM::field('char[255]'),
-			'notes' 		=> 		ORM::field('string'),
-			'score'			=>		ORM::field('int[3]'),
-			'complete'		=>		ORM::field('int[3]'),
-			'deleted' 		=> 		ORM::field('numeric[1]'),
+			'title		'	=> 		ORM::field('char[255]'),
 			'created_on' 	=> 		ORM::field('datetime'),
 			'modified_on' 	=> 		ORM::field('datetime'),
 		);
