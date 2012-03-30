@@ -109,6 +109,7 @@
 				// attempt to save
 				if($cw->save())
 				{
+					$this->recalculate_weightings($cw->subject_id);
 					$this->session->set_flashdata("success","New Coursework Added");
 					redirect("subject/view/".$cw->subject_id);
 				}
@@ -155,6 +156,7 @@
 				// save the model
 				if ($cw->save())
 				{
+					$this->recalculate_weightings($cw->subject_id);
 					$this->session->set_flashdata('success','Successfully updated coursework');
 					redirect('coursework/view/'.$cw->id);
 				}
@@ -185,6 +187,7 @@
 				$cw = Model\Coursework::find($id);
 				$subj = Model\Subject::find($cw->subject_id);
 				$cw->delete();
+				$this->recalculate_weightings($subj->id);
 				
 				$this->session->set_flashdata('success','Successfully deleted coursework');
 				redirect("subject/view/".$subj->id);
@@ -195,6 +198,40 @@
 			$data['type_name'] = 'Coursework';
 			$data['content'] = $this->load->view('delete_confirmation',$data,true);
 			$this->load->view('template',$data);
+		}
+		
+		/* 
+		 * Recalculate the score and weighting of a subject based on a 
+		 * coursework update.  The variable passed is the subject id
+		 */
+		private function recalculate_weightings($sid = 0)
+		{
+			if($sid == 0) return false;
+			
+			// get the attached subject
+			$sub = Model\Subject::with('coursework')->find($sid);
+			
+			
+			// set up some counter variables
+			$score = 0;
+			$total_score = 0;
+			$complete = 0;
+			$total_complete = 0;
+			
+			// if an assessment is above status_id 4 (completed) its complete
+			// if an assessment is above statis_id 6 (returned) it is marked
+			foreach($sub->coursework() as $c)
+			{
+				$total_score += $c->score;
+				$total_complete += $c->weighting;
+				if ($c->status_id >= 4) $complete += $c->weighting;
+				if ($c->status_id >= 6) $score += $c->score;
+			}
+			
+			// calculate the percentage values
+			$sub->score = round(100 * $score / $total_score, 0);
+			$sub->complete = round(100 * $complete / $total_complete, 0);			
+			return($sub->save());
 		}
 	}
 	

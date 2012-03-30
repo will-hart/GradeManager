@@ -1,7 +1,9 @@
 <h2 class="fancy">Dashboard</h2>
 
-<h3>Current Status</h3>
-<div id="chart_pane" class="span-15 suffix-1" style="height:350px;">&nbsp;
+<div  class="span-15 suffix-1">
+	<h5 class="fancy">Current Status</h5>
+	<div id="chart_pane" style="height:350px;">&nbsp;
+	</div>
 </div>
 <div class="span-8 last">
 	<?php if (isset($next_5) && !empty($next_5)) : ?>
