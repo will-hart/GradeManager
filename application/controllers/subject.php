@@ -15,12 +15,12 @@
 			'title' => array (
 				'field' 		=> 		'title',
 				'label'			=> 		'Subject Title',
-				'rules'			=>		'trim|xss_clean|max_length[255]|alpha_numeric|required'
+				'rules'			=>		'trim|xss_clean|max_length[255]|required'
 			),
 			'notes' => array(
 				'field' 		=> 		'notes',
 				'label'			=> 		'Notes',
-				'rules'			=>		'trim|xss_clean|alpha_numeric'
+				'rules'			=>		'trim|xss_clean'
 			),
 		);
 		

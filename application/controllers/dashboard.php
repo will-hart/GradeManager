@@ -20,6 +20,7 @@
 		public function index()
 		{
 			$data['username'] = $this->usr->username;
+			$data['subjects'] = $this->usr->subject();
 			$data['action'] = 'dashboard';
 			$data['content'] = $this->load->view('dashboard/dashboard_stats',$data,true);
 			$data['content'] .= $this->load->view('subject/view_many',$data,true);

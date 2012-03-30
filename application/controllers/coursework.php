@@ -10,7 +10,7 @@
 			'title' => array (
 				'field' 		=> 		'title',
 				'label'			=> 		'Coursework Title',
-				'rules'			=>		'trim|xss_clean|max_length[255]|alpha_numeric|required|strip_tags'
+				'rules'			=>		'trim|xss_clean|max_length[255]|required|strip_tags'
 			),
 			'score' => array (
 				'field'			=> 		'score',

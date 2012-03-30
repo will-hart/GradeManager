@@ -1,11 +1,25 @@
 <h2 class="fancy">Dashboard</h2>
 
 <div class="span-24 border" style="border:2px solid #CCC; height:400px;">
-	<p><em>Your dashboard stats (coming soon)</em></p>
+	<p><em>Your subject stats</em></p>
 	<div id="chart_pane" style="height:350px;">&nbsp;</div>
 </div>
 
+<?php 
+// build the chart data
+$points = '';
+$ticks = '';
+$i = 0;
+$bar_width = 0.35;
+$bar_center = 0.4;
 
+foreach($subjects as $s)
+{
+	$ticks .= "\n[".($i+$bar_center).", '".$s->code."'],";
+	$points .= "\nmark.push([$i,".$s->score."]); complete.push([".($i+$bar_center).",".$s->complete."]);";
+	$i++;
+}
+?>
 <script type="text/javascript">
 	$(function () {
 		// generate the dataset
@@ -13,10 +27,7 @@
 		var complete = []; // the % of assessment (by weight) complete
 		
 		// add some sample data
-		mark.push([0,50]); complete.push([0.4,50]);
-		mark.push([1,30]); complete.push([1.4,75]);
-		mark.push([2,25]); complete.push([2.4,100]);
-		mark.push([3,37]); complete.push([3.4,10]);
+		<?php echo $points; ?>
 		
 		// build the data
 		var data = [{ data: mark, label: "Your Mark", color: "#40C3DF" },
@@ -26,20 +37,15 @@
 		// set some background markings
 		var markings = [
 			{ color: '#EEF7EC', yaxis: { from: 80 } },
-			//{ color: '#EDEDED', yaxis: { from: 0, to: 40 } }
 		];
 		
 		var pane = $("#chart_pane");
 		
 		// plot the chart
 		var plot = $.plot(pane, data, {
-			bars: { show: true, barWidth: 0.35, fill: 0.7 },
-			xaxis: { ticks: [
-					[0.4, "Subject 1"],
-					[1.4, "Subject 2"],
-					[2.4, "Subject 3"],
-					[3.4, "Subject 4"]
-				], min: -0.1, max: 3.9, color: "#000000", tickColor: "#FFFFFF" },
+			bars: { show: true, barWidth: <?php echo $bar_width; ?>, fill: 0.7 },
+			xaxis: { ticks: [ <?php echo $ticks; ?>
+				], min: -0.1, max: <?php echo ($i - 0.1); ?>, color: "#000000", tickColor: "#FFFFFF" },
 			yaxis: { min: 0, max:100 },
 			grid: { markings: markings, hoverable: true, clickable: false },
 			legend: {show: false}

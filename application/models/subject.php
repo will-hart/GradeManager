@@ -24,6 +24,8 @@ class Subject extends ORM {
 			'code' 			=> 		ORM::field('char[32]'),
 			'title' 		=> 		ORM::field('char[255]'),
 			'notes' 		=> 		ORM::field('string'),
+			'score'			=>		ORM::field('int[3]'),
+			'complete'		=>		ORM::field('int[3]'),
 			'deleted' 		=> 		ORM::field('numeric[1]'),
 			'created_on' 	=> 		ORM::field('datetime'),
 			'modified_on' 	=> 		ORM::field('datetime'),

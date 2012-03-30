@@ -11,7 +11,7 @@
 			</tr>
 		</thead>
 		<tbody>
-	<?php foreach($this->usr->subject() as $subj) : ?>
+	<?php foreach($subjects as $subj) : ?>
 
 			<tr>
 				<td><?php echo anchor('subject/view/'.$subj->id,$subj->code); ?></td>
