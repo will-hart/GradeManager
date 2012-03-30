@@ -23,6 +23,10 @@ class Migration_templates extends CI_Migration {
 				'type' => 'VARCHAR',
 				'constraint' => 255,
 			),
+			'title' => array(
+				'type' => 'VARCHAR',
+				'constraint' => 255,
+			),
 			'year_level' => array(
 				'type' => 'INT',
 				'constraint' => 11,
@@ -31,6 +35,9 @@ class Migration_templates extends CI_Migration {
 				'type' => 'TEXT',
 			),
 			'created_on' => array(
+				'type' => 'DATETIME',
+			),
+			'modified_on' => array(
 				'type' => 'DATETIME',
 			),
 		));

@@ -22,13 +22,15 @@ class Template extends ORM {
 			'users_id'		=> 		ORM::field('int[10]'),
 			'school_name'	=> 		ORM::field('char[255]'),
 			'course_name'	=> 		ORM::field('char[255]'),
+			'title'			=> 		ORM::field('char[255]'),
 			'year_level' 	=> 		ORM::field('int[11]'),
 			'template'		=>		ORM::field('string'),
 			'created_on' 	=> 		ORM::field('datetime'),
+			'modified_on' 	=> 		ORM::Field('datetime'),
 		);
 		
 		
-		$this->ts_fields = array('[created_on');
+		$this->ts_fields = array('modified_on','[created_on');
 
 	}
 }

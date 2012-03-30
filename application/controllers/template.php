@@ -167,5 +167,16 @@
 			
 			return $json;
 		}
+		
+		
+		/*
+		 * Browse for templates to install
+		 */
+		public function browse()
+		{
+			$data['templates'] = Model\Template::limit(20)->all();
+			$data['content'] = $this->load->view('template/view_many',$data,true);
+			$this->load->view('template',$data);			
+		}
 	}
 	
