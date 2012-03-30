@@ -217,23 +217,22 @@
 			
 			// set up some counter variables
 			$score = 0;
-			$total_score = 0;
 			$complete = 0;
 			$total_complete = 0;
 			
 			// if an assessment is above status_id 4 (completed) its complete
-			// if an assessment is above statis_id 6 (returned) it is marked
+			// take the score regardless of if it is complete or not - this is a
+			// measure of the marks taken so far
 			foreach($sub->coursework() as $c)
 			{
-				$total_score += $c->score;
 				$total_complete += $c->weighting;
+				$score += ($c->score/100) * $c->weighting;
 				if ($c->status_id >= 4) $complete += $c->weighting;
-				if ($c->status_id >= 6) $score += $c->score;
 			}
 			
 			// calculate the percentage values
-			$sub->score = round(100 * $score / $total_score, 0);
-			$sub->complete = round(100 * $complete / $total_complete, 0);			
+			$sub->score = $score;
+			$sub->complete = round(100 * $complete / $total_complete, 0);
 			return($sub->save());
 		}
 	}
