@@ -20,11 +20,9 @@ class Migration_yearlevel extends CI_Migration {
 			),
 			'created_on' => array(
 				'type' => 'DATETIME',
-				'constraint' => 255,
 			),
 			'modified_on' => array(
 				'type' => 'DATETIME',
-				'constraint' => 255,
 			),
 		));
 
@@ -37,7 +35,7 @@ class Migration_yearlevel extends CI_Migration {
 		$fields = array(
 			'yearlevel_id' => array ('type' => 'INT', 'constraint' => 11, ),
 		);
-		$this->dbforge->modify_column('subject',$fields);
+		$this->dbforge->add_column('subject',$fields);
 		
 	}
 

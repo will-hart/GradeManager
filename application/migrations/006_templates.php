@@ -31,7 +31,6 @@ class Migration_templates extends CI_Migration {
 			),
 			'created_on' => array(
 				'type' => 'DATETIME',
-				'constraint' => 255,
 			),
 		));
 

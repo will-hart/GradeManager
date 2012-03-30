@@ -18,7 +18,6 @@ class Admin extends Application
 			$this->login();
 		}
 	}
-
 }
 
 /* End of file: dashboard.php */

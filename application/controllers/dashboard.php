@@ -34,4 +34,14 @@
 			$data['content'] .= $this->load->view('subject/manage_single', $data, true);
 			$this->load->view('template',$data);
 		}
+		
+		
+		public function migrate()
+		{
+			$this->load->library('migration');
+			if (!$this->migration->current())
+			{
+				show_error($this->migration->error_string());
+			}
+		}
 	}
