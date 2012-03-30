@@ -21,8 +21,8 @@
 	<h5 class="fancy">Other Actions</h5>
 	<ul>
 		<li><?php echo anchor('reports/outstanding','See Outstanding Coursework'); ?></li>
-		<li><?php echo anchor('templates/generate','Share template'); ?></li>
-		<li><?php echo anchor('templates/import','Import Template'); ?></li>
+		<li>Share template (Coming soon)</li>
+		<li><?php echo anchor('templates/browse','Search Templates'); ?></li>
 	</ul>
 </div>
 

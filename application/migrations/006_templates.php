@@ -9,6 +9,7 @@ class Migration_templates extends CI_Migration {
 			'id' => array(
 				'type' => 'INT',
 				'constraint' => 11,
+				'autoincrement' => TRUE,
 			),
 			'users_id' => array(
 				'type' => 'INT',

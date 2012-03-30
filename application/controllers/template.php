@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit ("No direct script access allowed!");
 
 	
-	class Subject extends CI_Controller {
+	class Template extends CI_Controller {
 		
 		protected $usr; // stores the user object
 		
@@ -46,6 +46,51 @@
 			redirect('dashboard');  // go back to the user dashboard
 		}
 			
+			
+		/*
+		 * Share an entire course template
+		 */
+		public function share_course($id=0)
+		{
+			$id OR redirect('dashboard');
+			
+			// get the yearlevel
+			$course = Model\Yearlevel::find($id);
+			
+			// check this user owns the course
+			if (!$this->usr->id == $course->users_id)
+			{
+				$this->session->set_flashdata('error','You do not have permission to share this course!');
+				redirect('dashboard');
+			}
+			
+			// now build the json string
+			$json = '{ "template" : { "type" : "course", "data" : [';
+			foreach($course->subject() as $sub) {
+				$json .= $this->generate_subject_json($sub);
+			}
+			
+			// remove the final comma and close off the template
+			$json = substr($json, 0, -1)."]}}";
+			
+			// now build and populate the template
+			$tmp = new Model\Template();
+			$tmp->users_id = $this->usr->id;
+			$tmp-> template = $json;
+			
+			if($tmp->save())
+			{
+				$this->session->set_flashdata('success','Successfully generated template');
+				redirect('template/manage/'.Model\Template::last_created()->id);
+			} 
+			else 
+			{
+				$this->session->set_flashdata('error','Error generating template, please try again');
+				redirect('dashboard');
+			}		
+		}
+		
+		
 		/*
 		 * Share a subject template
 		 */
@@ -65,7 +110,7 @@
 
 			// build a json string from the subject
 			$json = '{ "template" : { "type" : "subject", "data" : [';
-			$json .= $this->generate_subject_json($id);
+			$json .= substr($this->generate_subject_json($sub),0,-1);
 			$json .= "]}}";
 
 			$tmp = new Model\Template();
@@ -77,6 +122,11 @@
 				$this->session->set_flashdata('success','Successfully generated template!');
 				redirect('template/manage/'.Model\Template::last_created()->id);
 			}
+			else 
+			{
+				$this->session->set_flashdata('error','Error generating template, please try again');
+				redirect('dashboard');
+			}
 		}
 				
 		/*
@@ -85,7 +135,7 @@
 		 */
 		private function generate_subject_json($subject = NULL)
 		{
-			!is_null($id) OR return "";
+			if(is_null($subject)) return "";
 			
 			// now build the subject header json
 			$json = '{ "code" : "' . $subject->code . '",';
@@ -96,7 +146,7 @@
 			{
 				$json .= $this->generate_coursework_json($cw);
 			}
-			$json .= ']}';
+			$json = substr($json, 0, -1) . ']},';
 			
 			return $json;
 		}
@@ -106,14 +156,14 @@
 		 */
 		private function generate_coursework_json($coursework = NULL)
 		{
-			!is_null($id) OR return "";
+			if(is_null($coursework)) return "";
 			
 			// now build the coursework header json
 			$json = '{ "title" : "' . $coursework->title . '",';
 			$json .= ' "due_date" : "' . $coursework->due_date . '",';
 			$json .= ' "notes" : "' . $coursework->notes . '",';
 			$json .= ' "weighting" : "' . $coursework->weighting . '"';
-			$json .= '}';
+			$json .= '},';
 			
 			return $json;
 		}

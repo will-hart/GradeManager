@@ -1,6 +1,7 @@
 
 <div class="span-23 info last">
 	<?php echo anchor('dashboard','<< Back to Dashboard'); ?> |
+	<?php echo anchor('template/share_subject/'.$subject->id,'Share Template'); ?> | 
 	<?php echo anchor('subject/edit/'.$subject->id,'EDIT'); ?> | 
 	<?php echo anchor('subject/delete/'.$subject->id,'DELETE'); ?>
 </div>
