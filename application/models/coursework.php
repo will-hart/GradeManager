@@ -22,6 +22,8 @@ class Coursework extends ORM {
 			'users_id' 		=> 		ORM::field('int[10]'),
 			'subject_id' 	=> 		ORM::field('int[10]'),
 			'title' 		=> 		ORM::field('char[255]'),
+			'due_date'		=>		ORM::field('date'),
+			'status'		=> 		ORM::field('enum'),
 			'notes' 		=> 		ORM::field('string'),
 			'score' 		=> 		ORM::field('int[3]'),
 			'weighting' 	=> 		ORM::field('int[3]'),

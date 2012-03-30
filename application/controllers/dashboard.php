@@ -19,9 +19,9 @@
 	
 		public function index()
 		{
-
 			$data['username'] = $this->usr->username;
-			$data['content'] = $this->load->view('dashboard/subject_listing',$data,true);
+			$data['content'] = $this->load->view('subject/manage_single', $data, true);
+			$data['content'] .= $this->load->view('subject/view_many',$data,true);
 			$this->load->view('template',$data);
 		}
 	}
