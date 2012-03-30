@@ -75,11 +75,11 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = get_env('DB1_HOST');
-$db['default']['port'] = get_env('DB1_PORT');
-$db['default']['username'] = get_env('DB1_USER');
-$db['default']['password'] = get_env('DB1_PASS');
-$db['default']['database'] = get_env('DB1_NAME');
+$db['default']['hostname'] = getenv('DB1_HOST');
+$db['default']['port'] = getenv('DB1_PORT');
+$db['default']['username'] = getenv('DB1_USER');
+$db['default']['password'] = getenv('DB1_PASS');
+$db['default']['database'] = getenv('DB1_NAME');
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
