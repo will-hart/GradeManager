@@ -17,7 +17,13 @@
 		<?php endforeach; ?>
 	</ol>
 	<?php endif; ?>
-	<?php echo anchor('reports/outstanding','See All Outstanding'); ?>
+	
+	<h5 class="fancy">Other Actions</h5>
+	<ul>
+		<li><?php echo anchor('reports/outstanding','See Outstanding Coursework'); ?></li>
+		<li><?php echo anchor('templates/generate','Share template'); ?></li>
+		<li><?php echo anchor('templates/import','Import Template'); ?></li>
+	</ul>
 </div>
 
 <?php 
