@@ -178,5 +178,35 @@
 			$data['content'] = $this->load->view('template/view_many',$data,true);
 			$this->load->view('template',$data);			
 		}
+		
+		
+		/* 
+		 * install a template into your account
+		 */
+		public function install($id=0)
+		{
+			$tmp = Model\Template::find($id);
+			
+			if ($id == 0 || is_null($tmp)) 
+			{
+				$this->session->set_flashdata('error','Unable to install template - no template found!');
+				redirect('dashboard');
+			}
+			
+			// decode the json
+			$info = json_decode($tmp->template, true);
+			$type = $info['template']['type'];
+			$obj = $info['template']['data'];	
+			
+			// if we are adding a subject we need to work out what the current couParse error: syntax error, unexpected $end, expecting T_FUNCTION in /var/www/grades/application/controllers/template.php on line 210rse is 
+			// if we are adding a course we need to create a new one
+			if ($type = 'course') {
+				$course = new Model\Course();
+				die("NOT IMPLEMENTED");
+			}
+				
+			
+						
+		}
 	}
 	
