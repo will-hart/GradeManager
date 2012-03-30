@@ -76,8 +76,8 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'tunnel.pagodabox.com:33';
-$db['default']['username'] = 'filomena';
-$db['default']['password'] = 'Yp9iP6mZ';
+$db['default']['username'] = 'stepanie';
+$db['default']['password'] = 'EetrmCva';
 $db['default']['database'] = 'grades';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
