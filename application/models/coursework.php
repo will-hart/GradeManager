@@ -15,6 +15,7 @@ class Coursework extends ORM {
 		self::$relationships = array (
 			'subject' 		=> 		ORM::belongs_to('\\Model\\Subject'),
 			'user'			=>		ORM::belongs_to('\\Model\\User'),
+			'status'		=>		ORM::belongs_to('\\Model\\Status'),
 		);		
 		
 		self::$fields = array(
@@ -23,7 +24,7 @@ class Coursework extends ORM {
 			'subject_id' 	=> 		ORM::field('int[10]'),
 			'title' 		=> 		ORM::field('char[255]'),
 			'due_date'		=>		ORM::field('date'),
-			'status'		=> 		ORM::field('enum'),
+			'status_id'		=> 		ORM::field('int[10]'),
 			'notes' 		=> 		ORM::field('string'),
 			'score' 		=> 		ORM::field('int[3]'),
 			'weighting' 	=> 		ORM::field('int[3]'),

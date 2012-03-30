@@ -5,7 +5,7 @@
 <?php
 	$title = '';
 	$due_date = date('Y-m-d');
-	$status = '';
+	$status_id = 1;
 	$notes = '';
 	$score = '';
 	$weighting = '';
@@ -13,7 +13,7 @@
 	{
 		$title = $coursework->title;
 		$due_date = $coursework->due_date;
-		$status = $coursework->status;
+		$status_id = $coursework->status_id;
 		$notes = $coursework->notes;
 		$score = $coursework->score;
 		$weighting = $coursework->weighting;
@@ -64,7 +64,7 @@
 				<div>
 					<label for="title">Status</label>
 					<br>
-					<input type="text" id="status" name="status" value="<?php echo $status; ?>" />
+					<input type="text" id="status_id" name="status_id" value="<?php echo $status_id; ?>" />
 				</div>
 				
 				<div>

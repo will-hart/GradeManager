@@ -18,6 +18,6 @@
 	<?php echo $coursework->weighting; ?>
 </div>
 <div class="span-7 last">
-	<?php echo $coursework->status; ?>
+	<?php echo $coursework->status()->title; ?>
 </div>
 

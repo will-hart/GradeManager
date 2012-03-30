@@ -17,7 +17,7 @@
 				<td><?php echo anchor('coursework/view/'.$cw->id,$cw->id); ?></td>
 				<td><?php echo anchor('coursework/view/'.$cw->id,$cw->title); ?></td>
 				<td><?php echo $cw->due_date; ?></td>
-				<td><?php echo $cw->status; ?></td>
+				<td><?php echo $cw->status()->title; ?></td>
 				<td><?php echo $cw->score; ?></td>
 				<td><?php echo $cw->weighting; ?></td>
 				<td>
