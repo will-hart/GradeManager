@@ -265,9 +265,63 @@
 				$this->session->set_flashdata('notice',"You've already handed this coursework in!");
 			}
 			
-			
 			redirect('coursework/view/'.$cw->id);
+		}
+		
+		
+		/*
+		 * Enter a score for a given piece of coursework
+		 */
+		public function enter_score($id=0)
+		{
+			// get the coursework
+			$cw = Model\Coursework::find($id);
+				
+			// check its all good
+			if($id==0 OR is_null($cw)) redirect('dashboard');
 			
+			// check for post
+			if($this->input->post('submit'))
+			{
+				$data['score'] = $this->input->post('score');
+				
+				// check if we have a number from 0 to 100 for our score
+				if (is_numeric($data['score']) && $data['score'] >= 0 && $data['score'] <= 100)
+				{
+					$cw->score = $data['score'];
+					$cw->status_id = Model\Status::RETURNED; // update the status
+					
+					if ($cw->save())
+					{
+						$this->session->set_flashdata('success', 'Successfully updated scores');
+					} else {
+						$this->session->set_flashdata('error','Failed updating score - please try again');
+					}
+					redirect('coursework/view/'.$id);
+				}
+			}
+			else
+			{
+				$data['score'] = $cw->score;
+			}
+			
+			// otherwise show the form
+			$data['content'] = $this->load->view('coursework/enter_score_form',$data, true);
+			$this->load->view('template',$data);
+		}
+
+		/*
+		 * Close the coursework
+		 */
+		public function close($id=0)
+		{
+			$id OR redirect('dashboard');
+			
+			$cw = Model\Coursework::find($id);
+			$cw->status_id = Model\Status::CLOSED;
+			$cw->save();
+			
+			redirect('coursework/view/'.$id);
 		}
 	}
 	
