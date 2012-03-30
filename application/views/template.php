@@ -1,4 +1,5 @@
-<html lang="EN">
+<!DOCTYPE HTML> 
+<html>
 	<head>
 		<title>Grade Manager by William Hart</title>
 		
