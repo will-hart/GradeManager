@@ -5,7 +5,7 @@
 	<blockquote><?php echo $coursework->notes; ?></blockquote>
 </div>
 
-<div class="span-23 notice last">
+<div class="span-23 info last">
 	<?php echo anchor('subject/view/'.$coursework->subject()->id,'<< Back to Subject');?> | 
 	<?php echo anchor('coursework/edit/'.$coursework->id,'EDIT'); ?> | 
 	<?php echo anchor('coursework/delete/'.$coursework->id,'DELETE'); ?>
