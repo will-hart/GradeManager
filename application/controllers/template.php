@@ -186,6 +186,7 @@
 		public function install($id=0)
 		{
 			$tmp = Model\Template::find($id);
+			$log = "";
 			
 			if ($id == 0 || is_null($tmp)) 
 			{
@@ -197,16 +198,56 @@
 			$info = json_decode($tmp->template, true);
 			$type = $info['template']['type'];
 			$obj = $info['template']['data'];	
+			$log .= "Installing Template:  <em>" . $tmp->title . "</em>\n<br />\n";
 			
 			// if we are adding a subject we need to work out what the current couParse error: syntax error, unexpected $end, expecting T_FUNCTION in /var/www/grades/application/controllers/template.php on line 210rse is 
 			// if we are adding a course we need to create a new one
-			if ($type = 'course') {
+			if ($type == 'course') {
+				$log.= "Creating new course... ";
 				$course = new Model\Course();
-				die("NOT IMPLEMENTED");
+				$course->users_id = $this->usr->id;
+				$course->title = $tmp->course_name & " " & $tmp->year_level;
+				$course->save();
+				$c_id = Model\Course::last_created()->id;
+				$log .= "done\n<br/>\n";
+			} else {
+				$c_id = $this->session->userdata('default_course');
+				$log .= "Adding subject to your course\n<br/>\n";
 			}
-				
 			
-						
+			// now parse the file
+			foreach ($obj as $s)
+			{
+				$sub = new Model\Subject();
+				$sub->course_id = $c_id;
+				$sub->code = $s['code'];
+				$sub->title = $s['title'];
+				$sub->notes = $s['notes'];
+				$sub->users_id = $this->usr->id;
+				$sub->save();
+				$log .= "Adding new subject <em>" . $s['title'] . "</em>\n<br/>\n";
+				
+				$s_id = Model\Subject::last_created()->id;
+				
+				// now parse the coursework
+				foreach($s['coursework'] as $cw)
+				{
+					$coursework = new Model\Coursework();
+					$coursework->title = $cw['title'];
+					$coursework->subject_id = $s_id;
+					$coursework->due_date = $cw['due_date'];
+					$coursework->notes = $cw['notes'];
+					$coursework->weighting = $cw['weighting'];
+					$coursework->save();
+					$log .= "Adding coursework <em>" . $cw['title'] . "</em>\n<br/>\n";
+				}
+			}
+			
+			$log .= anchor('dashboard','Continue to Dashboard');
+			
+			$data['install_log'] = $log;
+			$data['content'] = $this->load->view('template/install_log', $data, true);
+			
+			$this->load->view('template', $data);
 		}
 	}
-	
