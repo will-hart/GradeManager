@@ -75,10 +75,11 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'tunnel.pagodabox.com:33';
-$db['default']['username'] = 'stepanie';
-$db['default']['password'] = 'EetrmCva';
-$db['default']['database'] = 'grades';
+$db['default']['hostname'] = $_ENV['DB1_HOST'];
+$db['default']['port'] = $_ENV['DB1_PORT'];
+$db['default']['username'] = $_ENV['DB1_USER'];
+$db['default']['password'] = $_ENV['DB1_PASS'];
+$db['default']['database'] = $_ENV['DB1_NAME'];
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
