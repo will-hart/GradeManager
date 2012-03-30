@@ -10,13 +10,19 @@
 	<blockquote><?php echo $coursework->notes; ?></blockquote>
 </div>
 
-<div class="span-7 colborder">
-	<?php echo $coursework->score; ?>
+<div class="span-1">&nbsp;</div>
+<div class="span-5 info_box">
+	<h2 class="center caps">Score</h2>
+	<p class="center"><?php echo $coursework->score; ?>%</p>
 </div>
-<div class="span-7 colborder">
-	<?php echo $coursework->weighting; ?>
+<div class="span-3">&nbsp;</div>
+<div class="span-5 info_box">
+	<h2 class="center caps">Weighting</h2>
+	<p class="center"><?php echo $coursework->weighting; ?>%</p>
 </div>
-<div class="span-7 last">
-	<?php echo $coursework->status()->title; ?>
+<div class="span-3">&nbsp;</div>
+<div class="span-5 info_box last">
+	<h2 class="center caps">Status</h2>
+	<p class="center"><?php echo $coursework->status()->title; ?></p>
 </div>
 

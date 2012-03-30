@@ -42,6 +42,30 @@ div#subnav { font-style: italic; color: #CCC; margin: 0 0 40px 0; background: #8
 th { background: #EEE; }
 .legend table { width: auto; }
 
+.info_box {
+	background-image: linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);
+	background-image: -o-linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);
+	background-image: -moz-linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);
+	background-image: -webkit-linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);
+	background-image: -ms-linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.36, #F0F0F0),
+		color-stop(0.68, #FAFAFA)
+	);
+	border:1px solid #EEE;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	min-height: 100px;
+	-webkit-box-shadow: 2px 3px 10px 1px #888888;
+	-moz-box-shadow: 2px 3px 10px 1px #888888;
+	box-shadow: 2px 3px 10px 1px #888888;
+}
+
 
 /**************************************/
 /*               FOOTER               */
