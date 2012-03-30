@@ -46,6 +46,7 @@ tr.subheding td {text-align: left; }
 
 .shift_down_40 { position: relative; top: 40px; }
 .info_box {
+	color:#666;
 	padding: 5px 10px 5px 10px; 
 	background-image: linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);
 	background-image: -o-linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);
