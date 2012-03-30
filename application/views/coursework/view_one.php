@@ -1,5 +1,6 @@
 <div class="span-23 info last">
-	<?php echo anchor('subject/view/'.$coursework->subject()->id,'<< Back to Subject');?> | 
+	<?php echo anchor('subject/view/'.$coursework->subject()->id,'<< Back to Subject');?> |
+	<?php echo anchor('coursework/hand_in/'.$coursework->id,'Hand In'); ?> |  
 	<?php echo anchor('coursework/edit/'.$coursework->id,'EDIT'); ?> | 
 	<?php echo anchor('coursework/delete/'.$coursework->id,'DELETE'); ?>
 </div>

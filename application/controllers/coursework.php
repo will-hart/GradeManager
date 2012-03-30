@@ -235,5 +235,39 @@
 			$sub->complete = round(100 * $complete / $total_complete, 0);
 			return($sub->save());
 		}
+		
+		/*
+		 * Mark a bit of coursework as handed in
+		 */
+		public function hand_in($id = 0)
+		{
+			$id OR redirect('dashboard');
+			
+			// get the coursework object
+			$cw = Model\Coursework::find($id);
+			
+			// check the subject hasn't already been handed in and 
+			// then mark accordingly
+			if ($cw->status_id < 5)
+			{
+				$cw->status_id = 5;
+				if($cw->save())
+				{
+					$this->session->set_flashdata('success','Coursework handed in! Well done');
+				} 
+				else 
+				{
+					$this->session->set_flashdata('error','Unable to save coursework, please try again');
+				}
+			}
+			else 
+			{
+				$this->session->set_flashdata('notice',"You've already handed this coursework in!");
+			}
+			
+			
+			redirect('coursework/view/'.$cw->id);
+			
+		}
 	}
 	
