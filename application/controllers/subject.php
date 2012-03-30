@@ -173,7 +173,19 @@
 			// if the user has confirmed deletion, delete away
 			if ($this->input->post('delete') == 'Yes')
 			{
-				$subj = Model\Subject::find($id)->delete();
+				// find the subject
+				$subj = Model\Subject::find($id);
+				
+				// delete all the associated coursework
+				foreach($subj->coursework() as $cw)
+				{
+					$cw->delete();
+				}
+				
+				// delete the subject
+				$subj->delete();
+				
+				// notify success
 				$this->session->set_flashdata('success','Successfully deleted subject');
 				redirect("dashboard");
 			}
