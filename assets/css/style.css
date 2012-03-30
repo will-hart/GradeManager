@@ -20,13 +20,13 @@
 /**************************************/
 /*              GLOBALS               */
 /**************************************/
-
-
+table {width: 100%; }
+td { text-align:center; }
 /**************************************/
 /*              HEADER                */
 /**************************************/
-div#nav { font-weight: bolder; }
-div#subnav { font-style: italic; padding-bottom: 40px; }
+div#nav { font-weight: bolder; background: #283745; color: white; font-size: 3em; margin: 0; border-bottom: 1px solid white; padding: 20px 0px 20px 10px; }
+div#subnav { font-style: italic; color: #CCC; margin: 0 0 40px 0; background: #8B8F92; padding: 5px 0px 5px 10px}
 
 
 /**************************************/
@@ -38,10 +38,10 @@ div#subnav { font-style: italic; padding-bottom: 40px; }
 /**************************************/
 /*            MAIN CONTENT            */
 /**************************************/
-
+th { background: #EEE; }
 
 
 /**************************************/
 /*               FOOTER               */
 /**************************************/
-
+div#footer {background: #121E2A; color: #ccc; padding: 15px 30px 30px 30px; min-height:100px;

@@ -24,12 +24,11 @@
 		<?php endif; ?>
 		
 		
-		<div id="container">
-			
-			<div id="content">
-				<?php echo $content; ?>
-			</div>
+		<div id="container" class="container">
+			<?php echo $content; ?>
 		</div>
+		
+		<!--<div id="footer">Grade Manager by William Hart</div>-->
 	
 	</body>
 </html>
