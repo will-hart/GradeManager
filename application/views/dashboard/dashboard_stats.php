@@ -4,14 +4,17 @@
 <div id="chart_pane" class="span-15 suffix-1" style="height:350px;">&nbsp;
 </div>
 <div class="span-8 last">
+	<?php if (isset($next_5) && !empty($next_5)) : ?>
 	<h5 class="fancy">Next 5 courseworks:</h5>
 	<ol>
-		<li><a href="#">Task One (Due Date)</a></li>
-		<li><a href="#">Task One (Due Date)</a></li>
-		<li><a href="#">Task One (Due Date)</a></li>
-		<li><a href="#">Task One (Due Date)</a></li>
-		<li><a href="#">Task One (Due Date)</a></li>
+		<?php foreach($next_5 as $cw) : ?>
+		<li>
+			<?php echo anchor('coursework/view/'.$cw->id,$cw->title) . "(".
+				$cw->due_date . ")"; ?>
+		</li>
+		<?php endforeach; ?>
 	</ol>
+	<?php endif; ?>
 </div>
 
 <?php 

@@ -15,12 +15,12 @@
 			'score' => array (
 				'field'			=> 		'score',
 				'label'			=>		'Your Score',
-				'rules'			=>		'is_natural|max_length[3]',
+				'rules'			=>		'max_length[3]|greater_than[-1]|less_than[101]',
 			),
 			'weighting' => array (
 				'field'			=> 		'wighting',
 				'label'			=>		'Coursework Weighting',
-				'rules'			=>		'is_natural|max_length[3]',
+				'rules'			=>		'max_length[3]|greater_than[-1]|less_than[101]',
 			),
 			'notes' => array(
 				'field' 		=> 		'notes',
@@ -90,6 +90,9 @@
 				$cw->title = $this->input->post('title');
 				$cw->users_id = $this->session->userdata('user_id');
 				$cw->subject_id = $id;
+				$cw->status_id = 1; // set the default status id
+				$cw->score = 0;
+				$cw->weighting = 0;
 			}
 			else 
 			{
@@ -143,7 +146,7 @@
 				// update the model
 				$cw->title = $this->input->post('title');
 				$cw->due_date = $this->input->post('due_date');
-				$cw->status = $this->input->post('status');
+				$cw->status_id = $this->input->post('status_id');
 				$cw->notes = $this->input->post('notes');
 				$cw->score = $this->input->post('score');
 				$cw->weighting = $this->input->post('weighting');

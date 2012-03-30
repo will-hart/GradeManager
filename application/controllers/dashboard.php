@@ -19,8 +19,13 @@
 	
 		public function index()
 		{
+			// build the data used in the dashboard
 			$data['username'] = $this->usr->username;
 			$data['subjects'] = $this->usr->subject();
+			$data['next_5'] = Model\Coursework::limit(5)->find_by_users_id($this->usr->id);
+			if($data['next_5'] instanceOf Gas\Orm) $data['next_5'] = array('0' => $data['next_5']);
+			
+			// load the dashboard, subject list and new subject form
 			$data['action'] = 'dashboard';
 			$data['content'] = $this->load->view('dashboard/dashboard_stats',$data,true);
 			$data['content'] .= $this->load->view('subject/view_many',$data,true);
