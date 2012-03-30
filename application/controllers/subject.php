@@ -19,7 +19,7 @@
 			),
 			'notes' => array(
 				'field' 		=> 		'notes',
-				'label'			=> 		'Subject Code',
+				'label'			=> 		'Notes',
 				'rules'			=>		'trim|xss_clean|alpha_numeric'
 			),
 		);
@@ -56,13 +56,18 @@
 			$subject_id or redirect('dashboard');
 			
 			// get the relevant subject
+			$data['action'] = 'view';
 			$data['subject'] = Model\Subject::find($subject_id);
+			$data['courseworks'] = $data['subject']->coursework();
 			
-			// load the single view
+			// get the many courseworks table
+			$data['coursework_list'] = $this->load->view('coursework/view_many',$data,true);
+			
+			// load the single subject view
 			$data['content'] = $this->load->view('subject/view_one',$data,true);
+			$data['content'] .= $this->load->view('coursework/manage_single',$data,true);
 			
 			// load the template
-			$data['action'] = 'view';
 			$this->load->view('template',$data);
 		}
 		
@@ -86,7 +91,7 @@
 			}
 			else 
 			{
-				$this->session->set_flashdata('notice','Unable to create a new subject, please check your link.');
+				$this->session->set_flashdata('error','Unable to create a new subject, please check your link.');
 				redirect('dashboard');
 			}
 			
