@@ -45,9 +45,9 @@
 </script>
 
 <div class="span-24 last">
+	<h2 class="fancy"><?php echo $action == 'edit' ? 'Edit' : 'Add New'; ?> Coursework</h2>
 	<?php echo form_open(site_url($submit_to)); ?>
 		<fieldset>
-			<legend><?php echo $action == 'edit' ? 'Edit' : 'Add New'; ?> Coursework</legend>
 				<div>
 					<label for="title">Coursework Title</label>
 					<br>
