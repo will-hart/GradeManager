@@ -30,7 +30,7 @@ $bar_center = 0.4;
 
 foreach($subjects as $s)
 {
-	$ticks .= "\n[".($i+$bar_center).", '".$s->code."'],";
+	$ticks .= "\n[".($i+$bar_center).", '".anchor('subject/view/'.$s->id,$s->code)."'],";
 	$points .= "\nmark.push([$i,".$s->score."]); complete.push([".($i+$bar_center).",".$s->complete."]);";
 	$i++;
 }
@@ -51,7 +51,9 @@ foreach($subjects as $s)
 		
 		// set some background markings
 		var markings = [
-			{ color: '#EEF7EC', yaxis: { from: 80 } },
+			{ color: '#EEF7EC', yaxis: { from: 70 } },
+			{ color: '#FBFAE3', yaxis: { from: 40, to: 70 } },
+			{ color: '#FBE4E3', yaxis: { from: 0, to: 40 } },
 		];
 		
 		var pane = $("#chart_pane");
