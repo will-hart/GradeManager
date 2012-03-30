@@ -11,6 +11,6 @@ web1:
     - "mv pagoda/config/database.php application/config/database.php"
     
      # Import sample database file
-    - "mysql -h $DB1_HOST --port $DB1_PORT -u $DB1_USER -p$DB1_PASS $DB1_NAME < /var/www/grades/pagoda/db_fixtures.sql"
+    - "mysql -h $DB1_HOST --port $DB1_PORT -u $DB1_USER -p$DB1_PASS $DB1_NAME < /var/www/pagoda/db_fixtures.sql"
 db1:
   name: blog
