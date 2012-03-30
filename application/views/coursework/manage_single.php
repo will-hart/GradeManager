@@ -82,12 +82,14 @@
 					<br>
 					<textarea id="notes" name="notes" rows="5" cols="30"><?php echo $notes; ?></textarea>
 				</div>
-				
+	
+				<?php if ($coursework->status_id >= Model\Status::RETURNED): ?>		
 				<div>
 					<label for="title">Your Score</label>
 					<br>
 					<input type="text" id="score" name="score" value="<?php echo $score; ?>" />
 				</div>
+				<?php endif; ?>
 				
 				<div>
 					<label for="title">Coursework Weighting</label>

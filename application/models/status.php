@@ -9,6 +9,15 @@ class Status extends ORM {
 	
 	public $primary_key = 'id';
 	
+	// declare the constants
+	const NONE = 1;
+	const STARTED = 2;
+	const DRAFTED = 3;
+	const COMPLETED = 4;
+	const HANDED_IN = 5;
+	const RETURNED = 6;
+	const CLOSED = 7; 
+	
 	function _init()
 	{
 			
