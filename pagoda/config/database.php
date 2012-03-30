@@ -76,7 +76,6 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = $_SERVER['DB1_HOST'];
-$db['default']['port'] = $_SERVER['DB1_PORT'];
 $db['default']['username'] = $_SERVER['DB1_USER'];
 $db['default']['password'] = $_SERVER['DB1_PASS'];
 $db['default']['database'] = $_SERVER['DB1_NAME'];
