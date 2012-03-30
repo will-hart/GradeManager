@@ -20,7 +20,7 @@
 <div class="span-24 last">
 	<?php echo form_open(site_url($submit_to)); ?>
 		<fieldset>
-			<legend>Add New Subject</legend>
+			<legend><?php echo $action == 'edit' ? 'Edit' : 'Add New'; ?> Subject</legend>
 				<div>
 					<label for="code">Subject Code</label> 
 					<br>

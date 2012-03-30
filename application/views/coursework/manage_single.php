@@ -4,7 +4,7 @@
 
 <?php
 	$title = '';
-	$due_date = '';
+	$due_date = date('Y-m-d');
 	$status = '';
 	$notes = '';
 	$score = '';
@@ -24,10 +24,30 @@
 	if ($action == 'edit') $submit_to = 'coursework/edit/'.$this->uri->segment(3);
 ?>
 
+<script>
+	$(document).ready( function() {
+		$('#due_date').DatePicker({
+			format 			: 	'Y-m-d',
+			calendars		:	1,
+			starts			: 	1,
+			positiion		: 	'r',
+			date			: 	$('#due_date').val(),
+			current			:	$('#due_date').val(),
+			onBeforeShow	: 	function(){
+									$('#due_date').DatePickerSetDate($('#due_date').val(), true);
+								},
+			onChange		: 	function(formated, dates){
+									$('#due_date').val(formated);
+									$('#due_date').DatePickerHide();
+								}
+		});
+	});
+</script>
+
 <div class="span-24 last">
 	<?php echo form_open(site_url($submit_to)); ?>
 		<fieldset>
-			<legend><?php echo $action == 'edit' ? 'Edit' : 'Add'; ?> Coursework</legend>
+			<legend><?php echo $action == 'edit' ? 'Edit' : 'Add New'; ?> Coursework</legend>
 				<div>
 					<label for="title">Coursework Title</label>
 					<br>
