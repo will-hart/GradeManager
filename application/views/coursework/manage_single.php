@@ -19,6 +19,16 @@
 		$weighting = $coursework->weighting;
 	}
 	
+	// build the status option list
+	if (isset($status_list))
+	{
+		$status_options = array();
+		foreach($status_list as $sl)
+		{
+			$status_options[$sl->id] = $sl->title;
+		}
+	}
+	
 	$submit_to = '';
 	if ($action == 'create' || $action == 'dashboard' || $action == 'view') $submit_to = 'coursework/create/'.$this->uri->segment(3);
 	if ($action == 'edit') $submit_to = 'coursework/edit/'.$this->uri->segment(3);
@@ -64,7 +74,7 @@
 				<div>
 					<label for="title">Status</label>
 					<br>
-					<input type="text" id="status_id" name="status_id" value="<?php echo $status_id; ?>" />
+					<?php echo form_dropdown("status_id", $status_options, $status_id); ?><!--<input type="text" id="status_id" name="status_id" value="<?php //echo $status_id; ?>" />-->
 				</div>
 				
 				<div>
@@ -86,8 +96,8 @@
 				</div>
 				<?php endif; ?>
 			
-				<input type="submit" value="Save" name="submit" /> or 
-				<?php if ($action == 'edit') echo anchor('coursework/view/'.$this->uri->segment(3), 'Cancel'); ?>
+				<input type="submit" value="Save" name="submit" />
+				<?php if ($action == 'edit') echo " or " . anchor('coursework/view/'.$this->uri->segment(3), 'Cancel'); ?>
 		</fieldset>
 	<?php echo form_close(); ?>
 </div>

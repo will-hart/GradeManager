@@ -62,7 +62,7 @@
 			
 			// get the many courseworks table
 			$data['coursework_list'] = $this->load->view('coursework/view_many',$data,true);
-			
+						
 			// load the single subject view
 			$data['content'] = $this->load->view('subject/view_one',$data,true);
 			$data['content'] .= $this->load->view('coursework/manage_single',$data,true);

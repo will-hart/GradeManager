@@ -166,6 +166,9 @@
 				}
 			}
 			
+			// get the list of statuses we can have
+			$data['status_list'] = Model\Status::all();
+			
 			// show the editing form
 			$data['coursework'] = $cw;
 			$data['action'] = 'edit';
