@@ -1,6 +1,7 @@
 <div class="span-23 info last">
 	<?php echo anchor('subject/view/'.$coursework->subject()->id,'<< Back to Subject');?> |
-	<?php echo anchor('coursework/hand_in/'.$coursework->id,'Hand In'); ?> |  
+	<?php if ($coursework->status_id < Model\Status::HANDED_IN) echo anchor('coursework/hand_in/'.$coursework->id,'Hand In') . " | "; ?>  
+	<?php if ($coursework->status_id >= Model\Status::HANDED_IN) echo anchor('coursework/enter_score/'.$coursework->id,'Enter Score') . " | "; ?> 
 	<?php echo anchor('coursework/edit/'.$coursework->id,'EDIT'); ?> | 
 	<?php echo anchor('coursework/delete/'.$coursework->id,'DELETE'); ?>
 </div>
