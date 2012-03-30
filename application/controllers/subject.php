@@ -62,6 +62,9 @@
 			
 			// get the many courseworks table
 			$data['coursework_list'] = $this->load->view('coursework/view_many',$data,true);
+			
+			// get the subject dashboard
+			$data['subject_dashboard'] = $this->load->view('subject/subject_stats',$data,true);
 						
 			// load the single subject view
 			$data['content'] = $this->load->view('subject/view_one',$data,true);

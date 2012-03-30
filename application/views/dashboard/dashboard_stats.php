@@ -62,7 +62,6 @@ foreach($subjects as $s)
 				], min: -0.1, max: <?php echo ($i - 0.1); ?>, color: "#000000", tickColor: "#FFFFFF" },
 			yaxis: { min: 0, max:100 },
 			grid: { markings: markings, hoverable: true, clickable: false },
-			legend: {show: false}
 		});
 		
 		function showTooltip(x, y, contents) {

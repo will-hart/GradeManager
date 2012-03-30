@@ -22,6 +22,7 @@
 /**************************************/
 table {width: 100%; }
 td { text-align:center; }
+
 /**************************************/
 /*              HEADER                */
 /**************************************/
@@ -39,6 +40,7 @@ div#subnav { font-style: italic; color: #CCC; margin: 0 0 40px 0; background: #8
 /*            MAIN CONTENT            */
 /**************************************/
 th { background: #EEE; }
+.legend table { width: auto; }
 
 
 /**************************************/
