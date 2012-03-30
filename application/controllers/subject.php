@@ -155,7 +155,29 @@
 			$data['action'] = 'edit';
 			$data['content'] = $this->load->view('subject/manage_single', $data, true);
 			$this->load->view('template',$data);
-				
+		}
+		
+		
+		/*
+		 * Delete a subject 
+		 */
+		public function delete($id=0)
+		{
+			$id OR redirect('dashboard');
+			
+			// if the user has confirmed deletion, delete away
+			if ($this->input->post('delete') == 'Yes')
+			{
+				$subj = Model\Subject::find($id)->delete();
+				$this->session->set_flashdata('success','Successfully deleted subject');
+				redirect("dashboard");
+			}
+			
+			// otherwise we are showing the delete confirmation form
+			$data['type_url'] = 'subject';
+			$data['type_name'] = 'Subject';
+			$data['content'] = $this->load->view('delete_confirmation',$data,true);
+			$this->load->view('template',$data);
 		}
 	}
 	
