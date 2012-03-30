@@ -28,7 +28,7 @@ td { text-align:center; }
 /**************************************/
 div#header { font-weight: bolder; background: #283745; color: white; font-size: 3em; margin: 0; border-bottom: 1px solid white; padding: 20px 0px 20px 10px; }
 div#nav { font-style: italic; color: #666; margin: 0 0 40px 0; background: #AAA; padding: 5px 0px 5px 10px}
-
+div#nav a { color: #505457;font-weight: bolder;}
 
 /**************************************/
 /*             NAVIGATION             */
@@ -44,7 +44,9 @@ tr.subheading { background: #EEEEEE; font-weight:bold; }
 tr.subheding td {text-align: left; }
 .legend table { width: auto; }
 
+.shift_down_40 { position: relative; top: 40px; }
 .info_box {
+	padding: 5px 10px 5px 10px; 
 	background-image: linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);
 	background-image: -o-linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);
 	background-image: -moz-linear-gradient(bottom, #F0F0F0 36%, #FAFAFA 68%);

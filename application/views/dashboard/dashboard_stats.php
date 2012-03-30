@@ -5,7 +5,7 @@
 	<div id="chart_pane" style="height:350px;">&nbsp;
 	</div>
 </div>
-<div class="span-8 last">
+<div class="span-7 info_box shift_down_40 last">
 	<?php if (isset($next_5) && !empty($next_5)) : ?>
 	<h5 class="fancy">Next 5 courseworks:</h5>
 	<ol>
