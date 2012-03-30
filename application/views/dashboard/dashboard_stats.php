@@ -1,8 +1,17 @@
 <h2 class="fancy">Dashboard</h2>
 
-<div class="span-24 border" style="border:2px solid #CCC; height:400px;">
-	<p><em>Your subject stats</em></p>
-	<div id="chart_pane" style="height:350px;">&nbsp;</div>
+<h3>Current Status</h3>
+<div id="chart_pane" class="span-15 suffix-1" style="height:350px;">&nbsp;
+</div>
+<div class="span-8 last">
+	<h5 class="fancy">Next 5 courseworks:</h5>
+	<ol>
+		<li><a href="#">Task One (Due Date)</a></li>
+		<li><a href="#">Task One (Due Date)</a></li>
+		<li><a href="#">Task One (Due Date)</a></li>
+		<li><a href="#">Task One (Due Date)</a></li>
+		<li><a href="#">Task One (Due Date)</a></li>
+	</ol>
 </div>
 
 <?php 
