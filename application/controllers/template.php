@@ -78,8 +78,7 @@
 				redirect('template/manage/'.Model\Template::last_created()->id);
 			}
 		}
-		
-		
+				
 		/*
 		 * Generates JSON format for one subject template
 		 * including parsing all the coursework attached
@@ -98,6 +97,23 @@
 				$json .= $this->generate_coursework_json($cw);
 			}
 			$json .= ']}';
+			
+			return $json;
+		}
+		
+		/*
+		 * Generates JSON format for one coursework template
+		 */
+		private function generate_coursework_json($coursework = NULL)
+		{
+			!is_null($id) OR return "";
+			
+			// now build the coursework header json
+			$json = '{ "title" : "' . $coursework->title . '",';
+			$json .= ' "due_date" : "' . $coursework->due_date . '",';
+			$json .= ' "notes" : "' . $coursework->notes . '",';
+			$json .= ' "weighting" : "' . $coursework->weighting . '"';
+			$json .= '}';
 			
 			return $json;
 		}
