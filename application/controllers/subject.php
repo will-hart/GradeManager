@@ -10,7 +10,7 @@
 			'code' => array (
 				'field' 		=> 		'code',
 				'label'			=> 		'Subject Code',
-				'rules'			=>		'trim|xss_clean|max_length[32]|alpha_numeric|required'
+				'rules'			=>		'trim|xss_clean|max_length[32]|required'
 			),
 			'title' => array (
 				'field' 		=> 		'title',
@@ -62,6 +62,7 @@
 			$data['content'] = $this->load->view('subject/view_one',$data,true);
 			
 			// load the template
+			$data['action'] = 'view';
 			$this->load->view('template',$data);
 		}
 		
@@ -75,7 +76,7 @@
 			$this->form_validation->set_rules($this->validation_rules);
 			
 			// check if we have post data and build a subject object
-			if($this->input->post('submit'))
+			if($_POST)
 			{
 				// set the data
 				$subj = new Model\Subject();
@@ -109,9 +110,52 @@
 			// if the rules failed then show the form with error notices
 			// and the forms populated
 			$data['subject'] = $subj;
+			$data['action'] = 'create';
 			$data['content'] = $this->load->view('subject/manage_single',$data,true);
 			$this->load->view('template',$data);
+		}
+		
+		
+		/*
+		 * Edit a subject
+		 */
+		public function edit ($id = 0)
+		{
+			// check an ID was passed
+			$id OR redirect('dashboard');
 			
+			// get the subject
+			$subject = Model\Subject::find($id);
+			
+			// set and run validation rules
+			$this->form_validation->set_rules($this->validation_rules);
+			
+			// check if we submitted our edits and they are valid
+			if($_POST && $this->form_validation->run() === TRUE)
+			{
+				// update the model
+				$subject->code = $this->input->post('code');
+				$subject->title = $this->input->post('title');
+				$subject->notes = $this->input->post('notes');
+				
+				// save the model
+				if ($subject->save())
+				{
+					$this->session->set_flashdata('success','Successfully updated subject');
+					redirect('subject/view/'.$subject->id);
+				}
+				else
+				{
+					$this->session->set_flashdata('error','Error saving subject, please try again');
+				}
+			}
+			
+			// show the editing form
+			$data['subject'] = $subject;
+			$data['action'] = 'edit';
+			$data['content'] = $this->load->view('subject/manage_single', $data, true);
+			$this->load->view('template',$data);
+				
 		}
 	}
 	

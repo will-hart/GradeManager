@@ -9,17 +9,38 @@
 	{
 		$title = $subject->title;
 		$code = $subject->code;
+		$notes = $subject->notes;
 	}
+	
+	$submit_to = '';
+	if ($action == 'create' || $action == 'dashboard') $submit_to = 'subject/create';
+	if ($action == 'edit') $submit_to = 'subject/edit/'.$this->uri->segment(3);
 ?>
 
 <div class="span-24 last">
-	<?php echo form_open(site_url('subject/create')); ?>
+	<?php echo form_open(site_url($submit_to)); ?>
 		<fieldset>
 			<legend>Add New Subject</legend>
-				Subject Code <input type="text" name="code" value="<?php echo $code; ?>" />
-				Subject Title <input type="text" name="title" value="<?php echo $title; ?>" />
+				<div>
+					<label for="code">Subject Code</label> 
+					<br>
+					<input type="text" id="code" name="code" value="<?php echo $code; ?>" />
+				</div>
+				<div>
+					<label for="title">Subject Title</label>
+					<br>
+					<input type="text" id="title" name="title" value="<?php echo $title; ?>" />
+				</div>
+				
+				<?php if ($action == 'edit'): ?>
+				<div>
+					<label for="notes">Notes</label>
+					<br>
+					<textarea id="notes" name="notes" rows="5" cols="30"><?php echo $notes; ?></textarea>
+				</div>
+				<?php endif; ?>
 			
-				<button type="submit" value="submit" name="submit">Add New</button>
+				<input type="submit" value="Save" name="submit" />
 		</fieldset>
 	<?php echo form_close(); ?>
 </div>

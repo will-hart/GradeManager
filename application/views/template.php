@@ -13,13 +13,13 @@
 		<div id="nav">Grade Manager</div>
 		<div id="subnav">By William Hart</div>
 		
-		<?php if($this->session->flashdata('error') != "") : ?>
+		<?php if($this->session->flashdata('error')) : ?>
 		<div class="error"><?php echo $this->session->flashdata('error'); ?></div>
 		<?php endif; ?>
-		<?php if($this->session->flashdata('notice') != "") : ?>
+		<?php if($this->session->flashdata('notice')) : ?>
 		<div class="notice"><?php echo $this->session->flashdata('notice'); ?></div>
 		<?php endif; ?>
-		<?php if($this->session->flashdata('success') != "") : ?>
+		<?php if($this->session->flashdata('success')) : ?>
 		<div class="success"><?php echo $this->session->flashdata('success'); ?></div>
 		<?php endif; ?>
 		
