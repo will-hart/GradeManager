@@ -93,6 +93,7 @@
 				$cw->status_id = 1; // set the default status id
 				$cw->score = 0;
 				$cw->weighting = 0;
+				$cw->due_date = date('Y-m-d');
 			}
 			else 
 			{
