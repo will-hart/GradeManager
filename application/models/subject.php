@@ -30,7 +30,7 @@ class Subject extends ORM {
 		);
 		
 		
-		$this->_ts_fields = array('modified_on','[created_on');
+		$this->ts_fields = array('modified_on','[created_on');
 
 	}
 }

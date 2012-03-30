@@ -32,7 +32,7 @@ class Coursework extends ORM {
 			'modified_on' 	=> 		ORM::field('datetime'),
 		);
 		
-		$this->_ts_fields = array('modified_on','[created_on]');
+		$this->ts_fields = array('modified_on','[created_on]');
 
 	}
 }
