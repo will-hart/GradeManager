@@ -14,16 +14,16 @@
 <div class="span-1">&nbsp;</div>
 <div class="span-5 info_box">
 	<h2 class="center caps">Score</h2>
-	<p class="center"><?php echo $coursework->score; ?>%</p>
+	<p class="center large"><?php echo $coursework->score; ?>%</p>
 </div>
 <div class="span-3">&nbsp;</div>
 <div class="span-5 info_box">
 	<h2 class="center caps">Weighting</h2>
-	<p class="center"><?php echo $coursework->weighting; ?>%</p>
+	<p class="center large"><?php echo $coursework->weighting; ?>%</p>
 </div>
 <div class="span-3">&nbsp;</div>
 <div class="span-5 info_box last">
 	<h2 class="center caps">Status</h2>
-	<p class="center"><?php echo $coursework->status()->title; ?></p>
+	<p class="center large"><?php echo $coursework->status()->title; ?></p>
 </div>
 
