@@ -20,8 +20,8 @@
 		
 	</head>
 	<body>
-		<div id="nav">Grade Manager</div>
-		<div id="subnav">By William Hart</div>
+		<div id="header">Grade Manager</div>
+		<div id="nav">Dashboard | Reports | Logout</div>
 		
 		<?php if($this->session->flashdata('error')) : ?>
 		<div class="error"><?php echo $this->session->flashdata('error'); ?></div>
