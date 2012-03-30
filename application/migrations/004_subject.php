@@ -11,7 +11,7 @@ class Migration_subject extends CI_Migration {
 				'type' => 'INT',
 				'constraint' => 10,
 			),
-			'user_id' => array(
+			'users_id' => array(
 				'type' => 'INT',
 				'constraint' => 10,
 			),
@@ -26,6 +26,16 @@ class Migration_subject extends CI_Migration {
 			'notes' => array(
 				'type' => 'TEXT',
 				'constraint' => 0,
+			),
+			'score' => array(
+				'type' => 'INT',
+				'constraint' => 3,
+				'default' => 0,
+			),
+			'complete' => array(
+				'type' => 'INT',
+				'constraint' => 3,
+				'default' => 0,
 			),
 			'deleted' => array(
 				'type' => 'TINYINT',

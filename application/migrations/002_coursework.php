@@ -11,7 +11,7 @@ class Migration_coursework extends CI_Migration {
 				'type' => 'INT',
 				'constraint' => 10,
 			),
-			'user_id' => array(
+			'users_id' => array(
 				'type' => 'INT',
 				'constraint' => 10,
 			),
@@ -23,6 +23,14 @@ class Migration_coursework extends CI_Migration {
 				'type' => 'VARCHAR',
 				'constraint' => 255,
 			),
+			'due_date' => array(
+				'type' => 'DATE',
+			),
+			'status_id' => array(
+				'type' => 'INT',
+				'constraint' => 10,
+				'default' => 1,
+			),
 			'notes' => array(
 				'type' => 'TEXT',
 				'constraint' => 0,
@@ -30,10 +38,12 @@ class Migration_coursework extends CI_Migration {
 			'score' => array(
 				'type' => 'INT',
 				'constraint' => 3,
+				'defaul' => 0,
 			),
 			'weighting' => array(
 				'type' => 'INT',
 				'constraint' => 3,
+				'default' => 0,
 			),
 			'deleted' => array(
 				'type' => 'TINYINT',
