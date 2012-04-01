@@ -43,11 +43,19 @@
 					<input type="text" id="last_name" name="last_name" value="<?php echo $last_name; ?>" />
 				</div>
 			
+				<?php if (!empty($coursework_options)) : ?>
 				<div>
 					<label for="default_course">Default Course</label>
 					<br>
 					<?php echo form_dropdown('default_course',$course_options, $default_course); ?>
 				</div>
+				<?php else : ?>
+				<input type="hidden" name="default_course" id="default_course" value="0" />
+				<div class="notice">
+					You haven't created any courses yet. Do you want to 
+					<?php echo anchor('course/create','add one'); ?>?
+				</div>
+				<?php endif; ?>
 			
 				<input type="submit" value="Save" name="submit" /> or 
 				<?php echo anchor('dashboard', 'Go to dashboard'); ?>
