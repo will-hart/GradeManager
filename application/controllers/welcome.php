@@ -44,7 +44,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data['content'] = $this->load->view('welcome_message',NULL, true);
+		$this->load->view('template',$data);
 	}
 }
 
