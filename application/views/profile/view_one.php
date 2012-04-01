@@ -49,8 +49,8 @@
 					<?php echo form_dropdown('default_course',$course_options, $default_course); ?>
 				</div>
 			
-				<input type="submit" value="Save" name="submit" />
-				<?php if ($action == 'edit') echo " or " . anchor('coursework/view/'.$this->uri->segment(3), 'Cancel'); ?>
+				<input type="submit" value="Save" name="submit" /> or 
+				<?php echo anchor('dashboard', 'Go to dashboard'); ?>
 		</fieldset>
 	<?php echo form_close(); ?>
 </div>
