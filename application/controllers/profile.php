@@ -71,8 +71,49 @@
 			// load the form
 			$data['course_list'] = Model\Course::where('users_id',$this->usr->id)->all();
 			$data['action'] = 'view';
+			$data['user_id'] = $this->usr->id;
 			$data['content'] = $this->load->view('profile/view_one',$data,true);
 			$this->load->view('template',$data);
+		}
+
+
+
+		/*
+		 * Delete a profile and all the associated data 
+		 */
+		public function delete($id=0)
+		{
+			$id OR redirect('profile');
+			
+			// check if the user is trying to delete their own profile
+			if ($id != $this->usr->id)
+			{
+				$this->session->set_flashdata('error','You do not have the rights to delete this profile.');
+				redirect('profile');
+			}
+			
+			// if the user has confirmed deletion, delete away
+			if ($this->input->post('delete') == 'Yes')
+			{
+				// find all the information and delete
+				$this->db->where('users_id',$this->usr->id)->delete('subject');
+				$this->db->where('users_id',$this->usr->id)->delete('course');
+				$this->db->where('users_id',$this->usr->id)->delete('coursework');
+				$this->db->where('users_id',$this->usr->id)->delete('profile');
+				$this->db->where('id',$this->usr->id)->delete('template');
+				
+				// notify success
+				$this->session->set_flashdata('success','Your profile and all your information has been deleted');
+				redirect("");
+			}
+			else
+			{
+				$data['type_name'] = "user";
+				$data['type_url'] = "profile";
+				$data['user_id'] = $this->usr->id;
+				$data['content'] = $this->load->view('delete_confirmation',$data,true);
+				$this->load->view('template',$data);
+			}
 		}
 	}
 	
