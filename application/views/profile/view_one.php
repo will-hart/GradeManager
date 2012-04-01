@@ -63,13 +63,15 @@
 	<?php echo form_close(); ?>
 </div>
 
-<div class="span-24 last">
+<div class="span-24 last info_box">
 	<h2 class="fancy">Danger Zone</h2>
 	<p>If you want to close your account and delete all your personal information all you need to do is click the link below.</p>
-</div>
-<div class="span-24 last error">
-	<p><strong>Warning</strong>, if you do this then all of your data will be deleted.  Please be certain before you proceed.</p>
-	<a class="button negative" href="profile/delete/<?php echo $user_id; ?>">Delete your profile</a>
+
+	<div class="error">
+		<p><strong>Warning</strong>, if you do this then all of your data will be deleted and <strong>can not be recovered</strong>.  Please be certain before you proceed.</p>
+		<a class="button negative" href="profile/delete/<?php echo $user_id; ?>">Delete your profile</a>
+		<p>&nbsp;</p>
+	</div>
 </div>
 
 
