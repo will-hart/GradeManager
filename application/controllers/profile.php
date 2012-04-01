@@ -102,6 +102,9 @@
 				$this->db->where('users_id',$this->usr->id)->delete('profile');
 				$this->db->where('id',$this->usr->id)->delete('template');
 				
+				// destroy the session
+				$this->session->sess_destroy();
+				
 				// notify success
 				$this->session->set_flashdata('success','Your profile and all your information has been deleted');
 				redirect("");

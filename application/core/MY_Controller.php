@@ -29,7 +29,7 @@ class Application extends CI_Controller
 		$this->config->load('ag_auth');
 	
 		// get the user and default_course if we are logged in
-		if (logged_in()) {
+		if ($this->ag_auth->logged_in()) {
 			// get the user object
 			$this->usr = Model\User::find($this->session->userdata("user_id"));
 			
