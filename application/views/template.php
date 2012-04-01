@@ -32,6 +32,7 @@
 				
 			<?php else : ?>
 				<?php echo anchor('login','Log In'); ?>
+				<?php echo anchor('register','Register'); ?>
 			<?php endif; ?>
 		</div>
 		
