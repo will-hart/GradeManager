@@ -22,10 +22,18 @@
 	</head>
 	<body>
 		<div id="header">Grade Manager</div>
-		<div id="nav"><?php echo anchor('dashboard','Dashboard'); ?> | 
-					  <?php echo anchor('reports/outstanding', 'Reports'); ?> |
-					  <?php echo anchor('profile','Profile'); ?> | 
-					  <?php echo anchor('logout','Logout'); ?> </div>
+		<div id="nav">
+			
+			<?php if ($this->session->userdata('logged_in')) : ?>
+				<?php echo anchor('dashboard','Dashboard'); ?> | 
+				<?php echo anchor('reports/outstanding', 'Reports'); ?> |
+				<?php echo anchor('profile','Profile'); ?> | 
+				<?php echo anchor('logout','Logout'); ?> 
+				
+			<?php else : ?>
+				<?php echo anchor('login','Log In'); ?>
+			<?php endif; ?>
+		</div>
 		
 		<?php if($this->session->flashdata('error')) : ?>
 		<div class="error"><?php echo $this->session->flashdata('error'); ?></div>
