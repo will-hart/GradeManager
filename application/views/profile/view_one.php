@@ -4,7 +4,7 @@
 
 <?php
 	$first_name = '';
-	$last_name = date('Y-m-d');
+	$last_name = '';
 	$default_course = -1;
 
 	if (isset($profile) && !is_null($profile)) 
@@ -24,7 +24,7 @@
 		}
 	}
 	
-	$submit_to = base_url().'profile';
+	$submit_to = 'profile';
 ?>
 
 <div class="span-24 last">
