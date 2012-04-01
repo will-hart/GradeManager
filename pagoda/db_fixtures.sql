@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5deb1
+-- version 3.4.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Mar 30, 2012 at 08:02 PM
--- Server version: 5.1.61
--- PHP Version: 5.3.6-13ubuntu3.6
+-- Host: localhost:3306
+-- Generation Time: Apr 01, 2012 at 02:11 PM
+-- Server version: 5.0.83
+-- PHP Version: 5.3.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -22,12 +22,12 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `ci_sessions`;
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
-  `session_id` varchar(40) NOT NULL DEFAULT '0',
-  `ip_address` varchar(16) NOT NULL DEFAULT '0',
+  `session_id` varchar(40) NOT NULL default '0',
+  `ip_address` varchar(16) NOT NULL default '0',
   `user_agent` varchar(50) NOT NULL,
-  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
+  `last_activity` int(10) unsigned NOT NULL default '0',
   `user_data` text NOT NULL,
-  PRIMARY KEY (`session_id`)
+  PRIMARY KEY  (`session_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -38,13 +38,13 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE IF NOT EXISTS `course` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `users_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `course`
@@ -61,20 +61,20 @@ INSERT INTO `course` (`id`, `users_id`, `title`, `created_on`, `modified_on`) VA
 
 DROP TABLE IF EXISTS `coursework`;
 CREATE TABLE IF NOT EXISTS `coursework` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL auto_increment,
   `users_id` int(10) NOT NULL,
   `subject_id` int(10) NOT NULL,
   `title` varchar(255) NOT NULL,
   `due_date` date NOT NULL,
   `status_id` int(11) NOT NULL,
   `notes` text,
-  `score` int(3) DEFAULT NULL,
-  `weighting` int(3) DEFAULT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `score` int(3) default NULL,
+  `weighting` int(3) default NULL,
+  `deleted` tinyint(1) NOT NULL default '0',
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=54 ;
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=125 ;
 
 --
 -- Dumping data for table `coursework`
@@ -110,7 +110,7 @@ INSERT INTO `coursework` (`id`, `users_id`, `subject_id`, `title`, `due_date`, `
 (45, 1, 15, 'Quiz 4', '2012-03-30', 7, '', 100, 7, 0, '2012-03-30 02:50:54', '2012-03-30 02:53:50'),
 (46, 1, 15, 'Quiz 5', '2012-03-30', 7, '', 100, 7, 0, '2012-03-30 02:50:58', '2012-03-30 02:53:57'),
 (47, 1, 15, 'Quiz 6', '2012-03-30', 7, '', 100, 7, 0, '2012-03-30 02:51:02', '2012-03-30 02:54:03'),
-(48, 1, 15, 'Quiz 7', '2012-03-30', 1, '', 0, 4, 0, '2012-03-30 02:51:07', '2012-03-30 02:53:10'),
+(48, 1, 15, 'Quiz 7', '2012-03-30', 7, '', 15, 4, 0, '2012-03-30 02:51:07', '2012-03-30 01:43:31'),
 (49, 1, 15, 'Quiz 8', '2012-03-30', 1, '', 0, 8, 0, '2012-03-30 02:51:09', '2012-03-30 02:53:18'),
 (50, 1, 15, 'Simulation', '2012-03-30', 7, '', 100, 6, 0, '2012-03-30 02:51:14', '2012-03-30 02:54:29'),
 (51, 1, 15, 'Lab Book', '2012-03-30', 4, '', 0, 39, 0, '2012-03-30 02:51:17', '2012-03-30 05:46:06'),
@@ -126,9 +126,9 @@ INSERT INTO `coursework` (`id`, `users_id`, `subject_id`, `title`, `due_date`, `
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(11) NOT NULL,
-  `title` varchar(20) NOT NULL DEFAULT '',
-  `description` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  `title` varchar(20) NOT NULL default '',
+  `description` varchar(100) NOT NULL default '',
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -154,7 +154,33 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 --
 
 INSERT INTO `migrations` (`version`) VALUES
-(0);
+(8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profile`
+--
+
+DROP TABLE IF EXISTS `profile`;
+CREATE TABLE IF NOT EXISTS `profile` (
+  `id` int(11) NOT NULL auto_increment,
+  `users_id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `default_course` int(11) NOT NULL,
+  `first_login` int(1) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `modified_on` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `profile`
+--
+
+INSERT INTO `profile` (`id`, `users_id`, `first_name`, `last_name`, `default_course`, `first_login`, `created_on`, `modified_on`) VALUES
+(1, 1, 'Will', 'Hart', 1, 0, '0000-00-00 00:00:00', '2012-04-01 01:00:31');
 
 -- --------------------------------------------------------
 
@@ -164,9 +190,9 @@ INSERT INTO `migrations` (`version`) VALUES
 
 DROP TABLE IF EXISTS `status`;
 CREATE TABLE IF NOT EXISTS `status` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(32) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
@@ -190,7 +216,7 @@ INSERT INTO `status` (`id`, `title`) VALUES
 
 DROP TABLE IF EXISTS `subject`;
 CREATE TABLE IF NOT EXISTS `subject` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL auto_increment,
   `users_id` int(10) NOT NULL,
   `course_id` int(11) NOT NULL,
   `code` varchar(32) NOT NULL,
@@ -198,24 +224,24 @@ CREATE TABLE IF NOT EXISTS `subject` (
   `notes` text,
   `score` int(3) NOT NULL,
   `complete` int(3) NOT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `deleted` tinyint(1) NOT NULL default '0',
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `subject`
 --
 
 INSERT INTO `subject` (`id`, `users_id`, `course_id`, `code`, `title`, `notes`, `score`, `complete`, `deleted`, `created_on`, `modified_on`) VALUES
-(11, 1, 0, 'U04501', 'Thermodynamics', '', 21, 30, 0, '2012-03-30 02:31:53', '2012-03-30 03:10:56'),
-(10, 1, 0, 'U04500', 'Maths', '', 15, 25, 0, '2012-03-30 02:31:43', '2012-03-30 07:49:01'),
-(12, 1, 0, 'U04502', 'Mechanics', '', 20, 31, 0, '2012-03-30 02:32:04', '2012-03-30 03:11:23'),
-(13, 1, 0, 'U04507', 'Materials', '', 44, 50, 0, '2012-03-30 02:32:16', '2012-03-30 07:49:07'),
-(14, 1, 0, 'U04560', 'Graphics', '', 40, 60, 0, '2012-03-30 02:32:24', '2012-03-30 04:56:54'),
-(15, 1, 0, 'U04600', 'Electronics', '', 49, 88, 0, '2012-03-30 02:32:33', '2012-03-30 05:46:06'),
-(16, 1, 0, 'U05800', 'Management', '', 83, 100, 0, '2012-03-30 02:32:43', '2012-03-30 03:12:18');
+(11, 1, 1, 'U04501', 'Thermodynamics', '', 21, 30, 0, '2012-03-30 02:31:53', '2012-03-30 03:10:56'),
+(10, 1, 1, 'U04500', 'Maths', '', 15, 25, 0, '2012-03-30 02:31:43', '2012-03-30 07:49:01'),
+(12, 1, 1, 'U04502', 'Mechanics', '', 20, 31, 0, '2012-03-30 02:32:04', '2012-03-30 03:11:23'),
+(13, 1, 1, 'U04507', 'Materials', '', 44, 50, 0, '2012-03-30 02:32:16', '2012-03-30 07:49:07'),
+(14, 1, 1, 'U04560', 'Graphics', '', 40, 60, 0, '2012-03-30 02:32:24', '2012-03-30 04:56:54'),
+(15, 1, 1, 'U04600', 'Electronics', '', 49, 88, 0, '2012-03-30 02:32:33', '2012-03-30 01:00:41'),
+(16, 1, 1, 'U05800', 'Management', '', 83, 100, 0, '2012-03-30 02:32:43', '2012-03-30 03:12:18');
 
 -- --------------------------------------------------------
 
@@ -225,7 +251,7 @@ INSERT INTO `subject` (`id`, `users_id`, `course_id`, `code`, `title`, `notes`, 
 
 DROP TABLE IF EXISTS `template`;
 CREATE TABLE IF NOT EXISTS `template` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `users_id` int(11) NOT NULL,
   `school_name` varchar(255) NOT NULL,
   `course_name` varchar(255) NOT NULL,
@@ -234,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `template` (
   `template` text NOT NULL,
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
@@ -253,16 +279,16 @@ INSERT INTO `template` (`id`, `users_id`, `school_name`, `course_name`, `title`,
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `group_id` int(11) NOT NULL DEFAULT '100',
+  `group_id` int(11) NOT NULL default '100',
   `token` varchar(255) NOT NULL,
   `identifier` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `users`
