@@ -1,9 +1,8 @@
 <?php if (!defined('BASEPATH')) exit ("No direct script access allowed!");
 
 	
-	class Coursework extends CI_Controller {
+	class Coursework extends Application {
 		
-		protected $usr; // stores the user object
 		
 		// Set up the validation rules
 		protected $validation_rules = array(
@@ -37,9 +36,6 @@
 			
 			// redirect to the login page if no session exists
 			if($this->session->userdata('logged_in') === FALSE) redirect('login');
-			
-			// get the user object
-			$this->usr = Model\User::find($this->session->userdata("user_id"));
 		}
 	
 	

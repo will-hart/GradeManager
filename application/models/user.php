@@ -14,6 +14,7 @@ class User extends ORM {
 	{
 		
 		self::$relationships = array (
+			'profile'		=>		ORM::has_one('\\Model\\Profile'),
 			'course'		=>		ORM::has_many('\\Model\\Course'),
 			'subject' 		=> 		ORM::has_many('\\Model\\Subject'),
 			'coursework'	=>		ORM::has_many('\\Model\\Coursework'),

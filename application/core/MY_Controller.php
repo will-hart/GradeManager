@@ -14,6 +14,9 @@
 
 class Application extends CI_Controller
 {
+	
+	protected $usr; // stores the user object
+	
 	public function __construct()
 	{
 		parent::__construct();
@@ -24,6 +27,18 @@ class Application extends CI_Controller
 		$this->load->helper(array('url', 'email', 'ag_auth'));
 		
 		$this->config->load('ag_auth');
+	
+		// get the user and default_course if we are logged in
+		if (logged_in()) {
+			// get the user object
+			$this->usr = Model\User::find($this->session->userdata("user_id"));
+			
+			// check if we have stored the default course in the session
+			if ($this->session->userdata('default_course') == FALSE)
+			{
+				$this->session->set_userdata('default_course', $this->usr->profile()->default_course);
+			}
+		}
 	}
 	
 	public function field_exists($value)

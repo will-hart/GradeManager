@@ -169,7 +169,6 @@ class AG_Auth
 	public function login_user($user)
 	{
 		$user['logged_in'] = TRUE;
-		
 		$this->CI->session->set_userdata($user);
 	}
 	
