@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `course` (
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `course`
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `coursework` (
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=125 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=54 ;
 
 --
 -- Dumping data for table `coursework`
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `profile`
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `subject` (
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `subject`
@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `identifier` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `users`
