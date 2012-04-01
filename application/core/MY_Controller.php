@@ -38,6 +38,13 @@ class Application extends CI_Controller
 			{
 				$this->session->set_userdata('default_course', $this->usr->profile()->default_course);
 			}
+			
+			// check if this is the user's first login and redirect
+			if ($this->uri->segment(1) != 'profile' && $this->usr->profile()->first_login == '1') 
+			{
+				$this->session->set_flashdata('notice','As this is your first logon, please update your profile and save it.');
+				redirect('profile');
+			}
 		}
 	}
 	

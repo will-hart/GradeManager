@@ -27,6 +27,11 @@ class Migration_profile extends CI_Migration {
 				'type' => 'INT',
 				'constraint' => 11,
 			),
+			'first_login' => array(
+				'type' => 'INT',
+				'constraint' => 1,
+				'default' => 1,
+			),
 			'created_on' => array(
 				'type' => 'DATETIME',
 			),

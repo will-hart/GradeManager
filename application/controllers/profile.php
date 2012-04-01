@@ -52,6 +52,7 @@
 					$data['profile']->first_name = $this->input->post('first_name');
 					$data['profile']->last_name = $this->input->post('last_name');
 					$data['profile']->default_course = $this->input->post('default_course');
+					$data['profile']->first_login = 0;
 					
 					// attempt to save
 					if ($data['profile']->save())
