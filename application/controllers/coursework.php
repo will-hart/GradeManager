@@ -53,11 +53,22 @@
 		 */
 		public function view($id = 0)
 		{
-			// check for no subject id and redirect to dashboard
-			$id or redirect('dashboard');
+			// check we have find a coursework for this id
+			$coursework = Model\Coursework::find($id);
+			if ($coursework == NULL) {
+				$this->session->set_flashdata('error','Error finding coursework - are you sure that coursework exists?');
+				redirect('dashboard');
+			}
 			
-			// get the relevant subject
-			$data['coursework'] = Model\Coursework::find($id);
+			// check this user is allowed to access it
+			if ($this->usr->id != $coursework->users_id) 
+			{
+				$this->session->set_flashdata('error','You do not have permission to view this coursework');
+				redirect('dashboard');
+			}
+			
+			// get the relevant coursework information
+			$data['coursework'] = $coursework;
 			
 			// load the single view
 			$data['action'] = 'view';
@@ -73,7 +84,19 @@
 		 */
 		public function create($id = 0)
 		{
-			$id OR redirect('dashboard'); // no subject ID provided
+			// check we have find a coursework for this id
+			$subject = Model\Subject::find($id);
+			if ($subject == NULL) {
+				$this->session->set_flashdata('error','Error adding coursework - unknown subject to add it to!');
+				redirect('dashboard');
+			}
+			
+			// check this user is allowed to access it
+			if ($this->usr->id != $subject->users_id) 
+			{
+				$this->session->set_flashdata('error','You do not have permission to add coursework to this subject');
+				redirect('dashboard');
+			}
 			
 			// set the rules
 			$this->form_validation->set_rules($this->validation_rules);
@@ -82,14 +105,14 @@
 			if($_POST)
 			{
 				// set the data
-				$cw = new Model\Coursework();
-				$cw->title = $this->input->post('title');
-				$cw->users_id = $this->session->userdata('user_id');
-				$cw->subject_id = $id;
-				$cw->status_id = 1; // set the default status id
-				$cw->score = 0;
-				$cw->weighting = 0;
-				$cw->due_date = date('Y-m-d');
+				$coursework = new Model\Coursework();
+				$coursework->title = $this->input->post('title');
+				$coursework->users_id = $this->session->userdata('user_id');
+				$coursework->subject_id = $id;
+				$coursework->status_id = 1; // set the default status id
+				$coursework->score = 0;
+				$coursework->weighting = 0;
+				$coursework->due_date = date('Y-m-d');
 			}
 			else 
 			{
@@ -103,11 +126,11 @@
 			{
 				
 				// attempt to save
-				if($cw->save())
+				if($coursework->save())
 				{
-					$this->recalculate_weightings($cw->subject_id);
+					$this->recalculate_weightings($coursework->subject_id);
 					$this->session->set_flashdata("success","New Coursework Added");
-					redirect("subject/view/".$cw->subject_id);
+					redirect("subject/view/".$coursework->subject_id);
 				}
 				else 
 				{
@@ -117,7 +140,7 @@
 			
 			// if the rules failed then show the form with error notices
 			// and the forms populated
-			$data['coursework'] = $cw;
+			$data['coursework'] = $coursework;
 			$data['action'] = 'create';
 			$data['content'] = $this->load->view('coursework/manage_single',$data,true);
 			$this->load->view('template',$data);
@@ -129,12 +152,20 @@
 		 */
 		public function edit ($id = 0)
 		{
-			// check an ID was passed
-			$id OR redirect('dashboard');
+			// check we have find a coursework for this id
+			$coursework = Model\Coursework::find($id);
+			if ($coursework == NULL) {
+				$this->session->set_flashdata('error','Error finding coursework - are you sure that coursework exists?');
+				redirect('dashboard');
+			}
 			
-			// get the coursework
-			$cw = Model\Coursework::find($id);
-			
+			// check this user is allowed to access it
+			if ($this->usr->id != $coursework->users_id) 
+			{
+				$this->session->set_flashdata('error','You do not have permission to edit this coursework');
+				redirect('dashboard');
+			}
+						
 			// set and run validation rules
 			$this->form_validation->set_rules($this->validation_rules);
 			
@@ -142,19 +173,19 @@
 			if($_POST && $this->form_validation->run() === TRUE)
 			{
 				// update the model
-				$cw->title = $this->input->post('title');
-				$cw->due_date = $this->input->post('due_date');
-				$cw->status_id = $this->input->post('status_id');
-				$cw->notes = $this->input->post('notes');
-				$cw->score = $this->input->post('score');
-				$cw->weighting = $this->input->post('weighting');
+				$coursework->title = $this->input->post('title');
+				$coursework->due_date = $this->input->post('due_date');
+				$coursework->status_id = $this->input->post('status_id');
+				$coursework->notes = $this->input->post('notes');
+				$coursework->score = $this->input->post('score');
+				$coursework->weighting = $this->input->post('weighting');
 								
 				// save the model
-				if ($cw->save())
+				if ($coursework->save())
 				{
-					$this->recalculate_weightings($cw->subject_id);
+					$this->recalculate_weightings($coursework->subject_id);
 					$this->session->set_flashdata('success','Successfully updated coursework');
-					redirect('coursework/view/'.$cw->id);
+					redirect('coursework/view/'.$coursework->id);
 				}
 				else
 				{
@@ -166,7 +197,7 @@
 			$data['status_list'] = Model\Status::all();
 			
 			// show the editing form
-			$data['coursework'] = $cw;
+			$data['coursework'] = $coursework;
 			$data['action'] = 'edit';
 			$data['content'] = $this->load->view('coursework/manage_single', $data, true);
 			$this->load->view('template',$data);
@@ -178,14 +209,25 @@
 		 */
 		public function delete($id=0)
 		{
-			$id OR redirect('dashboard');
+			// check we have find a coursework for this id
+			$coursework = Model\Coursework::find($id);
+			if ($coursework == NULL) {
+				$this->session->set_flashdata('error','Error deleting coursework - are you sure that coursework exists?');
+				redirect('dashboard');
+			}
+			
+			// check this user is allowed to access it
+			if ($this->usr->id != $coursework->users_id) 
+			{
+				$this->session->set_flashdata('error','You do not have permission to delete this coursework');
+				redirect('dashboard');
+			}
 			
 			// if the user has confirmed deletion, delete away
 			if ($this->input->post('delete') == 'Yes')
 			{
-				$cw = Model\Coursework::find($id);
-				$subj = Model\Subject::find($cw->subject_id);
-				$cw->delete();
+				$subj = Model\Subject::find($coursework->subject_id);
+				$coursework->delete();
 				$this->recalculate_weightings($subj->id);
 				
 				$this->session->set_flashdata('success','Successfully deleted coursework');
@@ -209,7 +251,6 @@
 			
 			// get the attached subject
 			$sub = Model\Subject::with('coursework')->find($sid);
-			
 			
 			// set up some counter variables
 			$score = 0;
@@ -237,17 +278,26 @@
 		 */
 		public function hand_in($id = 0)
 		{
-			$id OR redirect('dashboard');
+			// check we have find a coursework for this id
+			$coursework = Model\Coursework::find($id);
+			if ($coursework == NULL) {
+				$this->session->set_flashdata('error','Error finding coursework - are you sure that coursework exists?');
+				redirect('dashboard');
+			}
 			
-			// get the coursework object
-			$cw = Model\Coursework::find($id);
+			// check this user is allowed to access it
+			if ($this->usr->id != $coursework->users_id) 
+			{
+				$this->session->set_flashdata('error','You do not have permission to edit this coursework');
+				redirect('dashboard');
+			}
 			
 			// check the subject hasn't already been handed in and 
 			// then mark accordingly
-			if ($cw->status_id < 5)
+			if ($coursework->status_id < 5)
 			{
-				$cw->status_id = 5;
-				if($cw->save())
+				$coursework->status_id = 5;
+				if($coursework->save())
 				{
 					$this->session->set_flashdata('success','Coursework handed in! Well done');
 				} 
@@ -261,7 +311,7 @@
 				$this->session->set_flashdata('notice',"You've already handed this coursework in!");
 			}
 			
-			redirect('coursework/view/'.$cw->id);
+			redirect('coursework/view/'.$coursework->id);
 		}
 		
 		
@@ -270,11 +320,19 @@
 		 */
 		public function enter_score($id=0)
 		{
-			// get the coursework
-			$cw = Model\Coursework::find($id);
-				
-			// check its all good
-			if($id==0 OR is_null($cw)) redirect('dashboard');
+			// check we have find a coursework for this id
+			$coursework = Model\Coursework::find($id);
+			if ($coursework == NULL) {
+				$this->session->set_flashdata('error','Error finding coursework - are you sure that coursework exists?');
+				redirect('dashboard');
+			}
+			
+			// check this user is allowed to access it
+			if ($this->usr->id != $coursework->users_id) 
+			{
+				$this->session->set_flashdata('error','You do not have permission to edit this coursework');
+				redirect('dashboard');
+			}
 			
 			// check for post
 			if($this->input->post('submit'))
@@ -284,10 +342,10 @@
 				// check if we have a number from 0 to 100 for our score
 				if (is_numeric($data['score']) && $data['score'] >= 0 && $data['score'] <= 100)
 				{
-					$cw->score = $data['score'];
-					$cw->status_id = Model\Status::RETURNED; // update the status
+					$coursework->score = $data['score'];
+					$coursework->status_id = Model\Status::RETURNED; // update the status
 					
-					if ($cw->save())
+					if ($coursework->save())
 					{
 						$this->session->set_flashdata('success', 'Successfully updated scores');
 					} else {
@@ -298,7 +356,7 @@
 			}
 			else
 			{
-				$data['score'] = $cw->score;
+				$data['score'] = $coursework->score;
 			}
 			
 			// otherwise show the form
@@ -311,11 +369,23 @@
 		 */
 		public function close($id=0)
 		{
-			$id OR redirect('dashboard');
+			// check we have find a coursework for this id
+			$coursework = Model\Coursework::find($id);
+			if ($coursework == NULL) {
+				$this->session->set_flashdata('error','Error finding coursework - are you sure that coursework exists?');
+				redirect('dashboard');
+			}
 			
-			$cw = Model\Coursework::find($id);
-			$cw->status_id = Model\Status::CLOSED;
-			$cw->save();
+			// check this user is allowed to access it
+			if ($this->usr->id != $coursework->users_id) 
+			{
+				$this->session->set_flashdata('error','You do not have permission to edit this coursework');
+				redirect('dashboard');
+			}
+			
+			$coursework = Model\Coursework::find($id);
+			$coursework->status_id = Model\Status::CLOSED;
+			$coursework->save();
 			
 			redirect('coursework/view/'.$id);
 		}
