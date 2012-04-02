@@ -21,26 +21,27 @@
 	<h2 class="fancy"><?php echo $action == 'edit' ? 'Edit' : 'Add New'; ?> Subject</h2>	
 	<?php echo form_open(site_url($submit_to)); ?>
 		<fieldset>
-				<div>
-					<label for="code">Subject Code</label> 
-					<br>
-					<input type="text" id="code" name="code" value="<?php echo $code; ?>" />
-				</div>
-				<div>
-					<label for="title">Subject Title</label>
-					<br>
-					<input type="text" id="title" name="title" value="<?php echo $title; ?>" />
-				</div>
-				
-				<?php if ($action == 'edit'): ?>
-				<div>
-					<label for="notes">Notes</label>
-					<br>
-					<textarea id="notes" name="notes" rows="5" cols="30"><?php echo $notes; ?></textarea>
-				</div>
-				<?php endif; ?>
+			<input type="hidden" name="course_id" id="course_id" value="<?php echo $course_id; ?>" />
+			<div>
+				<label for="code">Subject Code</label> 
+				<br>
+				<input type="text" id="code" name="code" value="<?php echo $code; ?>" />
+			</div>
+			<div>
+				<label for="title">Subject Title</label>
+				<br>
+				<input type="text" id="title" name="title" value="<?php echo $title; ?>" />
+			</div>
 			
-				<input type="submit" value="Save" name="submit" />
+			<?php if ($action == 'edit'): ?>
+			<div>
+				<label for="notes">Notes</label>
+				<br>
+				<textarea id="notes" name="notes" rows="5" cols="30"><?php echo $notes; ?></textarea>
+			</div>
+			<?php endif; ?>
+		
+			<input type="submit" value="Save" name="submit" />
 		</fieldset>
 	<?php echo form_close(); ?>
 </div>

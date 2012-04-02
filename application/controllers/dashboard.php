@@ -29,7 +29,7 @@
 						'coursework.users_id' => $this->usr->id,
 						'subject.course_id' => $this->session->userdata('default_course')
 					))->all();
-			if($data['next_5'] instanceOf Gas\Orm) $data['next_5'] = array('0' => $data['next_5']);
+			$data['course_id'] = $this->session->userdata('default_course');
 			
 			// load the dashboard, subject list and new subject form
 			$data['action'] = 'dashboard';

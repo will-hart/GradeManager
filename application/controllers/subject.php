@@ -93,6 +93,7 @@
 				$subj = new Model\Subject();
 				$subj->code = $this->input->post('code');
 				$subj->title = $this->input->post('title');
+				$subj->course_id = $this->input->post('course_id');
 				$subj->users_id = $this->session->userdata('user_id');
 			}
 			else 
@@ -110,7 +111,8 @@
 				if($subj->save())
 				{
 					$this->session->set_flashdata("success","New Subject Added");
-					redirect("subject/view/".Model\Subject::last_created()->id);
+					$newid = Model\Subject::last_created()->id;
+					redirect("subject/view/".$newid);
 				}
 				else 
 				{
@@ -134,16 +136,17 @@
 		{
 			// check for no subject id and redirect to dashboard
 			$subject = Model\Subject::find($id);			
-			if ($subject == NULL) redirect('dashboard');
+			if ($subject == NULL) 
+			{
+				$this->session->set_flashdata('error', 'Unable to find the requested subject');
+				redirect('dashboard');
+			}
 			
 			// check this is our subject
 			if ($subject->users_id != $this->usr->id) {
 				$this->session->set_flashdata('error','You do not have permission to view this subject!');
 				redirect('dashboard');
 			}
-			
-			// get the subject
-			$subject = Model\Subject::find($id);
 			
 			// set and run validation rules
 			$this->form_validation->set_rules($this->validation_rules);
@@ -170,6 +173,7 @@
 			
 			// show the editing form
 			$data['subject'] = $subject;
+			$data['course_id'] = $this->session->userdata('default_course');
 			$data['action'] = 'edit';
 			$data['content'] = $this->load->view('subject/manage_single', $data, true);
 			$this->load->view('template',$data);
