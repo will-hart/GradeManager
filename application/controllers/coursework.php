@@ -247,11 +247,12 @@
 		 */
 		private function recalculate_weightings($sid = 0)
 		{
-			if($sid == 0) return false;
-			
 			// get the attached subject
 			$sub = Model\Subject::with('coursework')->find($sid);
 			
+			// check if no subject was found
+			if($sub == NULL) return FALSE;
+						
 			// set up some counter variables
 			$score = 0;
 			$complete = 0;
@@ -264,13 +265,14 @@
 			{
 				$total_complete += $c->weighting;
 				$score += ($c->score/100) * $c->weighting;
-				if ($c->status_id >= 4) $complete += $c->weighting;
+				if ($c->status_id >= Model\Status::COMPLETED ) $complete += $c->weighting;
 			}
 			
 			// calculate the percentage values
 			$sub->score = $score;
 			$sub->complete = round(100 * $complete / $total_complete, 0);
-			return($sub->save());
+			
+			return $sub->save();
 		}
 		
 		/*
