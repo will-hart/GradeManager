@@ -26,10 +26,10 @@
 	$submit_to = 'profile';
 ?>
 
-<div class="span-24 last">
-	<h2 class="fancy">Manage Profile</h2>
+<div class="span-15">
 	<?php echo form_open(site_url($submit_to)); ?>
 		<fieldset>
+			<h2 class="fancy">Manage Profile</h2>
 				<div>
 					<label for="first_name">First Name</label>
 					<br>
@@ -47,9 +47,6 @@
 					<label for="default_course">Default Course</label>
 					<br>
 					<?php echo form_dropdown('default_course',$course_options, $default_course); ?>
-					<br>
-					<?php echo anchor('course/create','Create a new course'); ?> <br>
-					<?php echo anchor('template/browse','Load an existing course template'); ?>
 				</div>
 				<?php else : ?>
 				<input type="hidden" name="default_course" id="default_course" value="0" />
@@ -67,16 +64,21 @@
 		</fieldset>
 	<?php echo form_close(); ?>
 </div>
+<br>
+<div class="span-8 info_box last">
+	<br>
+	<?php echo anchor('course','View Courses'); ?><br>
+	<?php echo anchor('course/create','Create a new course'); ?> <br>
+	<?php echo anchor('template/browse','Load an existing course template'); ?><br>&nbsp;
+</div>
 
-<div class="span-24 last info_box">
+<div class="span-24 last error">
 	<h2 class="fancy">Danger Zone</h2>
 	<p>If you want to close your account and delete all your personal information all you need to do is click the link below.</p>
 
-	<div class="error">
-		<p><strong>Warning</strong>, if you do this then all of your data will be deleted and <strong>can not be recovered</strong>.  Please be certain before you proceed.</p>
-		<a class="button negative" href="profile/delete/<?php echo $user_id; ?>">Delete your profile</a>
-		<p>&nbsp;</p>
-	</div>
+	<p><strong>Warning</strong>, if you do this then all of your data will be deleted and <strong>can not be recovered</strong>.  Please be certain before you proceed.</p>
+	<a class="button negative" href="profile/delete/<?php echo $user_id; ?>">Delete your profile</a>
+	<p>&nbsp;</p>
 </div>
 
 
