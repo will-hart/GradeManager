@@ -182,6 +182,41 @@
 			$data['type_name'] = 'Course';
 			$data['content'] = $this->load->view('delete_confirmation',$data,true);
 			$this->load->view('template',$data);
-		}		
+		}
+		
+		/*
+		 * Set this course as the user's default
+		 */
+		public function set_default($id = 0)
+		{
+			// make sure we can find a course
+			$course = Model\Course::find($id);
+			if (is_null($course))
+			{
+				$this->session->set_flashdata('error','Unable to set this course as your default course as no course was found!');
+				redirect('profile');
+			}
+			
+			// if we found a course then check the user is allowed to acces this course
+			if ($course->users_id != $this->usr->id) 
+			{
+				$this->session->set_flashdata('error', 'You do not have permission to set this course as your default course!');
+				redirect('profile');
+			}
+			
+			$profile = $this->usr->profile();
+			$profile->default_course = $id;
+			
+			if ($profile->save())
+			{
+				$this->session->set_flashdata('success','Successfully updated your profile');
+				redirect('dashboard');
+			} 
+			else
+			{
+				$this->session->set_flashdata('error','Error updating your profile, please try again');
+				redirect('profile');
+			}
+		}
 	}
 	
