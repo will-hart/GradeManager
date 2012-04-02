@@ -46,14 +46,24 @@
 		/* 
 		 * View a single subject and all the associated coursework
 		 */
-		public function view($subject_id = 0)
+		public function view($id = 0)
 		{
 			// check for no subject id and redirect to dashboard
-			$subject_id or redirect('dashboard');
+			$subject = Model\Subject::find($id);			
+			if ($subject == NULL) redirect('dashboard');
+			
+			// check this is our subject
+			$id1 = $subject->users_id;
+			$id2 = $this->usr->id;
+			if ($subject->users_id != $this->usr->id) {
+				$this->session->set_flashdata('error','You do not have permission to view this subject!');
+				die($subject->users_id . " != " . $this->usr-id);
+				redirect('dashboard');
+			}
 			
 			// get the relevant subject
+			$data['subject'] = $subject;
 			$data['action'] = 'view';
-			$data['subject'] = Model\Subject::find($subject_id);
 			$data['courseworks'] = $data['subject']->coursework();
 			
 			// get the many courseworks table
@@ -125,8 +135,15 @@
 		 */
 		public function edit ($id = 0)
 		{
-			// check an ID was passed
-			$id OR redirect('dashboard');
+			// check for no subject id and redirect to dashboard
+			$subject = Model\Subject::find($id);			
+			if ($subject == NULL) redirect('dashboard');
+			
+			// check this is our subject
+			if ($subject->users_id != $this->usr->id) {
+				$this->session->set_flashdata('error','You do not have permission to view this subject!');
+				redirect('dashboard');
+			}
 			
 			// get the subject
 			$subject = Model\Subject::find($id);
@@ -166,23 +183,28 @@
 		 * Delete a subject 
 		 */
 		public function delete($id=0)
-		{
-			$id OR redirect('dashboard');
+		{	
+			// check for no subject id and redirect to dashboard
+			$subject = Model\Subject::find($id);			
+			if ($subject == NULL) redirect('dashboard');
+			
+			// check this is our subject
+			if ($subject->users_id != $this->usr->id) {
+				$this->session->set_flashdata('error','You do not have permission to view this subject!');
+				redirect('dashboard');
+			}
 			
 			// if the user has confirmed deletion, delete away
 			if ($this->input->post('delete') == 'Yes')
-			{
-				// find the subject
-				$subj = Model\Subject::find($id);
-				
+			{				
 				// delete all the associated coursework
-				foreach($subj->coursework() as $cw)
+				foreach($subject->coursework() as $cw)
 				{
 					$cw->delete();
 				}
 				
 				// delete the subject
-				$subj->delete();
+				$subject->delete();
 				
 				// notify success
 				$this->session->set_flashdata('success','Successfully deleted subject');
