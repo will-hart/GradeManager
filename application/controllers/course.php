@@ -26,11 +26,13 @@
 	
 	
 		/*
-		 * If the index is called redirect to the user dashboard
+		 * Show the user's courses
 		 */
 		public function index()
 		{
-			redirect('dashboard');  // go back to the user dashboard
+			$data['courses'] = Model\Course::where('users_id',$this->usr->id)->all();
+			$data['content'] = $this->load->view('course/view_many', $data, true);
+			$this->load->view('template',$data);
 		}
 		
 		
