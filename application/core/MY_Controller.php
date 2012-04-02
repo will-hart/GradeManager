@@ -101,6 +101,8 @@ class Application extends CI_Controller
 	
 	public function login($redirect = NULL)
 	{
+		//check if hte user is logged in and redirect if they are
+		if ($this->ag_auth->logged_in()) redirect('dashboard');
 		
 		if($redirect === NULL)
 		{
