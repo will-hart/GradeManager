@@ -36,18 +36,18 @@
 			<?php endif; ?>
 		</div>
 		
-		<?php if($this->session->flashdata('error')) : ?>
-		<div class="error span-24 last"><?php echo $this->session->flashdata('error'); ?></div>
-		<?php endif; ?>
-		<?php if($this->session->flashdata('notice')) : ?>
-		<div class="notice span-24 last"><?php echo $this->session->flashdata('notice'); ?></div>
-		<?php endif; ?>
-		<?php if($this->session->flashdata('success')) : ?>
-		<div class="success span-24 last"><?php echo $this->session->flashdata('success'); ?></div>
-		<?php endif; ?>
-		
 		
 		<div id="container" class="container">
+			<?php if($this->session->flashdata('error')) : ?>
+			<div class="error span-24 last"><?php echo $this->session->flashdata('error'); ?></div>
+			<?php endif; ?>
+			<?php if($this->session->flashdata('notice')) : ?>
+			<div class="notice span-24 last"><?php echo $this->session->flashdata('notice'); ?></div>
+			<?php endif; ?>
+			<?php if($this->session->flashdata('success')) : ?>
+			<div class="success span-24 last"><?php echo $this->session->flashdata('success'); ?></div>
+			<?php endif; ?>
+			
 			<?php echo $content; ?>
 		</div>
 		
