@@ -3,6 +3,16 @@
 	
 	class Course extends Application {
 			
+				
+		// Set up the validation rules
+		protected $validation_rules = array(
+			'title' => array (
+				'field' 		=> 		'title',
+				'label'			=> 		'Subject Title',
+				'rules'			=>		'trim|xss_clean|max_length[255]|required'
+			),
+		);
+		
 		
 		public function __construct()
 		{
@@ -22,5 +32,26 @@
 		{
 			redirect('dashboard');  // go back to the user dashboard
 		}
+		
+		/*
+		 * Creates a new course with default data and redirect to the edit screen
+		 */
+		public function create()
+		{
+			$course = new Model\Course();
+			$course->users_id = $this->usr->id;
+			$course->title="New Course";
+			if($course->save())
+			{
+				$id = Model\Course::last_created()->id;
+				$this->session->set_flashdata('success','New course created!');
+				redirect('course/edit/'.$id);
+			}
+			else
+			{
+				$this->session->set_flashdata('error','Error creating new course, please try again.');
+				redirect('profile');
+			}
+		}		
 	}
 	
