@@ -17,7 +17,7 @@
 				'rules'			=>		'max_length[3]|greater_than[-1]|less_than[101]',
 			),
 			'weighting' => array (
-				'field'			=> 		'wighting',
+				'field'			=> 		'weighting',
 				'label'			=>		'Coursework Weighting',
 				'rules'			=>		'max_length[3]|greater_than[-1]|less_than[101]',
 			),

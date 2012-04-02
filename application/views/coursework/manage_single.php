@@ -74,7 +74,7 @@
 				<div>
 					<label for="title">Status</label>
 					<br>
-					<?php echo form_dropdown("status_id", $status_options, $status_id); ?><!--<input type="text" id="status_id" name="status_id" value="<?php //echo $status_id; ?>" />-->
+					<?php echo form_dropdown("status_id", $status_options, $status_id); ?>
 				</div>
 				
 				<div>
