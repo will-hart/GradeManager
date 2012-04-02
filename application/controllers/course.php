@@ -42,7 +42,11 @@
 		{
 			// check for no subject id and redirect to dashboard
 			$course = Model\Course::find($id);			
-			if ($course == NULL) redirect('dashboard');
+			if ($course == NULL)
+			{
+				$this->session->set_flashdata('error','Unable to find the specified course, please try again.');
+				redirect('dashboard');
+			}
 			
 			// check this is our subject
 			if ($course->users_id != $this->usr->id) {
@@ -166,11 +170,12 @@
 				$course->delete();
 				
 				// check if we deleted the user's default course
-				if ($id == $this->session->userdata('default_course');
-				
-				$profile = $this->usr->profile();
-				$profile->default_course = 0;
-				$profile->save();
+				if ($id == $this->session->userdata('default_course'))
+				{
+					$profile = $this->usr->profile();
+					$profile->default_course = 0;
+					$profile->save();
+				}
 				
 				// notify success
 				$this->session->set_flashdata('success','Successfully deleted course');
