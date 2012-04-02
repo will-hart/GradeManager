@@ -33,6 +33,33 @@
 			redirect('dashboard');  // go back to the user dashboard
 		}
 		
+		
+		
+		/* 
+		 * View a single course
+		 */
+		public function view($id = 0)
+		{
+			// check for no subject id and redirect to dashboard
+			$course = Model\Course::find($id);			
+			if ($course == NULL) redirect('dashboard');
+			
+			// check this is our subject
+			if ($course->users_id != $this->usr->id) {
+				$this->session->set_flashdata('error','You do not have permission to view this course!');
+				redirect('dashboard');
+			}
+			
+			// get the relevant subject
+			$data['course'] = $course;
+			$data['action'] = 'view';
+			
+			// load the single subject view
+			$data['content'] = $this->load->view('course/view_one',$data,true);
+			$this->load->view('template',$data);
+		}
+		
+		
 		/*
 		 * Creates a new course with default data and redirect to the edit screen
 		 */
@@ -53,8 +80,7 @@
 				redirect('profile');
 			}
 		}
-		
-				
+			
 		/*
 		 * Edit a course
 		 */
@@ -103,7 +129,6 @@
 			$data['content'] = $this->load->view('course/manage_single', $data, true);
 			$this->load->view('template',$data);
 		}
-		
 		
 		/*
 		 * Delete a course 
