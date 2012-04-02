@@ -17,10 +17,18 @@
 		{
 			// build the data used in the dashboard
 			$data['username'] = $this->usr->username;
-			$data['subjects'] = $this->usr->subject();
+			$data['subjects'] = Model\Subject::where(array(
+				'users_id' => $this->usr->id,
+				'course_id' => $this->session->userdata('default_course')
+			))->all();
 			$data['next_5'] = Model\Coursework::limit(5)
-					->where(array('status_id <'=>4,'users_id'=>$this->usr->id) )
-					->all();
+					->select('coursework.*')
+					->join('subject', 'subject.id=coursework.subject_id')
+					->where(array(
+						'status_id <' => Model\Status::COMPLETED,
+						'coursework.users_id' => $this->usr->id,
+						'subject.course_id' => $this->session->userdata('default_course')
+					))->all();
 			if($data['next_5'] instanceOf Gas\Orm) $data['next_5'] = array('0' => $data['next_5']);
 			
 			// load the dashboard, subject list and new subject form
