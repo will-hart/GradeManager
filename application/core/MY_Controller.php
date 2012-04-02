@@ -32,17 +32,14 @@ class Application extends CI_Controller
 		if ($this->ag_auth->logged_in()) {
 			// get the user object
 			$this->usr = Model\User::find($this->session->userdata("user_id"));
-			
-			// check if we have stored the default course in the session
-			if ($this->session->userdata('default_course') == FALSE)
-			{
-				$this->session->set_userdata('default_course', $this->usr->profile()->default_course);
-			}
+
+			// if we are logged in set the default_course id
+			$this->session->set_userdata('default_course', $this->usr->profile()->default_course);
 			
 			// check if this is the user's first login and redirect
 			if ($this->uri->segment(1) != 'profile' && $this->usr->profile()->first_login == '1') 
 			{
-				$this->session->set_flashdata('notice','As this is your first logon, please update your profile and save it.');
+				$this->session->set_flashdata('notice','As this is your first logon, please update your profile and save it.  At this stage you should also create a new course, or import an existing course template.');
 				redirect('profile');
 			}
 		}
