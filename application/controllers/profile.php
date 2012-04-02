@@ -81,26 +81,26 @@
 		/*
 		 * Delete a profile and all the associated data 
 		 */
-		public function delete($id=0)
+		public function delete()
 		{
-			$id OR redirect('profile');
-			
+			$profile = Model\User::find($this->usr->id);
+						
 			// check if the user is trying to delete their own profile
-			if ($id != $this->usr->id)
+			if (is_null($profile))
 			{
-				$this->session->set_flashdata('error','You do not have the rights to delete this profile.');
+				$this->session->set_flashdata('error','Unable to delete that profile.');
 				redirect('profile');
 			}
 			
 			// if the user has confirmed deletion, delete away
 			if ($this->input->post('delete') == 'Yes')
 			{
-				// find all the information and delete
+				// find all the information and delete				
 				$this->db->where('users_id',$this->usr->id)->delete('subject');
 				$this->db->where('users_id',$this->usr->id)->delete('course');
 				$this->db->where('users_id',$this->usr->id)->delete('coursework');
 				$this->db->where('users_id',$this->usr->id)->delete('profile');
-				$this->db->where('id',$this->usr->id)->delete('template');
+				$profile->delete();
 				
 				// destroy the session
 				$this->session->sess_destroy();

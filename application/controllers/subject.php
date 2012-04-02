@@ -53,11 +53,8 @@
 			if ($subject == NULL) redirect('dashboard');
 			
 			// check this is our subject
-			$id1 = $subject->users_id;
-			$id2 = $this->usr->id;
 			if ($subject->users_id != $this->usr->id) {
 				$this->session->set_flashdata('error','You do not have permission to view this subject!');
-				die($subject->users_id . " != " . $this->usr-id);
 				redirect('dashboard');
 			}
 			
