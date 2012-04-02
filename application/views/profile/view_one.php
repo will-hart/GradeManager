@@ -47,12 +47,18 @@
 					<label for="default_course">Default Course</label>
 					<br>
 					<?php echo form_dropdown('default_course',$course_options, $default_course); ?>
+					<br>
+					<?php echo anchor('course/create','Create a new course'); ?> <br>
+					<?php echo anchor('template/browse','Load an existing course template'); ?>
 				</div>
 				<?php else : ?>
 				<input type="hidden" name="default_course" id="default_course" value="0" />
 				<div class="notice">
-					You haven't created any courses yet. Do you want to 
-					<?php echo anchor('course/create','add one'); ?>?
+					You haven't created any courses yet. Do you want to
+					<ul>
+						<li><?php echo anchor('course/create','add one'); ?>?</li>
+						<li><?php echo anchor('template/browse','Load one from an existing template'); ?>?</li>
+					</ul> 
 				</div>
 				<?php endif; ?>
 			
