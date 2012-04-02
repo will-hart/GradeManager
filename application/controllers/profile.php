@@ -40,7 +40,7 @@
 		{
 			// get the default user profile
 			$data['profile'] = Model\Profile::where('users_id',$this->usr->id)->limit(1)->all(FALSE);
-			
+						
 			// check if a form was submitted
 			if ($_POST) 
 			{

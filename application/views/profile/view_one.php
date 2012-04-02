@@ -11,7 +11,7 @@
 	{
 		$first_name = $profile->first_name;
 		$last_name = $profile->last_name;
-		$default_course = ($this->session->userdata('default_course') == false) ? -1 : $this->session->userdata('default_course');
+		if ($this->session->userdata('default_course') != false) $default_course = $this->session->userdata('default_course');
 	}
 	
 	// build the status option list
@@ -23,7 +23,6 @@
 			$course_options[$cl->id] = $cl->title;
 		}
 	}
-	
 	$submit_to = 'profile';
 ?>
 
@@ -43,7 +42,7 @@
 					<input type="text" id="last_name" name="last_name" value="<?php echo $last_name; ?>" />
 				</div>
 			
-				<?php if (!empty($coursework_options)) : ?>
+				<?php if (!empty($course_options)) : ?>
 				<div>
 					<label for="default_course">Default Course</label>
 					<br>
