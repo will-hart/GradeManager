@@ -64,7 +64,11 @@ body {
 
 b, strong { font-weight: bold }
 i, em { font-style: italic}
-.small { font-size: 0.3em; font-style: italic; color: #555;}
+.small { font-size: 0.3em; font-style: italic; color: #666;}
+.make_smaller { font-size: 0.8em; }
+.right { float:right; }
+.green { color: #4DA74D; font-style: italic; }
+.round_border { border: 2px solid #777; border-radius: 50px; text-align: center; }
 
 a {
     color: #3A6BC4;
