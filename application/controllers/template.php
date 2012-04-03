@@ -196,6 +196,10 @@
 			$obj = $info['template']['data'];	
 			$log .= "Installing Template:  <em>" . $tmp->title . "</em>\n<br />\n";
 			
+			// roll this into a transaction so we can undo changes on an error
+			$this->db->trans_begin();
+			$errors = TRUE;
+			
 			// if we are adding a subject we need to work out what the current couParse error: syntax error, unexpected $end, expecting T_FUNCTION in /var/www/grades/application/controllers/template.php on line 210rse is 
 			// if we are adding a course we need to create a new one
 			if ($type == 'course') {
@@ -239,7 +243,31 @@
 				}
 			}
 			
+			if ($type == 'Course')
+			{
+				$log .= "<br>Setting this course as your default";
+				$profile = $this->usr->profile();
+				$profile->default_course = $c_id;
+				$profile->save();
+			}
+			
 			$log .= anchor('dashboard','Continue to Dashboard');
+			
+			// check if we got this far without an error
+			if ($errors == false OR $this->db->trans_status() === FALSE)
+			{
+				$this->db->trans_commit();
+				if ($this->db->trans_status() === FALSE) 
+				{
+					$this->db->trans_rollback();
+					$log = "<div class='error'>An error was encountered importing the course, no changes were made! Please try again</div>";
+				}
+			}
+			else 
+			{
+				$this->db->trans_rollback();
+				$log = "<div class='error'>An error was encountered importing the course, no changes were made! Please try again</div>";
+			}
 			
 			$data['install_log'] = $log;
 			$data['content'] = $this->load->view('template/install_log', $data, true);
