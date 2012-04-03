@@ -29,37 +29,36 @@
 			the 'camera' shows them on each step of the presentation. Positioning information is passed through data attributes.
 			-->
 			
-			<div class="step" data-x="0" data-y="0" data-z="-3000">
+			<div id="intro" class="step" data-x="0" data-y="0" data-z="-3000">
 				<h1>G<span class="make_smaller">RADE</span> M<span class="make_smaller">ANAGER</span></h1>
 				<p>is a <span class="green">free</span> online tool</p>
 				<p>for students and teachers</p>
 				<p class="small right">(use the arrow keys to find out more)</small>
 			</div>
 			
-			<div class="step" data-x="0" data-y="600" data-z="0" data-rotate="180">
+			<div id="track" class="step" data-x="0" data-y="600" data-z="0" data-rotate="180">
 				<p>
 					<img style="float: left; padding-right: 15px; margin-top: 10px;" src="<?php echo base_url(); ?>assets/images/graph_sample.png" />
 					track your <br>assessments, <br>and your grades
 				</p>
 			</div>
 			
-			<div class="step" data-x="-1000" data-y="0" data-z="3000" data-rotate-z="90">
+			<div id="notify" class="step" data-x="-1000" data-y="0" data-z="3000" data-rotate-z="90">
 				get notified when something is due
 			</div>
 			
-			<div class="step" data-x="0" data-y="0" data-z="2700" data-rotate-y="-45" data-rotate-z="90">
+			<div id="borrow" class="step" data-x="0" data-y="0" data-z="2700" data-rotate-y="-45" data-rotate-z="90">
 				<p>make your own course, <br>or download a template</p>
 			</div>
 			
-			<div class="step" data-x="-1500" data-y="1500" data-z="4000" data-rotate-z="90">
+			<div id="web" class="step" data-x="1500" data-y="1500" data-z="4000" data-rotate-x="90" data-rotate-z="90">
 				<img style="float:left; padding-right: 15px;" src="<?php echo base_url(); ?>assets/images/www_splash.png" />
 				100% free, web based
 			</div>
 			
-			<div class="step round_border" data-x="0" data-y="3000" data-z="0" data-rotate-y="48" data-rotate-z="180">
-				<p><?php echo anchor('login','Login'); ?> or <?php echo anchor('register','Register'); ?> now!</p>
+			<div id="join" class="step round_border" data-x="0" data-y="3000" data-z="0" data-rotate-y="48" data-rotate-z="180">
+				<p><?php echo anchor('login','login'); ?> or <?php echo anchor('register','register'); ?> now!</p>
 			</div>
-
 
 			<div class="hint">
 					Use a spacebar or arrow keys to navigate

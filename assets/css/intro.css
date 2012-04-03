@@ -68,7 +68,7 @@ i, em { font-style: italic}
 .make_smaller { font-size: 0.8em; }
 .right { float:right; }
 .green { color: #4DA74D; font-style: italic; }
-.round_border { border: 2px solid #777; border-radius: 50px; text-align: center; }
+.round_border { text-align: center; }
 
 a {
     color: #3A6BC4;
