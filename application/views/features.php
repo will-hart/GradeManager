@@ -21,15 +21,7 @@
 				For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.
 			</p>
 		</div>
-		<!--
-		To change the duration of the transition between slides use `data-transition-duration="2000"` giving it
-		a number of ms. It defaults to 1000 (1s).
-
-		You can also control the perspective with `data-perspective="500"` giving it a number of pixels.
-		It defaults to 1000. You can set it to 0 if you don't want any 3D effects.
-		If you are willing to change this value make sure you understand how CSS perspective works:
-		https://developer.mozilla.org/en/CSS/perspective
-		-->
+		
 		<div id="impress">
 			<!--
 			Each step of the presentation should be an element inside the `#impress` with a class name
@@ -38,38 +30,39 @@
 			-->
 			
 			<div class="step" data-x="0" data-y="0" data-z="-3000">
-				<h1>Grade Manager</h1>
-				<p>is a free online tool</p>
-				<p>for today's students.</p>
-				<p class="small">(use the arrow keys to find out more)</small>
+				<h1>G<span class="make_smaller">RADE</span> M<span class="make_smaller">ANAGER</span></h1>
+				<p>is a <span class="green">free</span> online tool</p>
+				<p>for students and teachers</p>
+				<p class="small right">(use the arrow keys to find out more)</small>
 			</div>
 			
-			<div class="step" data-x="300" data-y="300" data-z="0" data-rotate="180">
-				<p>track your assessments</p>
-				<p>and your grades</p>
+			<div class="step" data-x="0" data-y="600" data-z="0" data-rotate="180">
+				<p>
+					<img style="float: left; padding-right: 15px; margin-top: 10px;" src="<?php echo base_url(); ?>assets/images/graph_sample.png" />
+					track your <br>assessments, <br>and your grades
+				</p>
 			</div>
 			
 			<div class="step" data-x="-1000" data-y="0" data-z="3000" data-rotate-z="90">
-				<p>get notified when something is due</p>
+				get notified when something is due
 			</div>
 			
-			<div class="step" data-x="-1000" data-y="0" data-z="2700" data-rotate-y="90" data-rotate-z="90">
-				<p>make your own course, or download a template</p>
+			<div class="step" data-x="0" data-y="0" data-z="2700" data-rotate-y="-45" data-rotate-z="90">
+				<p>make your own course, <br>or download a template</p>
 			</div>
 			
-			<div class="step" data-x="-1000" data-y="1000" data-z="3000" data-rotate-y="90">
-				<p>all 100% free on a clean, web based interface</p>
+			<div class="step" data-x="-1500" data-y="1500" data-z="4000" data-rotate-z="90">
+				<img style="float:left; padding-right: 15px;" src="<?php echo base_url(); ?>assets/images/www_splash.png" />
+				100% free, web based
 			</div>
 			
-			<div class="step" data-x="0" data-y="3000" data-z="0" data-rotate-y="48" data-rotate-z="180">
+			<div class="step round_border" data-x="0" data-y="3000" data-z="0" data-rotate-y="48" data-rotate-z="180">
 				<p><?php echo anchor('login','Login'); ?> or <?php echo anchor('register','Register'); ?> now!</p>
 			</div>
 
 
 			<div class="hint">
-				<p>
 					Use a spacebar or arrow keys to navigate
-				</p>
 			</div>
 			<script>
 				if("ontouchstart" in document.documentElement) {
