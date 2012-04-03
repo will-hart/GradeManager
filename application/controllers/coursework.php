@@ -248,7 +248,7 @@
 		private function recalculate_weightings($sid = 0)
 		{
 			// get the attached subject
-			$sub = Model\Subject::find($sid);
+			$sub = Model\Subject::with('coursework')->find($sid);
 			
 			// check if no subject was found
 			if($sub == NULL) return FALSE;
