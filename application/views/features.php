@@ -8,7 +8,7 @@
 		<meta name="description" content="Grade Manager is a simple online tool that allows you to track your coursework and to share assessment structure with your students or other students" />
 		<meta name="author" content="William Hart" />
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
-		<link href="assets/css/intro.css" rel="stylesheet" />
+		<link href="<?php echo base_url(); ?>assets/css/intro.css" rel="stylesheet" />
 	</head>
 
 	<body class="impress-not-supported">
@@ -62,7 +62,7 @@
 			</div>
 			
 			<div class="step" data-x="0" data-y="3000" data-z="0" data-rotate-y="48" data-rotate-z="180">
-				<p><a href="login">Login</a> or <a href="signup">Sign Up</a> now!</p>
+				<p><?php echo anchor('login','Login'); ?> or <?php echo anchor('register','Register'); ?> now!</p>
 			</div>
 
 
@@ -78,7 +78,7 @@
 			</script>
 			
 			
-			<script src="assets/js/impress.js"></script>
+			<script src="<?php echo base_url(); ?>assets/js/impress.js"></script>
 			<script>
 				impress().init();
 			</script>

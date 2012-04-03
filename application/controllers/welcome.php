@@ -47,6 +47,14 @@ class Welcome extends CI_Controller {
 		$data['content'] = $this->load->view('welcome_message',NULL, true);
 		$this->load->view('template',$data);
 	}
+	
+	/*
+	 *Loads the features page
+	 */
+	public function features()
+	{
+		$this->load->view('features');
+	}
 }
 
 /* End of file welcome.php */

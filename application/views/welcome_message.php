@@ -9,7 +9,7 @@
 </p>
 
 <p>If this is your first time here, then have a look at the 
-	<a href="<?php echo base_url()."features.html"?>">Features</a>,
+	<?php echo anchor('welcome/features','Features'); ?>, 
 	<?php echo anchor('register','Register'); ?> or if you are
 	already signed up then just go ahead and 
 	<?php echo anchor('login','Log In'); ?>!</p>
