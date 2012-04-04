@@ -19,7 +19,7 @@
 	<?php $i = 0; ?>
 	<?php foreach($courseworks as $cw) : ?>	
 	scores[<?php echo $i; ?>] = { label: '<?php echo anchor('coursework/view/'.$cw->id,substr($cw->title,0,10)); ?>', data: <?php echo $cw->score; ?> }
-	weights[<?php echo $i; ?>] = { label: 'WEIGHT: <?php echo anchor('coursework/view/'.$cw->id,substr($cw->title,0,10)); ?>', data: <?php echo $cw->weighting; ?> }
+	weights[<?php echo $i; ?>] = { label: '<?php echo anchor('coursework/view/'.$cw->id,substr($cw->title,0,10)); ?>', data: <?php echo $cw->weighting; ?> }
 		<?php $i++; ?>
 	<?php endforeach; ?>
 		
