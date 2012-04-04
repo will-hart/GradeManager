@@ -22,6 +22,9 @@ abstract class Application extends CI_Controller
 	protected $model_name; 
 	protected $check_user_permission;
 	protected $default_template;
+	protected $parent; // holds protected parent ids
+	
+	private $fields;
 	
 	public function __construct()
 	{
@@ -57,6 +60,7 @@ abstract class Application extends CI_Controller
 		$this->model_name = 'not_set';
 		$this->check_user_permission = TRUE;
 		$this->default_template = 'template';
+		$this->parent = array();
 	}
 
 
@@ -84,7 +88,7 @@ abstract class Application extends CI_Controller
 	public function edit($id = 0)
 	{
 		$this->model = $this->model->find($id);// find the model
-		$fields = $this->model->meta['fields'];// get an array of the field meta data
+		$this->fields = $this->model->meta['fields'];// get an array of the field meta data
 		$this->data[$this->model_name] = $this->model; 
 		
 		// check we have permission to access this resource
@@ -92,18 +96,8 @@ abstract class Application extends CI_Controller
 		
 		if ($_POST) // if we have submitted some post data
 		{
-			// update the model with new data submitted via post
-			foreach($_POST as $k => $v)
-			{
-				// make sure this key is not primary, timestamp and is a valid key
-				if (array_key_exists($k, $fields) &&
-					$k != $this->model->primary_key &&
-					!array_key_exists($k, $this->model->ts_fields))
-				{
-					$this->model->$k = $this->input->post($k); // get the variable from post data
-				}
-			}
-		
+			$this->make_from_post();
+			
 			// we have made some changes, update the model link in the view data
 			$this->data[$this->model_name] = $this->model;
 			
@@ -127,6 +121,38 @@ abstract class Application extends CI_Controller
 		$this->_before_edit();
 		$this->render();
 	}
+
+	/* 
+	 * create a new record in the database
+	 */
+	public function create()
+	{
+		// set any default data and check we have permission
+		$this->_before_create();
+		$this->permission_checks();
+		
+		// build remaining data from the post variables
+		$this->fields = $this->model->meta['fields'];// get an array of the field meta data
+		$this->make_from_post();
+		
+		// perform the save
+		$this->_before_save();
+		if ($this->model->save())
+		{
+			$this->_after_save();
+			$this->session->set_flashdata('success','Successfully created new '.$this->model_name);
+			$this->model = $this->model->last_created();
+			$this->_after_create();
+		}
+		else 
+		{
+			$this->session->set_flashdata('error','Unable to save the coursework! Please try again.');
+		}
+		
+		// render the form
+		$this->render();
+		
+	}
 	
 	
 	/* 
@@ -144,6 +170,40 @@ abstract class Application extends CI_Controller
 		{
 			$this->session->set_flashdata('error',"You do not have permission to view this ".$this->model_name);
 			redirect('dashboard');
+		}
+	}
+	
+	/*
+	 * Build up a model form post data
+	 */
+	private function make_from_post()
+	{
+		// set up the model with new data submitted via post
+		foreach($_POST as $k => $v)
+		{
+			// make sure this key is not primary, timestamp and is a valid key
+			if (	array_key_exists($k, $this->fields) &&
+					$k != $this->model->primary_key &&
+					!array_key_exists($k, $this->model->ts_fields)
+			   )
+			{
+				$this->model->$k = $this->input->post($k); // get the variable from post data
+			}
+		}
+	}
+	
+	/*
+	 * Uses the $this->parent array to update parent links
+	 */
+	protected function update_parent_links()
+	{
+		foreach($this->parent as $k => $v)
+		{
+			if(!is_null($v))
+			{
+				$k_id = $k."_id";
+				$this->model->$k_id = $v->id;
+			}
 		}
 	}
 

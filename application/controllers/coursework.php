@@ -3,6 +3,8 @@
 	
 	class Coursework extends Application {
 		
+		private $subject_id; 
+		
 		public function __construct()
 		{
 			// call the parent constructor
@@ -15,6 +17,8 @@
 			$this->model = new Model\Coursework();
 			$this->model_name = 'coursework';
 			$this->check_user_permission = TRUE;
+			
+			$this->subject_id = 0;
 		}
 	
 	
@@ -54,71 +58,41 @@
 			$this->data['content'] = $this->load->view('coursework/manage_single', $this->data, TRUE);
 		}
 		
-		/*
-		 * Creates a new coursework
-		 */
 		public function create($id = 0)
 		{
-			// check we have find a coursework for this id
-			$subject = Model\Subject::find($id);
-			if ($subject == NULL) {
+			$this->subject_id = $id;
+			parent::create();
+		}
+		
+		public function _before_create()
+		{
+			// get the parent object
+			$this->parent['subject'] = $subject = Model\Subject::find($this->subject_id);
+			
+			// check we have permission to edit the subject
+			if($this->usr->id != $subject->users_id)
+			{
 				$this->session->set_flashdata('error','Error adding coursework - unknown subject to add it to!');
 				redirect('dashboard');
 			}
 			
-			// check this user is allowed to access it
-			if ($this->usr->id != $subject->users_id) 
-			{
-				$this->session->set_flashdata('error','You do not have permission to add coursework to this subject');
-				redirect('dashboard');
-			}
+			// update the variable to reflect the parent link
+			$this->update_parent_links();
 			
-			// set the rules
-			$this->form_validation->set_rules($this->validation_rules);
-			
-			// check if we have post data and build a subject object
-			if($_POST)
-			{
-				// set the data
-				$coursework = new Model\Coursework();
-				$coursework->title = $this->input->post('title');
-				$coursework->users_id = $this->session->userdata('user_id');
-				$coursework->subject_id = $id;
-				$coursework->status_id = 1; // set the default status id
-				$coursework->score = 0;
-				$coursework->weighting = 0;
-				$coursework->due_date = date('Y-m-d');
-			}
-			else 
-			{
-				$this->session->set_flashdata('error','Unable to create a new coursework, please check your link.');
-				redirect('dashboard');
-			}
-			
-			
-			// check the rules
-			if($this->form_validation->run() === TRUE)
-			{
-				
-				// attempt to save
-				if($coursework->save())
-				{
-					$this->recalculate_weightings($coursework->subject_id);
-					$this->session->set_flashdata("success","New Coursework Added");
-					redirect("subject/view/".$coursework->subject_id);
-				}
-				else 
-				{
-					$this->session->set_flashdata('error','Unable to save the coursework! Please try again.');
-				}
-			}
-			
-			// if the rules failed then show the form with error notices
-			// and the forms populated
-			$data['coursework'] = $coursework;
-			$data['action'] = 'create';
-			$data['content'] = $this->load->view('coursework/manage_single',$data,true);
-			$this->load->view('template',$data);
+			// set the default options
+			$this->model->users_id = $this->session->userdata('user_id');
+			$this->model->status_id = 1; // set the default status id
+			$this->model->score = 0;
+			$this->model->weighting = 0;
+			$this->model->due_date = date('Y-m-d');
+		}
+		
+		public function _after_create()
+		{
+			// set fallback data if create fails
+			$this->data['action'] = 'create';
+			$this->data['content'] = $this->load->view('coursework/manage_single', $this->data, TRUE);
+			redirect('subject/view/'.$this->subject_id);
 		}
 				
 		/*
@@ -310,8 +284,6 @@
 		}		
 		
 		// define abstract methods
-		function _before_create() { throw new BadMethodCallException(); }
-		function _after_create() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
 	}
