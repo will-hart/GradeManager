@@ -156,6 +156,36 @@ abstract class Application extends CI_Controller
 	
 	
 	/* 
+	 * Delete a single record.  Related records can be deleted using the _before_delete callback
+	 */
+					
+		/*
+		 * Delete a coursework
+		 */
+		public function delete($id=0)
+		{
+			// check we have find a coursework for this id
+			$this->model = $this->model->find($id);
+			
+			// check permissions
+			$this->permission_checks();
+			
+			$this->_before_delete();
+			
+			// if the user has confirmed deletion, delete away
+			if ($this->input->post('delete') == 'Yes')
+			{
+				$this->model->delete();
+				$this->session->set_flashdata('success','Successfully deleted coursework');
+				$this->_after_delete();
+			}
+			
+			// otherwise we are showing the delete confirmation form
+			$this->render();
+		}
+	
+	
+	/* 
 	 * Check that the user has permission to access this resource, and that a resource was found
 	 */
 	private function permission_checks()

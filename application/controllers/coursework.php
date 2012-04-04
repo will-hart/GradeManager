@@ -94,42 +94,19 @@
 			$this->data['content'] = $this->load->view('coursework/manage_single', $this->data, TRUE);
 			redirect('subject/view/'.$this->subject_id);
 		}
-				
-		/*
-		 * Delete a coursework
-		 */
-		public function delete($id=0)
+		
+		public function _before_delete()
 		{
-			// check we have find a coursework for this id
-			$coursework = Model\Coursework::find($id);
-			if ($coursework == NULL) {
-				$this->session->set_flashdata('error','Error deleting coursework - are you sure that coursework exists?');
-				redirect('dashboard');
-			}
-			
-			// check this user is allowed to access it
-			if ($this->usr->id != $coursework->users_id) 
-			{
-				$this->session->set_flashdata('error','You do not have permission to delete this coursework');
-				redirect('dashboard');
-			}
-			
-			// if the user has confirmed deletion, delete away
-			if ($this->input->post('delete') == 'Yes')
-			{
-				$subj = Model\Subject::find($coursework->subject_id);
-				$coursework->delete();
-				$this->recalculate_weightings($subj->id);
-				
-				$this->session->set_flashdata('success','Successfully deleted coursework');
-				redirect("subject/view/".$subj->id);
-			}
-			
-			// otherwise we are showing the delete confirmation form
-			$data['type_url'] = 'coursework';
-			$data['type_name'] = 'Coursework';
-			$data['content'] = $this->load->view('delete_confirmation',$data,true);
-			$this->load->view('template',$data);
+			$this->data['type_url'] = 'coursework';
+			$this->data['type_name'] = 'Coursework';
+			$this->data['content'] = $this->load->view('delete_confirmation', $this->data, TRUE);
+			$this->data['subject_id'] = $this->model->subject_id;
+		}
+		
+		public function _after_delete()
+		{
+			$this->recalculate_weightings();
+			redirect('subject/view/'.$this->data['subject_id']);
 		}
 		
 		/* 
@@ -281,10 +258,6 @@
 			$coursework->save();
 			
 			redirect('coursework/view/'.$id);
-		}		
-		
-		// define abstract methods
-		function _before_delete() { throw new BadMethodCallException(); }
-		function _after_delete() { throw new BadMethodCallException(); }
+		}
 	}
 	
