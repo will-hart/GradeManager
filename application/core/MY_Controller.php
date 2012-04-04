@@ -163,6 +163,8 @@ abstract class Application extends CI_Controller
 	abstract function _after_create();
 	abstract function _before_edit();
 	abstract function _after_edit();
+	abstract function _before_delete();
+	abstract function _after_delete();
 }
 
 /* End of file: MY_Controller.php */

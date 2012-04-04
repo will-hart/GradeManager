@@ -39,6 +39,8 @@ class Users extends Application
 	function _after_create() { throw new BadMethodCallException(); }
 	function _before_edit() { throw new BadMethodCallException(); }
 	function _after_edit() { throw new BadMethodCallException(); }
+	function _before_delete() { throw new BadMethodCallException(); }
+	function _after_delete() { throw new BadMethodCallException(); }
 }
 
 ?>
