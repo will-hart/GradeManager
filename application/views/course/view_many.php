@@ -10,7 +10,7 @@
 		<tbody>
 	<?php foreach($courses as $c) : ?>
 			<tr>
-				<td><?php echo anchor('coursework/view/'.$c->id,$c->title); ?></td>
+				<td><?php echo anchor('course/view/'.$c->id,$c->title); ?></td>
 				<td><?php echo count($c->subject()); ?></td>
 				<td>
 					<?php echo anchor('course/edit/'.$c->id,'EDIT'); ?> | 

@@ -23,6 +23,11 @@
 					'rules'			=>		'trim|xss_clean|max_length[255]|required'
 				),
 			);
+			
+			// set up the default conditions
+			$this->model = new Model\Course();
+			$this->model_name = 'course';
+			$this->check_user_permission = TRUE;
 		}
 	
 	
@@ -36,36 +41,13 @@
 			$this->load->view('template',$data);
 		}
 		
-		
-		
-		/* 
-		 * View a single course
-		 */
-		public function view($id = 0)
+		public function _before_render() { return; }
+		public function _after_view() { return; }
+		public function _before_view()
 		{
-			// check for no subject id and redirect to dashboard
-			$course = Model\Course::find($id);			
-			if ($course == NULL)
-			{
-				$this->session->set_flashdata('error','Unable to find the specified course, please try again.');
-				redirect('dashboard');
-			}
-			
-			// check this is our subject
-			if ($course->users_id != $this->usr->id) {
-				$this->session->set_flashdata('error','You do not have permission to view this course!');
-				redirect('dashboard');
-			}
-			
-			// get the relevant subject
-			$data['course'] = $course;
-			$data['action'] = 'view';
-			
-			// load the single subject view
-			$data['content'] = $this->load->view('course/view_one',$data,true);
-			$this->load->view('template',$data);
-		}
-		
+			$this->data['action'] = 'view';
+			$this->data['content'] = $this->load->view('course/view_one',$this->data, TRUE);
+		}	
 		
 		/*
 		 * Creates a new course with default data and redirect to the edit screen
@@ -237,6 +219,5 @@
 		function _after_edit() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
-		function _before_render() { throw new BadMethodCallException(); }
 	}
 	

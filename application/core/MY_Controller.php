@@ -16,7 +16,12 @@ abstract class Application extends CI_Controller
 {
 	
 	protected $usr; // stores the user object
-	protected $validation_rules;
+	protected $validation_rules; // holds field information and validation rules
+	protected $data; // holds data to be displayed in forms
+	protected $model; // the model to be used
+	protected $model_name; 
+	protected $check_user_permission;
+	protected $default_template;
 	
 	public function __construct()
 	{
@@ -47,7 +52,41 @@ abstract class Application extends CI_Controller
 		
 		// initialise the validation rules
 		$this->validation_rules = array();
+		$this->data = array();
+		$this->model = NULL;
+		$this->model_name = 'not_set';
+		$this->check_user_permission = TRUE;
+		$this->default_template = 'template';
 	}
+
+
+	/*
+	 * View a single model
+	 */
+	public function view($id = 0)
+	{
+		// check we have found an object for this id
+		$this->model = $this->model->find($id);
+		$this->data[$this->model_name] = $this->model;
+		
+		if ($this->model == NULL) {
+			$this->session->set_flashdata('error',"Error finding the requested ".$this->model_name." - are you sure that it exists?");
+			redirect('dashboard');
+		}
+		
+		// check this user is allowed to access it
+		if ($this->check_user_permission AND $this->usr->id != $this->model->users_id) 
+		{
+			$this->session->set_flashdata('error',"You do not have permission to view this ".$this->model_name);
+			redirect('dashboard');
+		}
+		
+		// render the template
+		$this->_before_view();
+		$this->render();
+		$this->_after_view();
+	}
+
 	
 	public function field_exists($value)
 	{
@@ -161,7 +200,8 @@ abstract class Application extends CI_Controller
 	 */
 	public function render() 
 	{
-		$this->load->view('template',$this->data);
+		$this->_before_render(); // the pre-render template
+		$this->load->view($this->default_template,$this->data);
 	}
 	
 	
@@ -174,6 +214,8 @@ abstract class Application extends CI_Controller
 	abstract function _after_edit();
 	abstract function _before_delete();
 	abstract function _after_delete();
+	abstract function _before_view();
+	abstract function _after_view();
 	abstract function _before_render();
 }
 

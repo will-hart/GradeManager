@@ -33,6 +33,11 @@
 					'rules'			=>		'trim|xss_clean|strip_tags'
 				),
 			);
+			
+			// set up the linked model
+			$this->model = new Model\Coursework();
+			$this->model_name = 'coursework';
+			$this->check_user_permission = TRUE;
 		}
 	
 	
@@ -45,36 +50,14 @@
 		}
 		
 		
-		/* 
-		 * View a single coursework
-		 */
-		public function view($id = 0)
-		{
-			// check we have find a coursework for this id
-			$coursework = Model\Coursework::find($id);
-			if ($coursework == NULL) {
-				$this->session->set_flashdata('error','Error finding coursework - are you sure that coursework exists?');
-				redirect('dashboard');
-			}
-			
-			// check this user is allowed to access it
-			if ($this->usr->id != $coursework->users_id) 
-			{
-				$this->session->set_flashdata('error','You do not have permission to view this coursework');
-				redirect('dashboard');
-			}
-			
-			// get the relevant coursework information
-			$data['coursework'] = $coursework;
-			
+		// load the specialised data for this controller view
+		public function _before_render() { return; }
+		public function _after_view() { return; }
+		public function _before_view() { 
 			// load the single view
-			$data['action'] = 'view';
-			$data['content'] = $this->load->view('coursework/view_one',$data,true);
-			
-			// load the template
-			$this->load->view('template',$data);
+			$this->data['action'] = 'view';
+			$this->data['content'] = $this->load->view('coursework/view_one',$this->data,true);
 		}
-		
 		
 		/*
 		 * Creates a new coursework
@@ -399,6 +382,5 @@
 		function _after_edit() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
-		function _before_render() { throw new BadMethodCallException(); }
 	}
 	

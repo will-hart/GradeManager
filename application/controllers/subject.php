@@ -29,7 +29,11 @@
 					'rules'			=>		'trim|xss_clean'
 				),
 			);
-				
+			
+			// set up the linked model
+			$this->model = new Model\Subject();
+			$this->model_name = 'subject';
+			$this->check_user_permission = TRUE;
 		}
 	
 	
@@ -42,40 +46,18 @@
 		}
 		
 		
-		/* 
-		 * View a single subject and all the associated coursework
-		 */
-		public function view($id = 0)
+		public function _before_view()
 		{
-			// check for no subject id and redirect to dashboard
-			$subject = Model\Subject::find($id);			
-			if ($subject == NULL) redirect('dashboard');
-			
-			// check this is our subject
-			if ($subject->users_id != $this->usr->id) {
-				$this->session->set_flashdata('error','You do not have permission to view this subject!');
-				redirect('dashboard');
-			}
-			
-			// get the relevant subject
-			$data['subject'] = $subject;
-			$data['action'] = 'view';
-			$data['courseworks'] = $data['subject']->coursework();
-			
-			// get the many courseworks table
-			$data['coursework_list'] = $this->load->view('coursework/view_many',$data,true);
-			
-			// get the subject dashboard
-			$data['subject_dashboard'] = $this->load->view('subject/subject_stats',$data,true);
-						
-			// load the single subject view
-			$data['content'] = $this->load->view('subject/view_one',$data,true);
-			$data['content'] .= $this->load->view('coursework/manage_single',$data,true);
-			
-			// load the template
-			$this->load->view('template',$data);
+			$this->data['action'] = 'view';
+			$this->data['courseworks'] = $this->data[$this->model_name]->coursework();
+			$this->data['coursework_list'] = $this->load->view('coursework/view_many', $this->data, TRUE);
+			$this->data['subject_dashboard'] = $this->load->view('subject/subject_stats', $this->data, TRUE);
+			$this->data['content'] = $this->load->view('subject/view_one', $this->data, TRUE);
+			$this->data['content'] .= $this->load->view('coursework/manage_single', $this->data, TRUE);
 		}
 		
+		function _after_view() { return; }
+		function _before_render() { return; }
 		
 		/*
 		 * Creates a new subject
@@ -227,6 +209,5 @@
 		function _after_edit() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
-		function _before_render() { throw new BadMethodCallException(); }
 	}
 	
