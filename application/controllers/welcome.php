@@ -55,6 +55,15 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('features');
 	}
+	
+	
+	// define abstract methods
+	function _before_save() { throw new BadMethodCallException(); }
+	function _after_save() { throw new BadMethodCallException(); }
+	function _before_create() { throw new BadMethodCallException(); }
+	function _after_create() { throw new BadMethodCallException(); }
+	function _before_edit() { throw new BadMethodCallException(); }
+	function _after_edit() { throw new BadMethodCallException(); }
 }
 
 /* End of file welcome.php */

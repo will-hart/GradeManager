@@ -12,7 +12,7 @@
 * Auth provides a powerful, lightweight and simple interface for user authentication .
 */
 
-class Application extends CI_Controller
+abstract class Application extends CI_Controller
 {
 	
 	protected $usr; // stores the user object
@@ -154,6 +154,15 @@ class Application extends CI_Controller
 	{
 		$this->ag_auth->logout();
 	}
+	
+	
+	// call backs - defined as abstract so they are overriden in the derived class
+	abstract function _before_save();
+	abstract function _after_save();
+	abstract function _before_create();
+	abstract function _after_create();
+	abstract function _before_edit();
+	abstract function _after_edit();
 }
 
 /* End of file: MY_Controller.php */

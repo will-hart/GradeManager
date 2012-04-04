@@ -48,4 +48,12 @@
 				show_error($this->migration->error_string());
 			}
 		}
+		
+		// define abstract methods
+		function _before_save() { throw new BadMethodCallException(); }
+		function _after_save() { throw new BadMethodCallException(); }
+		function _before_create() { throw new BadMethodCallException(); }
+		function _after_create() { throw new BadMethodCallException(); }
+		function _before_edit() { throw new BadMethodCallException(); }
+		function _after_edit() { throw new BadMethodCallException(); }
 	}
