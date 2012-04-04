@@ -56,7 +56,7 @@
 				100% free, web based
 			</div>
 			
-			<div id="join" class="step round_border" data-x="0" data-y="3000" data-z="0" data-rotate-y="48" data-rotate-z="180">
+			<div id="join" class="step round_border" data-x="1000" data-y="5000" data-z="2000" data-rotate-x="90" data-rotate-z="90">
 				<p><?php echo anchor('login','login'); ?> or <?php echo anchor('register','register'); ?> now!</p>
 			</div>
 
