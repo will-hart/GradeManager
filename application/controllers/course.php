@@ -5,13 +5,7 @@
 			
 				
 		// Set up the validation rules
-		protected $validation_rules = array(
-			'title' => array (
-				'field' 		=> 		'title',
-				'label'			=> 		'Subject Title',
-				'rules'			=>		'trim|xss_clean|max_length[255]|required'
-			),
-		);
+		
 		
 		
 		public function __construct()
@@ -22,6 +16,13 @@
 			// redirect to the login page if no session exists
 			if($this->session->userdata('logged_in') === FALSE) redirect('login');
 			
+			$this->validation_rules = array(
+				'title' => array (
+					'field' 		=> 		'title',
+					'label'			=> 		'Subject Title',
+					'rules'			=>		'trim|xss_clean|max_length[255]|required'
+				),
+			);
 		}
 	
 	

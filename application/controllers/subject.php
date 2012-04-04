@@ -3,26 +3,6 @@
 	
 	class Subject extends Application {
 		
-		// Set up the validation rules
-		protected $validation_rules = array(
-			'code' => array (
-				'field' 		=> 		'code',
-				'label'			=> 		'Subject Code',
-				'rules'			=>		'trim|xss_clean|max_length[32]|required'
-			),
-			'title' => array (
-				'field' 		=> 		'title',
-				'label'			=> 		'Subject Title',
-				'rules'			=>		'trim|xss_clean|max_length[255]|required'
-			),
-			'notes' => array(
-				'field' 		=> 		'notes',
-				'label'			=> 		'Notes',
-				'rules'			=>		'trim|xss_clean'
-			),
-		);
-		
-		
 		public function __construct()
 		{
 			// call the parent constructor
@@ -30,7 +10,26 @@
 			
 			// redirect to the login page if no session exists
 			if($this->session->userdata('logged_in') === FALSE) redirect('login');
-			
+		
+			// Set up the validation rules
+			$this->validation_rules = array(
+				'code' => array (
+					'field' 		=> 		'code',
+					'label'			=> 		'Subject Code',
+					'rules'			=>		'trim|xss_clean|max_length[32]|required'
+				),
+				'title' => array (
+					'field' 		=> 		'title',
+					'label'			=> 		'Subject Title',
+					'rules'			=>		'trim|xss_clean|max_length[255]|required'
+				),
+				'notes' => array(
+					'field' 		=> 		'notes',
+					'label'			=> 		'Notes',
+					'rules'			=>		'trim|xss_clean'
+				),
+			);
+				
 		}
 	
 	

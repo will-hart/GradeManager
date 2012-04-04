@@ -3,32 +3,6 @@
 	
 	class Coursework extends Application {
 		
-		
-		// Set up the validation rules
-		protected $validation_rules = array(
-			'title' => array (
-				'field' 		=> 		'title',
-				'label'			=> 		'Coursework Title',
-				'rules'			=>		'trim|xss_clean|max_length[255]|required|strip_tags'
-			),
-			'score' => array (
-				'field'			=> 		'score',
-				'label'			=>		'Your Score',
-				'rules'			=>		'max_length[3]|greater_than[-1]|less_than[101]',
-			),
-			'weighting' => array (
-				'field'			=> 		'weighting',
-				'label'			=>		'Coursework Weighting',
-				'rules'			=>		'max_length[3]|greater_than[-1]|less_than[101]',
-			),
-			'notes' => array(
-				'field' 		=> 		'notes',
-				'label'			=> 		'Notes',
-				'rules'			=>		'trim|xss_clean|strip_tags'
-			),
-		);
-		
-		
 		public function __construct()
 		{
 			// call the parent constructor
@@ -36,6 +10,29 @@
 			
 			// redirect to the login page if no session exists
 			if($this->session->userdata('logged_in') === FALSE) redirect('login');
+			
+			$this->validation_rules = array(
+				'title' => array (
+					'field' 		=> 		'title',
+					'label'			=> 		'Coursework Title',
+					'rules'			=>		'trim|xss_clean|max_length[255]|required|strip_tags'
+				),
+				'score' => array (
+					'field'			=> 		'score',
+					'label'			=>		'Your Score',
+					'rules'			=>		'max_length[3]|greater_than[-1]|less_than[101]',
+				),
+				'weighting' => array (
+					'field'			=> 		'weighting',
+					'label'			=>		'Coursework Weighting',
+					'rules'			=>		'max_length[3]|greater_than[-1]|less_than[101]',
+				),
+				'notes' => array(
+					'field' 		=> 		'notes',
+					'label'			=> 		'Notes',
+					'rules'			=>		'trim|xss_clean|strip_tags'
+				),
+			);
 		}
 	
 	

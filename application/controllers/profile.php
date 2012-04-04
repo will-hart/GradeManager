@@ -3,25 +3,6 @@
 	
 	class Profile extends Application {
 		
-		// Set up the validation rules
-		protected $validation_rules = array(
-			'first_name' => array (
-				'field' 		=> 		'first_name',
-				'label'			=> 		'First Name',
-				'rules'			=>		'trim|xss_clean|max_length[255]'
-			),
-			'last_name' => array (
-				'field' 		=> 		'last_name',
-				'label'			=> 		'Last Name',
-				'rules'			=>		'trim|xss_clean|max_length[255]'
-			),
-			'default_course' => array (
-				'field' 		=> 		'default_course',
-				'label'			=> 		'Default Course',
-				'rules'			=>		'trim|xss_clean|integer|required'
-			),
-		);
-		
 		
 		public function __construct()
 		{
@@ -30,6 +11,25 @@
 			
 			// redirect to the login page if no session exists
 			if($this->session->userdata('logged_in') === FALSE) redirect('login');
+		
+			// Set up the validation rules
+			$this->validation_rules = array(
+				'first_name' => array (
+					'field' 		=> 		'first_name',
+					'label'			=> 		'First Name',
+					'rules'			=>		'trim|xss_clean|max_length[255]'
+				),
+				'last_name' => array (
+					'field' 		=> 		'last_name',
+					'label'			=> 		'Last Name',
+					'rules'			=>		'trim|xss_clean|max_length[255]'
+				),
+				'default_course' => array (
+					'field' 		=> 		'default_course',
+					'label'			=> 		'Default Course',
+					'rules'			=>		'trim|xss_clean|integer|required'
+				),
+			);
 		}
 	
 	

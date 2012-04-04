@@ -16,6 +16,7 @@ class Application extends CI_Controller
 {
 	
 	protected $usr; // stores the user object
+	protected $validation_rules;
 	
 	public function __construct()
 	{
@@ -43,6 +44,9 @@ class Application extends CI_Controller
 				redirect('profile');
 			}
 		}
+		
+		// initialise the validation rules
+		$this->validation_rules = array();
 	}
 	
 	public function field_exists($value)
