@@ -10,25 +10,6 @@
 			
 			// redirect to the login page if no session exists
 			if($this->session->userdata('logged_in') === FALSE) redirect('login');
-		
-			// Set up the validation rules
-			$this->validation_rules = array(
-				'code' => array (
-					'field' 		=> 		'code',
-					'label'			=> 		'Subject Code',
-					'rules'			=>		'trim|xss_clean|max_length[32]|required'
-				),
-				'title' => array (
-					'field' 		=> 		'title',
-					'label'			=> 		'Subject Title',
-					'rules'			=>		'trim|xss_clean|max_length[255]|required'
-				),
-				'notes' => array(
-					'field' 		=> 		'notes',
-					'label'			=> 		'Notes',
-					'rules'			=>		'trim|xss_clean'
-				),
-			);
 			
 			// set up the linked model
 			$this->model = new Model\Subject();
@@ -56,8 +37,21 @@
 			$this->data['content'] .= $this->load->view('coursework/manage_single', $this->data, TRUE);
 		}
 		
-		function _after_view() { return; }
-		function _before_render() { return; }
+		public function _after_view() { return; }
+		public function _before_render() { return; }
+		public function _before_save() { return; }
+		public function _after_save() { return; }
+		
+		public function _after_edit() {
+			redirect('subject/view/'.$this->model->id);
+		}
+		
+		public function _before_edit() {
+			$this->data['course_id'] = $this->session->userdata('default_course');
+			$this->data['action'] = 'edit';
+			$this->data['content'] = $this->load->view('subject/manage_single', $this->data, TRUE);
+		}
+		
 		
 		/*
 		 * Creates a new subject
@@ -111,57 +105,6 @@
 		
 		
 		/*
-		 * Edit a subject
-		 */
-		public function edit ($id = 0)
-		{
-			// check for no subject id and redirect to dashboard
-			$subject = Model\Subject::find($id);			
-			if ($subject == NULL) 
-			{
-				$this->session->set_flashdata('error', 'Unable to find the requested subject');
-				redirect('dashboard');
-			}
-			
-			// check this is our subject
-			if ($subject->users_id != $this->usr->id) {
-				$this->session->set_flashdata('error','You do not have permission to view this subject!');
-				redirect('dashboard');
-			}
-			
-			// set and run validation rules
-			$this->form_validation->set_rules($this->validation_rules);
-			
-			// check if we submitted our edits and they are valid
-			if($_POST && $this->form_validation->run() === TRUE)
-			{
-				// update the model
-				$subject->code = $this->input->post('code');
-				$subject->title = $this->input->post('title');
-				$subject->notes = $this->input->post('notes');
-				
-				// save the model
-				if ($subject->save())
-				{
-					$this->session->set_flashdata('success','Successfully updated subject');
-					redirect('subject/view/'.$subject->id);
-				}
-				else
-				{
-					$this->session->set_flashdata('error','Error saving subject, please try again');
-				}
-			}
-			
-			// show the editing form
-			$data['subject'] = $subject;
-			$data['course_id'] = $this->session->userdata('default_course');
-			$data['action'] = 'edit';
-			$data['content'] = $this->load->view('subject/manage_single', $data, true);
-			$this->load->view('template',$data);
-		}
-		
-		
-		/*
 		 * Delete a subject 
 		 */
 		public function delete($id=0)
@@ -201,12 +144,8 @@
 		}
 
 		// define abstract methods
-		function _before_save() { throw new BadMethodCallException(); }
-		function _after_save() { throw new BadMethodCallException(); }
 		function _before_create() { throw new BadMethodCallException(); }
 		function _after_create() { throw new BadMethodCallException(); }
-		function _before_edit() { throw new BadMethodCallException(); }
-		function _after_edit() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
 	}

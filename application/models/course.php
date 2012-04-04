@@ -21,11 +21,10 @@ class Course extends ORM {
 		self::$fields = array(
 			'id' 			=> 		ORM::field('auto[10]'),
 			'users_id'		=> 		ORM::field('int[10]'),
-			'title		'	=> 		ORM::field('char[255]'),
+			'title'			=> 		ORM::field('char[255]', array('trim','xss_clean','max_length[255]','required')),
 			'created_on' 	=> 		ORM::field('datetime'),
 			'modified_on' 	=> 		ORM::field('datetime'),
 		);
-		
 		
 		$this->ts_fields = array('modified_on','[created_on');
 

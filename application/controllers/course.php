@@ -2,11 +2,6 @@
 
 	
 	class Course extends Application {
-			
-				
-		// Set up the validation rules
-		
-		
 		
 		public function __construct()
 		{
@@ -15,14 +10,6 @@
 			
 			// redirect to the login page if no session exists
 			if($this->session->userdata('logged_in') === FALSE) redirect('login');
-			
-			$this->validation_rules = array(
-				'title' => array (
-					'field' 		=> 		'title',
-					'label'			=> 		'Subject Title',
-					'rules'			=>		'trim|xss_clean|max_length[255]|required'
-				),
-			);
 			
 			// set up the default conditions
 			$this->model = new Model\Course();
@@ -43,11 +30,24 @@
 		
 		public function _before_render() { return; }
 		public function _after_view() { return; }
+		public function _before_save() { return; }
+		public function _after_save() { return; }
+		
 		public function _before_view()
 		{
 			$this->data['action'] = 'view';
 			$this->data['content'] = $this->load->view('course/view_one',$this->data, TRUE);
-		}	
+		}
+		
+		public function _after_edit() {
+			redirect('course/view/'.$this->model->id);
+		}
+		
+		public function _before_edit()
+		{
+			$this->data['action'] = 'edit';
+			$this->data['content'] = $this->load->view('course/manage_single', $this->data, TRUE);
+		}
 		
 		/*
 		 * Creates a new course with default data and redirect to the edit screen
@@ -69,56 +69,7 @@
 				redirect('profile');
 			}
 		}
-			
-		/*
-		 * Edit a course
-		 */
-		public function edit ($id = 0)
-		{
-			// check for no subject id and redirect to dashboard
-			$course = Model\Course::find($id);			
-			if ($course == NULL) 
-			{
-				$this->session->set_flashdata('error','Unable to find the course you requested, please try again.');
-				redirect('dashboard');
-			}
-			
-			// check this is our subject
-			if ($course->users_id != $this->usr->id) {
-				$this->session->set_flashdata('error','You do not have permission to view this course!');
-				redirect('dashboard');
-			}
-			
-			// set and run validation rules
-			$this->form_validation->set_rules($this->validation_rules);
-			
-			// check if we submitted our edits and they are valid
-			if($_POST && $this->form_validation->run() === TRUE)
-			{
-			
-			
-				// update the model
-				$course->title = $this->input->post('title');
-					
-				// save the model
-				if ($course->save())
-				{
-					$this->session->set_flashdata('success','Successfully updated course');
-					redirect('course/view/'.$course->id);
-				}
-				else
-				{
-					$this->session->set_flashdata('error','Error saving course, please try again');
-				}
-			}
-			
-			// show the editing form
-			$data['course'] = $course;
-			$data['action'] = 'edit';
-			$data['content'] = $this->load->view('course/manage_single', $data, true);
-			$this->load->view('template',$data);
-		}
-		
+
 		/*
 		 * Delete a course 
 		 */
@@ -211,12 +162,8 @@
 
 
 		// define abstract methods
-		function _before_save() { throw new BadMethodCallException(); }
-		function _after_save() { throw new BadMethodCallException(); }
 		function _before_create() { throw new BadMethodCallException(); }
 		function _after_create() { throw new BadMethodCallException(); }
-		function _before_edit() { throw new BadMethodCallException(); }
-		function _after_edit() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
 	}

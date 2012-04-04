@@ -95,7 +95,10 @@ abstract class Application extends CI_Controller
 			// update the model with new data submitted via post
 			foreach($_POST as $k => $v)
 			{
-				if (array_key_exists($k, $fields)) // check if our key is in the array
+				// make sure this key is not primary, timestamp and is a valid key
+				if (array_key_exists($k, $fields) &&
+					$k != $this->model->primary_key &&
+					!array_key_exists($k, $this->model->ts_fields))
 				{
 					$this->model->$k = $this->input->post($k); // get the variable from post data
 				}
