@@ -1,0 +1,18 @@
+language: php
+php: 
+  - 5.3
+  
+env: DB=mysql
+
+#whitelist
+branches:
+  only:
+    -master
+
+# install the database
+before_script:
+  - mysql -e "CREATE DATABASE IF NOT EXISTS grades_test;"
+
+# run the unit tests
+script:
+  - phpunit --configuration mysql.travis.xml
