@@ -50,13 +50,31 @@
 		}
 		
 		
-		// load the specialised data for this controller view
 		public function _before_render() { return; }
 		public function _after_view() { return; }
+		public function _before_save() { return; }
+		
 		public function _before_view() { 
 			// load the single view
 			$this->data['action'] = 'view';
 			$this->data['content'] = $this->load->view('coursework/view_one',$this->data,true);
+		}
+		
+		public function _after_save()
+		{
+			$this->recalculate_weightings($this->model->subject_id);
+		}
+		
+		public function _after_edit()
+		{
+			redirect('coursework/view/'.$this->model->id);
+		}
+		
+		public function _before_edit()
+		{
+			$this->data['status_list'] = Model\Status::all();
+			$this->data['action'] = 'edit';
+			$this->data['content'] = $this->load->view('coursework/manage_single', $this->data, TRUE);
 		}
 		
 		/*
@@ -125,65 +143,7 @@
 			$data['content'] = $this->load->view('coursework/manage_single',$data,true);
 			$this->load->view('template',$data);
 		}
-		
-		
-		/*
-		 * Edit a coursework
-		 */
-		public function edit ($id = 0)
-		{
-			// check we have find a coursework for this id
-			$coursework = Model\Coursework::find($id);
-			if ($coursework == NULL) {
-				$this->session->set_flashdata('error','Error finding coursework - are you sure that coursework exists?');
-				redirect('dashboard');
-			}
-			
-			// check this user is allowed to access it
-			if ($this->usr->id != $coursework->users_id) 
-			{
-				$this->session->set_flashdata('error','You do not have permission to edit this coursework');
-				redirect('dashboard');
-			}
-						
-			// set and run validation rules
-			$this->form_validation->set_rules($this->validation_rules);
-			
-			// check if we submitted our edits and they are valid
-			if($_POST && $this->form_validation->run() === TRUE)
-			{
-				// update the model
-				$coursework->title = $this->input->post('title');
-				$coursework->due_date = $this->input->post('due_date');
-				$coursework->status_id = $this->input->post('status_id');
-				$coursework->notes = $this->input->post('notes');
-				$coursework->score = $this->input->post('score');
-				$coursework->weighting = $this->input->post('weighting');
-								
-				// save the model
-				if ($coursework->save())
-				{
-					$this->recalculate_weightings($coursework->subject_id);
-					$this->session->set_flashdata('success','Successfully updated coursework');
-					redirect('coursework/view/'.$coursework->id);
-				}
-				else
-				{
-					$this->session->set_flashdata('error','Error saving coursework, please try again');
-				}
-			}
-			
-			// get the list of statuses we can have
-			$data['status_list'] = Model\Status::all();
-			
-			// show the editing form
-			$data['coursework'] = $coursework;
-			$data['action'] = 'edit';
-			$data['content'] = $this->load->view('coursework/manage_single', $data, true);
-			$this->load->view('template',$data);
-		}
-		
-		
+				
 		/*
 		 * Delete a coursework
 		 */
@@ -370,16 +330,11 @@
 			$coursework->save();
 			
 			redirect('coursework/view/'.$id);
-		}
-		
+		}		
 		
 		// define abstract methods
-		function _before_save() { throw new BadMethodCallException(); }
-		function _after_save() { throw new BadMethodCallException(); }
 		function _before_create() { throw new BadMethodCallException(); }
 		function _after_create() { throw new BadMethodCallException(); }
-		function _before_edit() { throw new BadMethodCallException(); }
-		function _after_edit() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
 	}

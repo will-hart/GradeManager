@@ -69,6 +69,68 @@ abstract class Application extends CI_Controller
 		$this->model = $this->model->find($id);
 		$this->data[$this->model_name] = $this->model;
 		
+		// check for permissions
+		$this->permission_checks();
+		
+		// render the template
+		$this->_before_view();
+		$this->render();
+		$this->_after_view();
+	}
+	
+	/* 
+	 * Edit a single model, the model's fields properties are used to build it
+	 */
+	public function edit($id = 0)
+	{
+		$this->model = $this->model->find($id);// find the model
+		$fields = $this->model->meta['fields'];// get an array of the field meta data
+		$this->data[$this->model_name] = $this->model; 
+		
+		// check we have permission to access this resource
+		$this->permission_checks();
+		
+		if ($_POST) // if we have submitted some post data
+		{
+			// update the model with new data submitted via post
+			foreach($_POST as $k => $v)
+			{
+				if (array_key_exists($k, $fields)) // check if our key is in the array
+				{
+					$this->model->$k = $this->input->post($k); // get the variable from post data
+				}
+			}
+		
+			// we have made some changes, update the model link in the view data
+			$this->data[$this->model_name] = $this->model;
+			
+			// pre-save callbacks
+			$this->_before_save();
+			
+			// check if we submitted our edits and they are valid
+			if($this->model->save(TRUE))
+			{
+				$this->_after_save();	
+				$this->session->set_flashdata('success','Successfully updated '.$this->model_name);
+				$this->_after_edit();
+			}
+			else
+			{
+				$this->session->set_flashdata('error','Error saving '.$this->model_name .', please try again');
+			}
+		}
+		
+		// show the editing form
+		$this->_before_edit();
+		$this->render();
+	}
+	
+	
+	/* 
+	 * Check that the user has permission to access this resource, and that a resource was found
+	 */
+	private function permission_checks()
+	{
 		if ($this->model == NULL) {
 			$this->session->set_flashdata('error',"Error finding the requested ".$this->model_name." - are you sure that it exists?");
 			redirect('dashboard');
@@ -80,11 +142,6 @@ abstract class Application extends CI_Controller
 			$this->session->set_flashdata('error',"You do not have permission to view this ".$this->model_name);
 			redirect('dashboard');
 		}
-		
-		// render the template
-		$this->_before_view();
-		$this->render();
-		$this->_after_view();
 	}
 
 	
