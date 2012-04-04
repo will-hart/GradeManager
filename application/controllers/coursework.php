@@ -399,5 +399,6 @@
 		function _after_edit() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
+		function _before_render() { throw new BadMethodCallException(); }
 	}
 	

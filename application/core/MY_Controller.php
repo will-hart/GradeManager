@@ -156,6 +156,15 @@ abstract class Application extends CI_Controller
 	}
 	
 	
+	/*
+	 * Render the default template
+	 */
+	public function render() 
+	{
+		$this->load->view('template',$this->data);
+	}
+	
+	
 	// call backs - defined as abstract so they are overriden in the derived class
 	abstract function _before_save();
 	abstract function _after_save();
@@ -165,6 +174,7 @@ abstract class Application extends CI_Controller
 	abstract function _after_edit();
 	abstract function _before_delete();
 	abstract function _after_delete();
+	abstract function _before_render();
 }
 
 /* End of file: MY_Controller.php */
