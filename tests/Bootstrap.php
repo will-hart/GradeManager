@@ -15,7 +15,5 @@ define('VIEWPATH',		PROJECT_BASE.'');
 
 
 // Prep our test environment
-require_once $dir.'/lib/common.php';
-require_once $dir.'/lib/ci_testcase.php';
 
 unset($dir);
