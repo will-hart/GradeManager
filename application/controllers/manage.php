@@ -35,6 +35,9 @@
 				'alert_sent' => 0))
 				->with('users')
 				->all();
+				
+			$total_cw = 0;
+			$email_cw = 0;
 
 			// load the email library
 			$this->load->library('PostageApp');
@@ -42,19 +45,28 @@
 			// loop through our coursework and set the alert
 			foreach($coursework as $cw)
 			{
-				// send the email
-				$this->postageapp->from('info@williamhart.info');
-				$this->postageapp->to($cw->user()->email);
-				$this->postageapp->subject('GradeBoss Alert - Upcoming Coursework!');
-				$this->postageapp->message('<p>Hi, this is just a friendly alert to let you know that you have some coursework due in the next five days.</p>');
-				$this->postageapp->template('sample_parent_layout');
-				$this->postageapp->variables(array('name'=>$cw->user()->email));
-				$this->postageapp->send();
+				if ($this->usr->profile()->emails_allowed)
+				{
+					// send the email
+					$this->postageapp->from('info@williamhart.info');
+					$this->postageapp->to($cw->user()->email);
+					$this->postageapp->subject('GradeBoss Alert - Upcoming Coursework!');
+					$this->postageapp->message('<p>Hi, this is just a friendly alert to let you know that you have some coursework due in the next five days.</p>');
+					$this->postageapp->template('sample_parent_layout');
+					$this->postageapp->variables(array('name'=>$cw->user()->email));
+					$this->postageapp->send();
+					
+					$email_cw++;
+				}
 				
-				// flag the alert as sent
+				// flag the alert as sent regardless of whether an email was sent
 				$cw->alert_sent = 1;
 				$cw->save(); 
+				
+				$total_cw++;
 			}
+			
+			echo "Emailed $email_cw users about coursework and unflagged $total_cw coursework records";
 		}
 	}
 	
