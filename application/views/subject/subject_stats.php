@@ -5,8 +5,8 @@
 	<h5 class="fancy">Coursework Weighting</h5>
 </div>
 
-<div id="plot_left" class="span-12" style="height:200px;">&nbsp;</div>
-<div id="plot_right" class="span-12 last" style="height:200px;">&nbsp;</div>
+<div id="plot_left" class="span-12" style="height:200px; overflow: hidden;">&nbsp;</div>
+<div id="plot_right" class="span-12 last" style="height:200px; overflow: hidden;">&nbsp;</div>
 
 <div id="plot_left_value" class="span-12">&nbsp;</div>
 <div id="plot_right_value" class="span-12 last">&nbsp;</div>
