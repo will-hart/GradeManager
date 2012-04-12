@@ -60,7 +60,8 @@
 
 
 		/*
-		 * Delete a profile and all the associated data 
+		 * Delete a profile and all the associated data - do not use
+		 * the abstract crud method as we don't want to load by ID 
 		 */
 		public function delete()
 		{
