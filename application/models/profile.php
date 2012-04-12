@@ -24,6 +24,7 @@ class Profile extends ORM {
 			'default_course'=> 		ORM::field('int[11]'),
 			'first_login'	=>		ORM::field('int[1]'),
 			'emails_allowed'=>		ORM::field('int[1]'),
+			'unsubscribe_code' =>	ORM::field('char[23]'),
 			'created_on'	=> 		ORM::field('datetime'),
 			'modified_on' 	=> 		ORM::field('datetime'),
 		);

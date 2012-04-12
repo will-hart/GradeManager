@@ -46,7 +46,13 @@ class AG_Auth_model extends CI_Model
 		// get the user id
 		$id = $this->db->insert_id();
 		
-		if($this->db->set('users_id', $id)->insert('profile'))
+		
+		// create a new profile
+		$flds = array (
+			'users_id' => $id,
+			'unsubscribe_id' => uniqueid('',TRUE)
+		);
+		if($this->db->set($flds)->insert('profile'))
 		{
 			return TRUE;
 		}
