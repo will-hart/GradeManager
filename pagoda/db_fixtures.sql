@@ -1,5 +1,3 @@
-USE grades; 
-
 -- phpMyAdmin SQL Dump
 -- version 3.4.5deb1
 -- http://www.phpmyadmin.net
