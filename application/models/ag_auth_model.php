@@ -50,7 +50,7 @@ class AG_Auth_model extends CI_Model
 		// create a new profile
 		$flds = array (
 			'users_id' => $id,
-			'unsubscribe_id' => uniqueid('',TRUE)
+			'unsubscribe_id' => uniqid('',TRUE)
 		);
 		if($this->db->set($flds)->insert('profile'))
 		{
