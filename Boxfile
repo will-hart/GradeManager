@@ -1,5 +1,6 @@
 web1:
   name: codeigniter
+  
   shared_writable_dirs: 
     - application/cache
     - application/logs
@@ -8,13 +9,13 @@ web1:
     - mysqli
     - mysql
     - curl
+  
   after_build:
     # Move pagoda config file to app/config
     - "mv pagoda/config/database.php application/config/database.php"
     - "mv pagoda/config/config.php application/config/config.php"
-    
-    
-    # Import sample database file - currently fails
+  
+    # Import sample database file
     - "mysql -h $DB1_HOST -port $DB1_PORT -u $DB1_USER -p $DB1_PASS $DB1_NAME grades < /var/www/pagoda/db_fixtures.sql"
 
 db1:
