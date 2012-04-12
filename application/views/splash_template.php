@@ -6,7 +6,7 @@
 		
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>		
 		
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/intro.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/admin.css" type="text/css" media="screen, projection" />
 		
 	</head>
 	<body>

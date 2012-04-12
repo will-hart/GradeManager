@@ -209,12 +209,12 @@ body     { pointer-events: none; }
 
 
 /* Styles for splash screen */
+
 .error {
 	color: #AB2B25;
 	font-weight: bold;
 	font-size: 0.8em;
 }
-
 .container {
 	color: #777;
 	width: 400px;
