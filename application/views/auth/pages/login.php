@@ -7,7 +7,7 @@
 	$img['class'] = 'large_login_logo';
 	echo img($img);
 ?>
-	<div>
+	<div style="padding-top:30px;">
 		<form method="POST">
 			Username/Email:<br />
 			<input type="text" name="username" value="<?php echo set_value('username'); ?>" size="50" /><?php echo form_error('username', '<div class="error">','</div>'); ?><br /><br />
