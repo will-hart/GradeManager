@@ -6,4 +6,10 @@
 		$diff = $end_ts - $start_ts;
 		return round($diff / 86400);
 	}
+	
+	// gets the date N days after the given date
+	function addDays($num_days, $from_date)
+	{
+		return strtotime("+$num_days days", $from_date);
+	}
 ?>
