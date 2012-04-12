@@ -59,60 +59,39 @@
 		{
 			redirect('course/edit/'.$this->model->id);
 		}
-
-		/*
-		 * Delete a course 
-		 */
-		public function delete($id=0)
-		{	
-			// check for no subject id and redirect to dashboard
-			$course = Model\Course::find($id);			
-			if ($course == NULL) 
+		
+		public function _before_delete()
+		{
+			$this->data['type_url'] = 'course';
+			$this->data['type_name'] = 'Course';
+			$this->data['content'] = $this->load->view('delete_confirmation', $this->data, TRUE);
+			$this->subjects = $this->model->subject();
+			$this->course_id = $this->model->id;
+		}
+		
+		public function _after_delete()
+		{
+			// now remove remaining objects tied to this course
+			foreach($subject as $s)
 			{
-				$this->session->set_flashdata('error','Unable to locate the course you requested');
-				redirect('dashboard');
-			}
-			
-			// check this is our subject
-			if ($course->users_id != $this->usr->id) {
-				$this->session->set_flashdata('error','You do not have permission to view this course!');
-				redirect('dashboard');
-			}
-			
-			// if the user has confirmed deletion, delete away
-			if ($this->input->post('delete') == 'Yes')
-			{				
-				// delete all the associated coursework objects
-				$subjects = $course->subject();
-				foreach($subject as $s)
+				$courseworks = $s->coursework();
+				foreach($coursework as $c)
 				{
-					$courseworks = $s->coursework();
-					foreach($coursework as $c)
-					{
-						$c->delete();
-					}
-					$s->delete();
+					$c->delete();
 				}
-				$course->delete();
-				
-				// check if we deleted the user's default course
-				if ($id == $this->session->userdata('default_course'))
-				{
-					$profile = $this->usr->profile();
-					$profile->default_course = 0;
-					$profile->save();
-				}
-				
-				// notify success
-				$this->session->set_flashdata('success','Successfully deleted course');
-				redirect("dashboard");
+				$s->delete();
 			}
 			
-			// otherwise we are showing the delete confirmation form
-			$data['type_url'] = 'course';
-			$data['type_name'] = 'Course';
-			$data['content'] = $this->load->view('delete_confirmation',$data,true);
-			$this->load->view('template',$data);
+			// check if we deleted the user's default course
+			if ($this->course_id == $this->session->userdata('default_course'))
+			{
+				$profile = $this->usr->profile();
+				$profile->default_course = 0;
+				$profile->first_login = 1;
+				$profile->save();
+			}
+			
+			redirect('profile'); // redirect to the user profile
 		}
 		
 		/*
@@ -121,15 +100,15 @@
 		public function set_default($id = 0)
 		{
 			// make sure we can find a course
-			$course = Model\Course::find($id);
-			if (is_null($course))
+			$this->model = Model\Course::find($id);
+			if (is_null($this->model))
 			{
 				$this->session->set_flashdata('error','Unable to set this course as your default course as no course was found!');
 				redirect('profile');
 			}
 			
 			// if we found a course then check the user is allowed to acces this course
-			if ($course->users_id != $this->usr->id) 
+			if ($this->model->users_id != $this->usr->id) 
 			{
 				$this->session->set_flashdata('error', 'You do not have permission to set this course as your default course!');
 				redirect('profile');
@@ -137,6 +116,7 @@
 			
 			$profile = $this->usr->profile();
 			$profile->default_course = $id;
+			$profile->first_login = 0;
 			
 			if ($profile->save())
 			{
@@ -149,10 +129,5 @@
 				redirect('profile');
 			}
 		}
-
-
-		// define abstract methods
-		function _before_delete() { throw new BadMethodCallException(); }
-		function _after_delete() { throw new BadMethodCallException(); }
 	}
 	
