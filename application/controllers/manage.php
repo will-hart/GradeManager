@@ -29,16 +29,32 @@
 		 */
 		public function send_alerts()
 		{
-			
-			/* SAMPLE CODE
+			$coursework = Model\Coursework::where(array(
+					'status_id <' => Model\Status::HANDED_IN,
+					'due_date <=' => addDays(5,date('Y-m-d')),
+					'alert_sent', 0
+				))->with('user')
+				->all();
+
+			// load the email library
 			$this->load->library('PostageApp');
-			$this->postageapp->from('info@williamhart.info');
-			$this->postageapp->to('hart.wl@gmail.com');
-			$this->postageapp->subject('Test PostageApp Email');
-			$this->postageapp->message('This is a sample message for inclusion in your file');
-			$this->postageapp->template('sample_parent_layout');
-			$this->postageapp->variables(array('name'=>'Will'));
-			$this->postageapp->send();*/
+			
+			// loop through our coursework and set the alert
+			foreach($coursework as $cw)
+			{
+				// send the email
+				$this->postageapp->from('info@williamhart.info');
+				$this->postageapp->to($cw->user()->email);
+				$this->postageapp->subject('GradeBoss Alert - Upcoming Coursework!');
+				$this->postageapp->message('<p>Hi, this is just a friendly alert to let you know that you have some coursework due in the next five days.</p>');
+				$this->postageapp->template('sample_parent_layout');
+				$this->postageapp->variables(array('name'=>$cw->user()->email));
+				$this->postageapp->send();
+				
+				// flag the alert as sent
+				$cw->alert_sent = 1;
+				$cw->save(); 
+			}
 		}
 	}
 	
