@@ -1,7 +1,7 @@
 <!DOCTYPE HTML> 
 <html>
 	<head>
-		<title>Grade Manager by William Hart</title>
+		<title>Grade Boss by William Hart</title>
 		
 		
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>

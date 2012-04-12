@@ -30,7 +30,7 @@
 			-->
 			
 			<div id="intro" class="step" data-x="0" data-y="0" data-z="-3000">
-				<h1>G<span class="make_smaller">RADE</span> M<span class="make_smaller">ANAGER</span></h1>
+				<h1>G<span class="make_smaller">RADE</span> B<span class="make_smaller">OSS</span></h1>
 				<p>is a <span class="green">free</span> online tool</p>
 				<p>for students and teachers</p>
 				<p class="small right">(use the arrow keys to find out more, or <?php echo anchor('login','log in now'); ?>)</p>
