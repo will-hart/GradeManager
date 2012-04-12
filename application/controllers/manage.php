@@ -68,5 +68,10 @@
 			
 			echo "Emailed $email_cw users about coursework and unflagged $total_cw coursework records";
 		}
+
+		public function unsubscribe($code = NULL)
+		{
+			
+		}
 	}
 	
