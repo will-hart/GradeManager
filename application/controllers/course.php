@@ -49,25 +49,15 @@
 			$this->data['content'] = $this->load->view('course/manage_single', $this->data, TRUE);
 		}
 		
-		/*
-		 * Creates a new course with default data and redirect to the edit screen
-		 */
-		public function create()
+		public function _before_create()
 		{
-			$course = new Model\Course();
-			$course->users_id = $this->usr->id;
-			$course->title="New Course";
-			if($course->save())
-			{
-				$id = Model\Course::last_created()->id;
-				$this->session->set_flashdata('success','New course created!');
-				redirect('course/edit/'.$id);
-			}
-			else
-			{
-				$this->session->set_flashdata('error','Error creating new course, please try again.');
-				redirect('profile');
-			}
+			$this->model->users_id = $this->usr->id;
+			$this->model->title="New Course";
+		}
+		
+		public function _after_create()
+		{
+			redirect('course/edit/'.$this->model->id);
 		}
 
 		/*
@@ -162,8 +152,6 @@
 
 
 		// define abstract methods
-		function _before_create() { throw new BadMethodCallException(); }
-		function _after_create() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
 	}
