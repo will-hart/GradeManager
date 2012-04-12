@@ -206,3 +206,34 @@ body     { pointer-events: none; }
 .impress-not-supported .fallback-message {
     display: block;
 }
+
+
+/* Styles for splash screen */
+.error {
+	color: #AB2B25;
+	font-weight: bold;
+	font-size: 0.8em;
+}
+
+.container {
+	color: #777;
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -200px;
+	margin-left: -200px;
+}
+
+input[type=text], input[type=password] {
+	background: #CCC;
+	color: #777;
+	font-size: 1.1em;
+	font-weight: bold;
+	padding: 10px;
+	margin: 10px;
+	outline: none;
+	border: 1px solid #000;
+	width: 75%
+}
