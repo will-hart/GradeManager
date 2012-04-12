@@ -89,9 +89,6 @@
 		
 		public function _after_create()
 		{
-			// set fallback data if create fails
-			$this->data['action'] = 'create';
-			$this->data['content'] = $this->load->view('coursework/manage_single', $this->data, TRUE);
 			redirect('subject/view/'.$this->subject_id);
 		}
 		
