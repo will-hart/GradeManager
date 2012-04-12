@@ -6,6 +6,7 @@ web1:
   php_extensions:
     - mysqli
     - mysql
+    - curl
   after_build:
     # Move pagoda config file to app/config
     - "mv pagoda/config/database.php application/config/database.php"
