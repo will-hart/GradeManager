@@ -27,7 +27,7 @@ td { text-align:center; }
 /**************************************/
 /*              HEADER                */
 /**************************************/
-div#header { font-weight: bolder; background: #555555; color: white; font-size: 3em; margin: 0; border-bottom: 1px solid white; padding: 20px 0 0 10px; height: 70px;}
+div#header { font-weight: bolder; background: #555555; background-image: url('../images/header_background.png'); color: white; font-size: 3em; margin: 0; border-bottom: 1px solid white; padding: 20px 0 0 10px; height: 70px;}
 div#nav { font-style: italic; color: #666; margin: 0 0 40px 0; background: #AAA; padding: 5px 0px 5px 10px}
 div#nav a { color: #505457;font-weight: bolder;}
 .logo_image { position: absolute; top: 5px; left: 5px; float:left; }
