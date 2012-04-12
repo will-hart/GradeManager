@@ -30,10 +30,10 @@
 		public function send_alerts()
 		{
 			$coursework = Model\Coursework::where(array(
-					'status_id <' => Model\Status::HANDED_IN,
-					'due_date <=' => addDays(5,date('Y-m-d')),
-					'alert_sent', 0
-				))->with('user')
+				'status_id <' => Model\Status::HANDED_IN,
+				'due_date <=' => addDays(5,time('Y-m-d')),
+				'alert_sent' => 0))
+				->with('users')
 				->all();
 
 			// load the email library
