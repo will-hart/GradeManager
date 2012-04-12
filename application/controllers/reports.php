@@ -41,6 +41,22 @@
 			$this->load->view('template',$data);
 		}
 		
+		
+		/*
+		 * Called by a cron job to send email alerts
+		 */
+		public function send_alerts()
+		{
+			$this->load->library('postageapp');
+			$this->postageapp->from('hart.wl@gmail.com');
+			$this->postageapp->to('hart.wl@gmail.com');
+			$this->postageapp->subject('Test PostageApp Email');
+			$this->postageapp->message('This is a sample message for inclusion in your file');
+			$this->postageapp->template('sample_parent_layout');
+			
+			echo $this->postageapp->send();
+		}
+		
 		// define abstract methods
 		function _before_save() { throw new BadMethodCallException(); }
 		function _after_save() { throw new BadMethodCallException(); }
