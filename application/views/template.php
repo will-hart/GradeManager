@@ -55,7 +55,17 @@
 			<?php echo $content; ?>
 		</div>
 		
-		<!--<div id="footer">Grade Manager by William Hart</div>-->
+		<div id="footer">
+			<script type="text/javascript"><!-- 
+				google_ad_client = "ca-pub-4364768720239253";
+				/* Grades Footer */
+				google_ad_slot = "1383645669";
+				google_ad_width = 728;
+				google_ad_height = 90;
+			//--></script>
+			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+			</script>
+		</div>
 	
 	</body>
 </html>
