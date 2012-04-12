@@ -101,7 +101,7 @@ $autoload['libraries'] = array('gas','session','form_validation');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','ag_auth', 'form');
+$autoload['helper'] = array('url', 'html', 'ag_auth', 'form');
 
 
 /*

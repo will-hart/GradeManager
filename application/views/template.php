@@ -21,7 +21,11 @@
 		
 	</head>
 	<body>
-		<div id="header">Grade Manager</div>
+		<div id="header"><?php 
+			$img['src'] = 'assets/images/gm_header_logo.png';
+			$img['class'] = 'logo_image';
+			echo img($img);
+		?></div>
 		<div id="nav">
 			
 			<?php if ($this->session->userdata('logged_in')) : ?>
