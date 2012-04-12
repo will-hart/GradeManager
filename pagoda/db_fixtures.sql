@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Apr 12, 2012 at 02:40 PM
+-- Generation Time: Apr 12, 2012 at 03:36 PM
 -- Server version: 5.0.83
 -- PHP Version: 5.3.6
 
@@ -35,7 +35,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('2f1d1f5039ce54517da40c2e15c3076a', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19', 1334248237, 'a:9:{s:9:"user_data";s:0:"";s:8:"username";s:8:"WillHart";s:5:"email";s:22:"11082131@brookes.ac.uk";s:8:"group_id";s:3:"100";s:5:"token";s:0:"";s:10:"identifier";s:0:"";s:7:"user_id";s:1:"1";s:9:"logged_in";b:1;s:14:"default_course";s:1:"1";}');
+('2f1d1f5039ce54517da40c2e15c3076a', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19', 1334248237, 'a:9:{s:9:"user_data";s:0:"";s:8:"username";s:8:"WillHart";s:5:"email";s:22:"11082131@brookes.ac.uk";s:8:"group_id";s:3:"100";s:5:"token";s:0:"";s:10:"identifier";s:0:"";s:7:"user_id";s:1:"1";s:9:"logged_in";b:1;s:14:"default_course";s:1:"1";}'),
+('f335f2b3e1c632d86d96ece947f9ef00', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/53', 1334270130, 'a:9:{s:9:"user_data";s:0:"";s:8:"username";s:8:"WillHart";s:5:"email";s:22:"11082131@brookes.ac.uk";s:8:"group_id";s:3:"100";s:5:"token";s:0:"";s:10:"identifier";s:0:"";s:7:"user_id";s:1:"1";s:9:"logged_in";b:1;s:14:"default_course";s:1:"1";}');
 
 -- --------------------------------------------------------
 
@@ -174,6 +175,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `default_course` int(11) NOT NULL,
   `first_login` int(1) NOT NULL,
   `emails_allowed` tinyint(4) NOT NULL default '0',
+  `unsubscribe_code` varchar(23) NOT NULL,
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
   PRIMARY KEY  (`id`)
@@ -183,8 +185,8 @@ CREATE TABLE IF NOT EXISTS `profile` (
 -- Dumping data for table `profile`
 --
 
-INSERT INTO `profile` (`id`, `users_id`, `first_name`, `last_name`, `default_course`, `first_login`, `emails_allowed`, `created_on`, `modified_on`) VALUES
-(1, 1, 'Will', 'Hart', 1, 0, 0, '2012-04-12 05:05:01', '2012-04-12 05:05:01');
+INSERT INTO `profile` (`id`, `users_id`, `first_name`, `last_name`, `default_course`, `first_login`, `emails_allowed`, `unsubscribe_code`, `created_on`, `modified_on`) VALUES
+(1, 1, 'Will', 'Hart', 1, 0, 0, '4f8758d15c44c9.55071820', '2012-04-12 05:05:01', '2012-04-12 05:05:01');
 
 -- --------------------------------------------------------
 
