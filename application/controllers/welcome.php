@@ -44,17 +44,9 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data['content'] = $this->load->view('welcome_message',NULL, true);
-		$this->load->view('template',$data);
-	}
-	
-	/*
-	 *Loads the features page
-	 */
-	public function features()
-	{
 		$this->load->view('features');
 	}
+	
 	
 	
 	// define abstract methods

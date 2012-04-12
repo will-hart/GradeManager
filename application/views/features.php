@@ -33,7 +33,7 @@
 				<h1>G<span class="make_smaller">RADE</span> M<span class="make_smaller">ANAGER</span></h1>
 				<p>is a <span class="green">free</span> online tool</p>
 				<p>for students and teachers</p>
-				<p class="small right">(use the arrow keys to find out more)</small>
+				<p class="small right">(use the arrow keys to find out more, or <?php echo anchor('login','log in now'); ?>)</p>
 			</div>
 			
 			<div id="track" class="step" data-x="0" data-y="600" data-z="0" data-rotate="180">
@@ -44,20 +44,29 @@
 			</div>
 			
 			<div id="notify" class="step" data-x="-1000" data-y="0" data-z="3000" data-rotate-z="90">
-				get notified when something is due
+				<p>
+					get notified when something is due
+				</p>
 			</div>
 			
 			<div id="borrow" class="step" data-x="0" data-y="0" data-z="2700" data-rotate-y="-45" data-rotate-z="90">
-				<p>make your own course, <br>or download a template</p>
+				<p>
+					make your own course, <br>
+					or download a template
+				</p>
 			</div>
 			
 			<div id="web" class="step" data-x="1500" data-y="1500" data-z="4000" data-rotate-x="90" data-rotate-z="90">
-				<img style="float:left; padding-right: 15px;" src="<?php echo base_url(); ?>assets/images/www_splash.png" />
-				100% free, web based
+				<p>
+					<img style="float:left; padding-right: 15px;" src="<?php echo base_url(); ?>assets/images/www_splash.png" />
+					100% free, web based
+				</p>
 			</div>
 			
 			<div id="join" class="step round_border" data-x="1000" data-y="5000" data-z="2000" data-rotate-x="90" data-rotate-z="90">
-				<p><?php echo anchor('login','login'); ?> or <?php echo anchor('register','register'); ?> now!</p>
+				<p>
+					<?php echo anchor('login','login'); ?> or <?php echo anchor('register','register'); ?> now!
+				</p>
 			</div>
 
 			<div class="hint">
