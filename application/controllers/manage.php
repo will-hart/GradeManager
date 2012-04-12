@@ -27,7 +27,7 @@
 		{
 			// SAMPLE CODE
 			$this->load->library('PostageApp');
-			$this->postageapp->from('hart.wl@gmail.com');
+			$this->postageapp->from('info@williamhart.info');
 			$this->postageapp->to('hart.wl@gmail.com');
 			$this->postageapp->subject('Test PostageApp Email');
 			$this->postageapp->message('This is a sample message for inclusion in your file');
