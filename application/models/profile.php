@@ -22,6 +22,8 @@ class Profile extends ORM {
 			'first_name'	=> 		ORM::field('char[255]'),
 			'last_name'		=> 		ORM::field('char[255]'),
 			'default_course'=> 		ORM::field('int[11]'),
+			'first_login'	=>		ORM::field('int[1]'),
+			'emails_allowed'=>		ORM::field('int[1]'),
 			'created_on'	=> 		ORM::field('datetime'),
 			'modified_on' 	=> 		ORM::field('datetime'),
 		);
