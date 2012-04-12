@@ -62,47 +62,23 @@
 			redirect('subject/view/'.$this->model->id);
 		}
 		
-		/*
-		 * Delete a subject 
-		 */
-		public function delete($id=0)
-		{	
-			// check for no subject id and redirect to dashboard
-			$subject = Model\Subject::find($id);			
-			if ($subject == NULL) redirect('dashboard');
-			
-			// check this is our subject
-			if ($subject->users_id != $this->usr->id) {
-				$this->session->set_flashdata('error','You do not have permission to view this subject!');
-				redirect('dashboard');
-			}
-			
-			// if the user has confirmed deletion, delete away
-			if ($this->input->post('delete') == 'Yes')
-			{				
-				// delete all the associated coursework
-				foreach($subject->coursework() as $cw)
-				{
-					$cw->delete();
-				}
-				
-				// delete the subject
-				$subject->delete();
-				
-				// notify success
-				$this->session->set_flashdata('success','Successfully deleted subject');
-				redirect("dashboard");
-			}
-			
-			// otherwise we are showing the delete confirmation form
-			$data['type_url'] = 'subject';
-			$data['type_name'] = 'Subject';
-			$data['content'] = $this->load->view('delete_confirmation',$data,true);
-			$this->load->view('template',$data);
+		public function _before_delete()
+		{
+			$this->data['type_url'] = 'subject';
+			$this->data['type_name'] = 'Subject';
+			$this->data['content'] = $this->load->view('delete_confirmation', $this->data, TRUE);
+			$this->coursework = $this->model->coursework();
 		}
-
-		// define abstract methods
-		function _before_delete() { throw new BadMethodCallException(); }
-		function _after_delete() { throw new BadMethodCallException(); }
+		
+		public function _after_delete()
+		{
+			// delete all associated coursework
+			foreach($this->coursework as $cw)
+			{
+				$cw->delete();
+			}
+			
+			redirect('dashboard');
+		}
 	}
 	
