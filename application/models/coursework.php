@@ -24,6 +24,7 @@ class Coursework extends ORM {
 			'subject_id' 	=> 		ORM::field('int[10]'),
 			'title' 		=> 		ORM::field('char[255]', array('trim','xss_clean','max_length[255]','required','strip_tags')),
 			'due_date'		=>		ORM::field('date'),
+			'alert_sent'	=>		ORM::field('int[1]'),
 			'status_id'		=> 		ORM::field('int[10]'),
 			'notes' 		=> 		ORM::field('string', array('trim','xss_clean','strip_tags')),
 			'score' 		=> 		ORM::field('int[3]', array('max_length[3]','greater_than[-1]','less_than[101]')),

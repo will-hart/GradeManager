@@ -21,11 +21,16 @@
 		}
 		
 		/*
-		 * Called by a cron job to send email alerts
+		 * Called by a cron job to send email alerts.
+		 * 
+		 * - this basically finds any coursework objects where the due date
+		 *   is less than five days form now, and no alert has been sent
+		 * - it then sends an email and changes the status to "alert_sent"
 		 */
 		public function send_alerts()
 		{
-			// SAMPLE CODE
+			
+			/* SAMPLE CODE
 			$this->load->library('PostageApp');
 			$this->postageapp->from('info@williamhart.info');
 			$this->postageapp->to('hart.wl@gmail.com');
@@ -33,7 +38,7 @@
 			$this->postageapp->message('This is a sample message for inclusion in your file');
 			$this->postageapp->template('sample_parent_layout');
 			$this->postageapp->variables(array('name'=>'Will'));
-			$this->postageapp->send();
+			$this->postageapp->send();*/
 		}
 	}
 	
