@@ -25,14 +25,15 @@
 		 */
 		public function send_alerts()
 		{
+			// SAMPLE CODE
 			$this->load->library('PostageApp');
 			$this->postageapp->from('hart.wl@gmail.com');
 			$this->postageapp->to('hart.wl@gmail.com');
 			$this->postageapp->subject('Test PostageApp Email');
 			$this->postageapp->message('This is a sample message for inclusion in your file');
 			$this->postageapp->template('sample_parent_layout');
-			
-			var_dump($this->postageapp->send());
+			$this->postageapp->variables(array('name'=>'Will'));
+			$this->postageapp->send();
 		}
 	}
 	
