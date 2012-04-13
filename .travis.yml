@@ -14,5 +14,5 @@ env:
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
   - mysql -e "create database IF NOT EXISTS grades;" -uroot; 
-  - mysql -uroot grades < /var/www/pagoda/db_fixtures.sql;
+  - mysql -uroot grades < pagoda/db_fixtures.sql;
 
