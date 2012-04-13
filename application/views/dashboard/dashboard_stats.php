@@ -51,7 +51,7 @@ foreach($subjects as $s)
 		<?php echo $points; ?>
 		
 		// build the data
-		var data = [{ data: mark, label: "Your Mark", color: "#40C3DF" },
+		var data = [{ data: mark, label: "Grades Earned", color: "#40C3DF" },
 			{ data: complete, label: "Completed", color: "#8A1E1F" }
 		];
 		

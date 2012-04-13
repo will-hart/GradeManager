@@ -129,8 +129,8 @@
 			foreach($sub->coursework() as $c)
 			{
 				$total_complete += $c->weighting;
-				$score += ($c->score/100) * $c->weighting;
 				if ($c->status_id >= Model\Status::COMPLETED ) $complete += $c->weighting;
+				if ($c->status_id >= Model\Status::HANDED_IN ) $score += ($c->score/100) * $c->weighting;
 			}
 			
 			// calculate the percentage values
@@ -161,11 +161,12 @@
 			
 			// check the subject hasn't already been handed in and 
 			// then mark accordingly
-			if ($coursework->status_id < 5)
+			if ($coursework->status_id < Model\Status::HANDED_IN)
 			{
-				$coursework->status_id = 5;
+				$coursework->status_id = Model\Status::HANDED_IN;
 				if($coursework->save())
 				{
+					$this->recalculate_weightings($coursework->subject_id);
 					$this->session->set_flashdata('success','Coursework handed in! Well done');
 				} 
 				else 
@@ -214,6 +215,7 @@
 					
 					if ($coursework->save())
 					{
+						$this->recalculate_weightings($coursework->subject_id);
 						$this->session->set_flashdata('success', 'Successfully updated scores');
 					} else {
 						$this->session->set_flashdata('error','Failed updating score - please try again');
