@@ -53,7 +53,10 @@
 					$this->postageapp->subject('GradeBoss Alert - Upcoming Coursework!');
 					$this->postageapp->message('<p>Hi, this is just a friendly alert to let you know that you have some coursework due in the next five days.</p>');
 					$this->postageapp->template('sample_parent_layout');
-					$this->postageapp->variables(array('name'=>$cw->user()->email));
+					$this->postageapp->variables(array(
+						'name'=>$cw->user()->profile()->first_name,
+						'unsub_code'=>$cw->user()->profile()->unsubscribe_code
+					));
 					$this->postageapp->send();
 					
 					$email_cw++;
