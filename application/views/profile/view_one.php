@@ -6,11 +6,13 @@
 	$first_name = '';
 	$last_name = '';
 	$default_course = -1;
+	$emails_allowed = 0;
 
 	if (isset($profile) && !is_null($profile)) 
 	{
 		$first_name = $profile->first_name;
 		$last_name = $profile->last_name;
+		$emails_allowed = $profile->emails_allowed == 1 ? TRUE : FALSE;
 		if ($this->session->userdata('default_course') != false) $default_course = $this->session->userdata('default_course');
 	}
 	
@@ -58,6 +60,17 @@
 					</ul> 
 				</div>
 				<?php endif; ?>
+				
+				<div>
+					<label for="emails_allowed">Emails Allowed?</label>
+					<?php echo form_checkbox('emails_allowed', '1', $emails_allowed,'id="emails_allowed"'); ?>
+					<p>
+						If this is checked then GradeKeep will send you 
+						email notifications.  For instance, GradeKeep will
+						warn you about upcoming due dates.
+					</p>
+				</div>
+				
 			
 				<input type="submit" value="Save" name="submit" /> or 
 				<?php echo anchor('dashboard', 'Go to dashboard'); ?>

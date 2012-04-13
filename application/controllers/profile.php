@@ -11,41 +11,38 @@
 			
 			// redirect to the login page if no session exists
 			if($this->session->userdata('logged_in') === FALSE) redirect('login');
-		}
-	
+		}	
 	
 		/*
 		 * Show the user's profile and allow editing
 		 */
 		public function index()
 		{
+			
 			// get the default user profile
 			$data['profile'] = Model\Profile::where('users_id',$this->usr->id)->limit(1)->all(FALSE);
 						
 			// check if a form was submitted
 			if ($_POST) 
 			{
-				$this->form_validation->set_rules($this->validation_rules);
+				$data['profile']->first_name = $this->input->post('first_name');
+				$data['profile']->last_name = $this->input->post('last_name');
+				$data['profile']->default_course = $this->input->post('default_course');
+				$data['profile']->emails_allowed = $this->input->post('emails_allowed') == 1 ? 1 : 0;
+				$data['profile']->first_login = 0;
 				
-				// check if we have passed the validation rules
-				if ($this->form_validation->run())
+				// attempt to save
+				if ($data['profile']->save(TRUE))
 				{
-					$data['profile']->first_name = $this->input->post('first_name');
-					$data['profile']->last_name = $this->input->post('last_name');
-					$data['profile']->default_course = $this->input->post('default_course');
-					$data['profile']->first_login = 0;
-					
-					// attempt to save
-					if ($data['profile']->save())
-					{
-						// save successful, update the session variable
-						$this->session->set_userdata('default_course',$this->input->post('default_course'));
-						$this->session->set_flashdata('success','Profile updated!');
-					} 
-					else
-					{
-						$this->session->set_flashdata('error','Error updating profile, please try again!');
-					}
+					// save successful, update the session variable
+					$this->session->set_userdata('default_course',$this->input->post('default_course'));
+					$this->session->set_flashdata('success','Profile updated!');
+					redirect('profile');
+				} 
+				else
+				{
+					$this->session->set_flashdata('error','Error updating profile, please try again!');
+					redirect('profile');
 				}
 			}
 
