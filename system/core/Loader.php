@@ -1,25 +1,13 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.2.4 or newer
- *
- * NOTICE OF LICENSE
- *
- * Licensed under the Open Software License version 3.0
- *
- * This source file is subject to the Open Software License (OSL 3.0) that is
- * bundled with this package in the files license.txt / license.rst.  It is
- * also available through the world wide web at this URL:
- * http://opensource.org/licenses/OSL-3.0
- * If you did not receive a copy of the license and are unable to obtain it
- * through the world wide web, please send an email to
- * licensing@ellislab.com so we can send you a copy immediately.
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
- * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ * @author		ExpressionEngine Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
@@ -34,7 +22,7 @@
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
- * @author		EllisLab Dev Team
+ * @author		ExpressionEngine Dev Team
  * @category	Loader
  * @link		http://codeigniter.com/user_guide/libraries/loader.html
  */
@@ -45,84 +33,88 @@ class CI_Loader {
 	 * Nesting level of the output buffering mechanism
 	 *
 	 * @var int
+	 * @access protected
 	 */
 	protected $_ci_ob_level;
 	/**
 	 * List of paths to load views from
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_ci_view_paths		= array();
 	/**
 	 * List of paths to load libraries from
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_ci_library_paths	= array();
 	/**
 	 * List of paths to load models from
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_ci_model_paths		= array();
 	/**
 	 * List of paths to load helpers from
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_ci_helper_paths		= array();
 	/**
 	 * List of loaded base classes
+	 * Set by the controller class
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_base_classes		= array(); // Set by the controller class
 	/**
 	 * List of cached variables
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_ci_cached_vars		= array();
 	/**
 	 * List of loaded classes
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_ci_classes			= array();
 	/**
 	 * List of loaded files
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_ci_loaded_files		= array();
 	/**
 	 * List of loaded models
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_ci_models			= array();
 	/**
 	 * List of loaded helpers
 	 *
 	 * @var array
+	 * @access protected
 	 */
 	protected $_ci_helpers			= array();
-    /**
-     * List of loaded sparks
-     * 
-     * @var array
-     */
-    var $_ci_loaded_sparks = array();
-
 	/**
 	 * List of class name mappings
 	 *
 	 * @var array
+	 * @access protected
 	 */
-	protected $_ci_varmap			= array(
-							'unit_test' => 'unit',
-							'user_agent' => 'agent'
-							);
+	protected $_ci_varmap			= array('unit_test' => 'unit',
+											'user_agent' => 'agent');
 
 	/**
 	 * Constructor
@@ -135,9 +127,9 @@ class CI_Loader {
 		$this->_ci_library_paths = array(APPPATH, BASEPATH);
 		$this->_ci_helper_paths = array(APPPATH, BASEPATH);
 		$this->_ci_model_paths = array(APPPATH);
-		$this->_ci_view_paths = array(VIEWPATH	=> TRUE);
+		$this->_ci_view_paths = array(APPPATH.'views/'	=> TRUE);
 
-		log_message('debug', 'Loader Class Initialized');
+		log_message('debug', "Loader Class Initialized");
 	}
 
 	// --------------------------------------------------------------------
@@ -158,6 +150,7 @@ class CI_Loader {
 		$this->_base_classes =& is_loaded();
 
 		$this->_ci_autoloader();
+
 		return $this;
 	}
 
@@ -257,10 +250,10 @@ class CI_Loader {
 		if (($last_slash = strrpos($model, '/')) !== FALSE)
 		{
 			// The path is in front of the last slash
-			$path = substr($model, 0, ++$last_slash);
+			$path = substr($model, 0, $last_slash + 1);
 
 			// And the model name behind it
-			$model = substr($model, $last_slash);
+			$model = substr($model, $last_slash + 1);
 		}
 
 		if ($name == '')
@@ -306,7 +299,9 @@ class CI_Loader {
 			require_once($mod_path.'models/'.$path.$model.'.php');
 
 			$model = ucfirst($model);
+
 			$CI->$name = new $model();
+
 			$this->_ci_models[] = $name;
 			return;
 		}
@@ -314,73 +309,6 @@ class CI_Loader {
 		// couldn't find the model
 		show_error('Unable to locate the model you have specified: '.$model);
 	}
-    
-    /**
-     * Load a spark by it's path within the sparks directory defined by
-     *  SPARKPATH, such as 'markdown/1.0'
-     * @param string $spark The spark path withint he sparks directory
-     * @param <type> $autoload An optional array of items to autoload
-     *  in the format of:
-     *   array (
-     *     'helper' => array('somehelper')
-     *   )
-     * @return void
-     */
-    function spark($spark, $autoload = array())
-    {
-        if(is_array($spark))
-        {
-            foreach($spark as $s)
-            {
-                $this->spark($s);
-            }
-        }
-
-        $spark = ltrim($spark, '/');
-        $spark = rtrim($spark, '/');
-
-        $spark_path = SPARKPATH . $spark . '/';
-        $parts      = explode('/', $spark);
-        $spark_slug = strtolower($parts[0]);
-
-        # If we've already loaded this spark, bail
-        if(array_key_exists($spark_slug, $this->_ci_loaded_sparks))
-        {
-            return true;
-        }
-
-        # Check that it exists. CI Doesn't check package existence by itself
-        if(!file_exists($spark_path))
-        {
-            show_error("Cannot find spark path at $spark_path");
-        }
-
-        if(count($parts) == 2)
-        {
-            $this->_ci_loaded_sparks[$spark_slug] = $spark;
-        }
-
-        $this->add_package_path($spark_path);
-
-        foreach($autoload as $type => $read)
-        {
-            if($type == 'library')
-                $this->library($read);
-            elseif($type == 'model')
-                $this->model($read);
-            elseif($type == 'config')
-                $this->config($read);
-            elseif($type == 'helper')
-                $this->helper($read);
-            elseif($type == 'view')
-                $this->view($read);
-            else
-                show_error ("Could not autoload object of type '$type' ($read) for spark $spark");
-        }
-
-        // Looks for a spark's specific autoloader
-        $this->_ci_autoloader($spark_path);
-    }
 
 	// --------------------------------------------------------------------
 
@@ -410,7 +338,7 @@ class CI_Loader {
 			return DB($params, $active_record);
 		}
 
-		// Initialize the db variable. Needed to prevent
+		// Initialize the db variable.  Needed to prevent
 		// reference errors with some configurations
 		$CI->db = '';
 
@@ -555,20 +483,6 @@ class CI_Loader {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Get Variables
-	 *
-	 * Retrieve all loaded variables
-	 *
-	 * @return	array
-	 */
-	public function get_vars()
-	{
-		return $this->_ci_cached_vars;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
 	 * Load Helper
 	 *
 	 * This function loads the specified helper file.
@@ -689,22 +603,13 @@ class CI_Loader {
 	 *
 	 * Loads a driver library
 	 *
-	 * @param	mixed	the name of the class or array of classes
+	 * @param	string	the name of the class
 	 * @param	mixed	the optional parameters
 	 * @param	string	an optional object name
 	 * @return	void
 	 */
 	public function driver($library = '', $params = NULL, $object_name = NULL)
 	{
-		if (is_array($library))
-		{
-			foreach ($library as $driver)
-			{
-				$this->driver($driver);
-			}
-			return FALSE;
-		}
-
 		if ( ! class_exists('CI_Driver_Library'))
 		{
 			// we aren't instantiating an object here, that'll be done by the Library itself
@@ -785,11 +690,11 @@ class CI_Loader {
 
 		if ($path == '')
 		{
-			array_shift($this->_ci_library_paths);
-			array_shift($this->_ci_model_paths);
-			array_shift($this->_ci_helper_paths);
-			array_shift($this->_ci_view_paths);
-			array_shift($config->_config_paths);
+			$void = array_shift($this->_ci_library_paths);
+			$void = array_shift($this->_ci_model_paths);
+			$void = array_shift($this->_ci_helper_paths);
+			$void = array_shift($this->_ci_view_paths);
+			$void = array_shift($config->_config_paths);
 		}
 		else
 		{
@@ -877,6 +782,7 @@ class CI_Loader {
 
 		// This allows anything loaded using $this->load (views, files, etc.)
 		// to become accessible from within the Controller and Model functions.
+
 		$_ci_CI =& get_instance();
 		foreach (get_object_vars($_ci_CI) as $_ci_key => $_ci_var)
 		{
@@ -905,20 +811,22 @@ class CI_Loader {
 		 *
 		 * We buffer the output for two reasons:
 		 * 1. Speed. You get a significant speed boost.
-		 * 2. So that the final rendered template can be post-processed by
-		 *    the output class. Why do we need post processing? For one thing,
-		 *    in order to show the elapsed page load time. Unless we can
-		 *    intercept the content right before it's sent to the browser and
-		 *    then stop the timer it won't be accurate.
+		 * 2. So that the final rendered template can be
+		 * post-processed by the output class.  Why do we
+		 * need post processing?  For one thing, in order to
+		 * show the elapsed page load time.  Unless we
+		 * can intercept the content right before it's sent to
+		 * the browser and then stop the timer it won't be accurate.
 		 */
 		ob_start();
 
 		// If the PHP installation does not support short tags we'll
 		// do a little string replacement, changing the short tags
 		// to standard PHP echo statements.
-		if ( ! is_php('5.4') && (bool) @ini_get('short_open_tag') === FALSE && config_item('rewrite_short_tags') == TRUE)
+
+		if ((bool) @ini_get('short_open_tag') === FALSE AND config_item('rewrite_short_tags') == TRUE)
 		{
-			echo eval('?>'.preg_replace('/;*\s*\?>/', '; ?>', str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
+			echo eval('?>'.preg_replace("/;*\s*\?>/", "; ?>", str_replace('<?=', '<?php echo ', file_get_contents($_ci_path))));
 		}
 		else
 		{
@@ -943,6 +851,7 @@ class CI_Loader {
 		 * we are beyond the first level of output buffering so that
 		 * it can be seen and included properly by the first included
 		 * template and any subsequent ones. Oy!
+		 *
 		 */
 		if (ob_get_level() > $this->_ci_ob_level + 1)
 		{
@@ -980,10 +889,10 @@ class CI_Loader {
 		if (($last_slash = strrpos($class, '/')) !== FALSE)
 		{
 			// Extract the path
-			$subdir = substr($class, 0, ++$last_slash);
+			$subdir = substr($class, 0, $last_slash + 1);
 
 			// Get the filename from the path
-			$class = substr($class, $last_slash);
+			$class = substr($class, $last_slash + 1);
 		}
 
 		// We'll test for both lowercase and capitalized versions of the file name
@@ -998,15 +907,15 @@ class CI_Loader {
 
 				if ( ! file_exists($baseclass))
 				{
-					log_message('error', 'Unable to load the requested class: '.$class);
-					show_error('Unable to load the requested class: '.$class);
+					log_message('error', "Unable to load the requested class: ".$class);
+					show_error("Unable to load the requested class: ".$class);
 				}
 
-				// Safety: Was the class already loaded by a previous call?
+				// Safety:  Was the class already loaded by a previous call?
 				if (in_array($subclass, $this->_ci_loaded_files))
 				{
 					// Before we deem this to be a duplicate request, let's see
-					// if a custom object name is being supplied. If so, we'll
+					// if a custom object name is being supplied.  If so, we'll
 					// return a new instance of the object
 					if ( ! is_null($object_name))
 					{
@@ -1018,7 +927,7 @@ class CI_Loader {
 					}
 
 					$is_duplicate = TRUE;
-					log_message('debug', $class.' class already loaded. Second attempt ignored.');
+					log_message('debug', $class." class already loaded. Second attempt ignored.");
 					return;
 				}
 
@@ -1035,17 +944,17 @@ class CI_Loader {
 			{
 				$filepath = $path.'libraries/'.$subdir.$class.'.php';
 
-				// Does the file exist? No? Bummer...
+				// Does the file exist?  No?  Bummer...
 				if ( ! file_exists($filepath))
 				{
 					continue;
 				}
 
-				// Safety: Was the class already loaded by a previous call?
+				// Safety:  Was the class already loaded by a previous call?
 				if (in_array($filepath, $this->_ci_loaded_files))
 				{
 					// Before we deem this to be a duplicate request, let's see
-					// if a custom object name is being supplied. If so, we'll
+					// if a custom object name is being supplied.  If so, we'll
 					// return a new instance of the object
 					if ( ! is_null($object_name))
 					{
@@ -1057,7 +966,7 @@ class CI_Loader {
 					}
 
 					$is_duplicate = TRUE;
-					log_message('debug', $class.' class already loaded. Second attempt ignored.');
+					log_message('debug', $class." class already loaded. Second attempt ignored.");
 					return;
 				}
 
@@ -1068,7 +977,7 @@ class CI_Loader {
 
 		} // END FOREACH
 
-		// One last attempt. Maybe the library is in a subdirectory, but it wasn't specified?
+		// One last attempt.  Maybe the library is in a subdirectory, but it wasn't specified?
 		if ($subdir == '')
 		{
 			$path = strtolower($class).'/'.$class;
@@ -1079,8 +988,8 @@ class CI_Loader {
 		// We do not issue errors if the load call failed due to a duplicate request
 		if ($is_duplicate == FALSE)
 		{
-			log_message('error', 'Unable to load the requested class: '.$class);
-			show_error('Unable to load the requested class: '.$class);
+			log_message('error', "Unable to load the requested class: ".$class);
+			show_error("Unable to load the requested class: ".$class);
 		}
 	}
 
@@ -1159,12 +1068,12 @@ class CI_Loader {
 		// Is the class name valid?
 		if ( ! class_exists($name))
 		{
-			log_message('error', 'Non-existent class: '.$name);
-			show_error('Non-existent class: '.$class);
+			log_message('error', "Non-existent class: ".$name);
+			show_error("Non-existent class: ".$class);
 		}
 
 		// Set the variable name we will assign the class to
-		// Was a custom class name supplied? If so we'll use it
+		// Was a custom class name supplied?  If so we'll use it
 		$class = strtolower($class);
 
 		if (is_null($object_name))
@@ -1199,27 +1108,19 @@ class CI_Loader {
 	 * The config/autoload.php file contains an array that permits sub-systems,
 	 * libraries, and helpers to be loaded automatically.
 	 *
-	 * @param	string Optional. The path of the package to be autoloaded.
-     *                 Default to the appplication path.
+	 * @param	array
 	 * @return	void
 	 */
-	protected function _ci_autoloader($package_path = NULL)
+	private function _ci_autoloader()
 	{
-        $autoload_base = APPPATH;
-        
-        if($package_path !== NULL)
-        {
-            $autoload_base = rtrim($package_path, ',') . '/';
-        }
-        
-        if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/autoload.php'))
-        {
-            include($autoload_base.'config/'.ENVIRONMENT.'/autoload.php');
-        }
-        else
-        {
-            include($autoload_base.'config/autoload.php');
-        }
+		if (defined('ENVIRONMENT') AND file_exists(APPPATH.'config/'.ENVIRONMENT.'/autoload.php'))
+		{
+			include(APPPATH.'config/'.ENVIRONMENT.'/autoload.php');
+		}
+		else
+		{
+			include(APPPATH.'config/autoload.php');
+		}
 
 		if ( ! isset($autoload))
 		{
@@ -1234,18 +1135,9 @@ class CI_Loader {
 				$this->add_package_path($package_path);
 			}
 		}
-        
-        // Autoload sparks
-		if (isset($autoload['sparks']))
-		{
-			foreach ($autoload['sparks'] as $spark)
-			{
-				$this->spark($spark);
-			}
-		}
 
 		// Load any custom config file
-		if (isset($autoload['config']) && count($autoload['config']) > 0)
+		if (count($autoload['config']) > 0)
 		{
 			$CI =& get_instance();
 			foreach ($autoload['config'] as $key => $val)
@@ -1261,6 +1153,13 @@ class CI_Loader {
 			{
 				$this->$type($autoload[$type]);
 			}
+		}
+
+		// A little tweak to remain backward compatible
+		// The $autoload['core'] item was deprecated
+		if ( ! isset($autoload['libraries']) AND isset($autoload['core']))
+		{
+			$autoload['libraries'] = $autoload['core'];
 		}
 
 		// Load libraries
@@ -1331,13 +1230,13 @@ class CI_Loader {
 	{
 		if ( ! is_array($filename))
 		{
-			return array(strtolower(str_replace(array($extension, '.php'), '', $filename).$extension));
+			return array(strtolower(str_replace('.php', '', str_replace($extension, '', $filename)).$extension));
 		}
 		else
 		{
 			foreach ($filename as $key => $val)
 			{
-				$filename[$key] = strtolower(str_replace(array($extension, '.php'), '', $val).$extension);
+				$filename[$key] = strtolower(str_replace('.php', '', str_replace($extension, '', $val)).$extension);
 			}
 
 			return $filename;

@@ -2,28 +2,18 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.2.4 or newer
- *
- * NOTICE OF LICENSE
- *
- * Licensed under the Open Software License version 3.0
- *
- * This source file is subject to the Open Software License (OSL 3.0) that is
- * bundled with this package in the files license.txt / license.rst.  It is
- * also available through the world wide web at this URL:
- * http://opensource.org/licenses/OSL-3.0
- * If you did not receive a copy of the license and are unable to obtain it
- * through the world wide web, please send an email to
- * licensing@ellislab.com so we can send you a copy immediately.
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
- * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ * @author		Esen Sagynov
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
  */
+
+// ------------------------------------------------------------------------
 
 /**
  * CUBRID Utility Class
@@ -37,9 +27,10 @@ class CI_DB_cubrid_utility extends CI_DB_utility {
 	/**
 	 * List databases
 	 *
+	 * @access	private
 	 * @return	array
 	 */
-	public function _list_databases()
+	function _list_databases()
 	{
 		// CUBRID does not allow to see the list of all databases on the
 		// server. It is the way its architecture is designed. Every
@@ -63,11 +54,12 @@ class CI_DB_cubrid_utility extends CI_DB_utility {
 	 *
 	 * Generates a platform-specific query so that a table can be optimized
 	 *
+	 * @access	private
 	 * @param	string	the table name
-	 * @return	bool
+	 * @return	object
 	 * @link 	http://www.cubrid.org/manual/840/en/Optimize%20Database
 	 */
-	public function _optimize_table($table)
+	function _optimize_table($table)
 	{
 		// No SQL based support in CUBRID as of version 8.4.0. Database or
 		// table optimization can be performed using CUBRID Manager
@@ -82,11 +74,12 @@ class CI_DB_cubrid_utility extends CI_DB_utility {
 	 *
 	 * Generates a platform-specific query so that a table can be repaired
 	 *
+	 * @access	private
 	 * @param	string	the table name
-	 * @return	bool
+	 * @return	object
 	 * @link 	http://www.cubrid.org/manual/840/en/Checking%20Database%20Consistency
 	 */
-	public function _repair_table($table)
+	function _repair_table($table)
 	{
 		// Not supported in CUBRID as of version 8.4.0. Database or
 		// table consistency can be checked using CUBRID Manager
@@ -98,10 +91,11 @@ class CI_DB_cubrid_utility extends CI_DB_utility {
 	/**
 	 * CUBRID Export
 	 *
+	 * @access	private
 	 * @param	array	Preferences
 	 * @return	mixed
 	 */
-	public function _backup($params = array())
+	function _backup($params = array())
 	{
 		// No SQL based support in CUBRID as of version 8.4.0. Database or
 		// table backup can be performed using CUBRID Manager

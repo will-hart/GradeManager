@@ -1,29 +1,19 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.2.4 or newer
- *
- * NOTICE OF LICENSE
- *
- * Licensed under the Open Software License version 3.0
- *
- * This source file is subject to the Open Software License (OSL 3.0) that is
- * bundled with this package in the files license.txt / license.rst.  It is
- * also available through the world wide web at this URL:
- * http://opensource.org/licenses/OSL-3.0
- * If you did not receive a copy of the license and are unable to obtain it
- * through the world wide web, please send an email to
- * licensing@ellislab.com so we can send you a copy immediately.
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
- * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ * @author		ExpressionEngine Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
  */
+
+// ------------------------------------------------------------------------
 
 /**
  * CodeIgniter Array Helpers
@@ -31,7 +21,7 @@
  * @package		CodeIgniter
  * @subpackage	Helpers
  * @category	Helpers
- * @author		EllisLab Dev Team
+ * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/array_helper.html
  */
 
@@ -43,6 +33,7 @@
  * Lets you determine whether an array index is set and whether it has a value.
  * If the element is empty it returns FALSE (or whatever you specify as the default value.)
  *
+ * @access	public
  * @param	string
  * @param	array
  * @param	mixed
@@ -52,7 +43,12 @@ if ( ! function_exists('element'))
 {
 	function element($item, $array, $default = FALSE)
 	{
-		return empty($array[$item]) ? $default : $array[$item];
+		if ( ! isset($array[$item]) OR $array[$item] == "")
+		{
+			return $default;
+		}
+
+		return $array[$item];
 	}
 }
 
@@ -61,6 +57,7 @@ if ( ! function_exists('element'))
 /**
  * Random Element - Takes an array as input and returns a random element
  *
+ * @access	public
  * @param	array
  * @return	mixed	depends on what the array contains
  */
@@ -68,7 +65,12 @@ if ( ! function_exists('random_element'))
 {
 	function random_element($array)
 	{
-		return is_array($array) ? $array[array_rand($array)] : $array;
+		if ( ! is_array($array))
+		{
+			return $array;
+		}
+
+		return $array[array_rand($array)];
 	}
 }
 
@@ -77,9 +79,10 @@ if ( ! function_exists('random_element'))
 /**
  * Elements
  *
- * Returns only the array items specified. Will return a default value if
+ * Returns only the array items specified.  Will return a default value if
  * it is not set.
  *
+ * @access	public
  * @param	array
  * @param	array
  * @param	mixed
@@ -90,12 +93,22 @@ if ( ! function_exists('elements'))
 	function elements($items, $array, $default = FALSE)
 	{
 		$return = array();
-
-		is_array($items) OR $items = array($items);
-
+		
+		if ( ! is_array($items))
+		{
+			$items = array($items);
+		}
+		
 		foreach ($items as $item)
 		{
-			$return[$item] = isset($array[$item]) ? $array[$item] : $default;
+			if (isset($array[$item]))
+			{
+				$return[$item] = $array[$item];
+			}
+			else
+			{
+				$return[$item] = $default;
+			}
 		}
 
 		return $return;

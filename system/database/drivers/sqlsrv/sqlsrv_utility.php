@@ -1,35 +1,25 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.2.4 or newer
- *
- * NOTICE OF LICENSE
- *
- * Licensed under the Open Software License version 3.0
- *
- * This source file is subject to the Open Software License (OSL 3.0) that is
- * bundled with this package in the files license.txt / license.rst.  It is
- * also available through the world wide web at this URL:
- * http://opensource.org/licenses/OSL-3.0
- * If you did not receive a copy of the license and are unable to obtain it
- * through the world wide web, please send an email to
- * licensing@ellislab.com so we can send you a copy immediately.
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
- * @license		http://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+ * @author		ExpressionEngine Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
  * @filesource
  */
 
+// ------------------------------------------------------------------------
+
 /**
  * SQLSRV Utility Class
  *
  * @category	Database
- * @author		EllisLab Dev Team
+ * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_sqlsrv_utility extends CI_DB_utility {
@@ -37,9 +27,10 @@ class CI_DB_sqlsrv_utility extends CI_DB_utility {
 	/**
 	 * List databases
 	 *
-	 * @return	string
+	 * @access	private
+	 * @return	bool
 	 */
-	public function _list_databases()
+	function _list_databases()
 	{
 		return "EXEC sp_helpdb"; // Can also be: EXEC sp_databases
 	}
@@ -51,10 +42,11 @@ class CI_DB_sqlsrv_utility extends CI_DB_utility {
 	 *
 	 * Generates a platform-specific query so that a table can be optimized
 	 *
+	 * @access	private
 	 * @param	string	the table name
-	 * @return	bool
+	 * @return	object
 	 */
-	public function _optimize_table($table)
+	function _optimize_table($table)
 	{
 		return FALSE; // Is this supported in MS SQL?
 	}
@@ -66,10 +58,11 @@ class CI_DB_sqlsrv_utility extends CI_DB_utility {
 	 *
 	 * Generates a platform-specific query so that a table can be repaired
 	 *
+	 * @access	private
 	 * @param	string	the table name
-	 * @return	bool
+	 * @return	object
 	 */
-	public function _repair_table($table)
+	function _repair_table($table)
 	{
 		return FALSE; // Is this supported in MS SQL?
 	}
@@ -79,10 +72,11 @@ class CI_DB_sqlsrv_utility extends CI_DB_utility {
 	/**
 	 * MSSQL Export
 	 *
+	 * @access	private
 	 * @param	array	Preferences
 	 * @return	mixed
 	 */
-	public function _backup($params = array())
+	function _backup($params = array())
 	{
 		// Currently unsupported
 		return $this->db->display_error('db_unsuported_feature');
@@ -90,5 +84,5 @@ class CI_DB_sqlsrv_utility extends CI_DB_utility {
 
 }
 
-/* End of file sqlsrv_utility.php */
-/* Location: ./system/database/drivers/sqlsrv/sqlsrv_utility.php */
+/* End of file mssql_utility.php */
+/* Location: ./system/database/drivers/mssql/mssql_utility.php */
