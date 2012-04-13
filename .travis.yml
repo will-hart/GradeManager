@@ -16,3 +16,5 @@ before_script:
   - mysql -e "create database IF NOT EXISTS grades;" -uroot; 
   - mysql -uroot grades < pagoda/db_fixtures.sql;
 
+# setup the phpunit script to run
+script: phpunit --configuration tests/mysql.travis.xml --coverage-text
