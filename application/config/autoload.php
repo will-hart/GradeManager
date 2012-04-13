@@ -89,7 +89,7 @@ $autoload['sparks'] = array('Auth');
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('gas','session','form_validation');
+$autoload['libraries'] = array('gas','session','form_validation', 'ci_authentication');
 
 
 /*
@@ -101,7 +101,7 @@ $autoload['libraries'] = array('gas','session','form_validation');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'html', 'date', 'ag_auth', 'form');
+$autoload['helper'] = array('url', 'html', 'date', 'ci_authentication_helper', 'form');
 
 
 /*
@@ -117,7 +117,7 @@ $autoload['helper'] = array('url', 'html', 'date', 'ag_auth', 'form');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('ci_authentication');
 
 
 /*
@@ -146,7 +146,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array('ci_authentication_model');
 
 
 /* End of file autoload.php */
