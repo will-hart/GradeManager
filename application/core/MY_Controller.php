@@ -127,13 +127,15 @@ abstract class Application extends CI_Controller
 	 */
 	public function create()
 	{
-		// set any default data and check we have permission
-		$this->_before_create();
+		// check we have permission
 		$this->permission_checks();
 		
-		// build remaining data from the post variables
+		// build initial data from the post variables
 		$this->fields = $this->model->meta['fields'];// get an array of the field meta data
 		$this->make_from_post();
+		
+		// set any default data with the _before_create callback
+		$this->_before_create();
 		
 		// perform the save
 		$this->_before_save();
