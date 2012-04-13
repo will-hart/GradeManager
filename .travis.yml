@@ -1,23 +1,17 @@
+# see http://about.travis-ci.org/docs/user/languages/php/ for more hints
 language: php
-php: 
-  - 5.3
-  
-env: DB=mysql
 
-#whitelist
-branches:
-  only:
-    -master
+# list any PHP version you want to test against
+php:
+  # aliased to 5.3.10
+  - 5.3.10
 
-# install the database
+
+# optionally specify a list of environments, for example to test different RDBMS
+env:
+  - DB=mysql
+
+# execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-  - mysql -e "CREATE DATABASE IF NOT EXISTS grades_test;"
-  #- pear channel-discover pear.phpunit.de
-  #- pear install phpunit/PHPUnit
-  - pear channel-discover pear.php-tools.net
-  - pear install pat/vfsStream-alpha
-  - phpenv rehash
+  - mysql -e "create database IF NOT EXISTS grades;" -uroot; fi
 
-# run the unit tests
-script:
-  - phpunit --configuration tests/mysql.travis.xml
