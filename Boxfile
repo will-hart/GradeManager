@@ -1,6 +1,9 @@
 web1:
   name: codeigniter
   
+  cron:
+    - "0 * * * *": "wget -v -O application/logs/cron.log 'http://grades.pagodabox.com/index.php/manage/send_alerts'"
+  
   shared_writable_dirs: 
     - application/cache
     - application/logs
