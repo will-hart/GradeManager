@@ -71,7 +71,34 @@
 
 		public function unsubscribe($code = NULL)
 		{
+			$user_prof = Model\Profile::find_by_unsubscribe_code($code, 1);
 			
+			if (empty($user_prof))
+			{
+				// show the user and error screen and call for them to login
+				$data['content'] = $this->load->view('profile/unsubscribe_error',NULL,TRUE);
+			}
+			else
+			{
+				// perform the unsubscribe
+				$user_prof->allow_emails = 0;
+				$user_prof->save();
+				
+				// send a confirmation email
+				$this->postageapp->from('info@williamhart.info');
+				$this->postageapp->to($user_prof->user()->email);
+				$this->postageapp->subject('GradeBoss Alert - Email alerts turned off!');
+				$this->postageapp->message('<p>Hi,</p><p>This is just letting you know that you have recently unsubscribed from email alerts through GradeKeep.  These can be turned back on at any time through your profile.</p>');
+				$this->postageapp->template('sample_parent_layout');
+				$this->postageapp->variables(array('name'=>$user_prof->first_name));
+				$this->postageapp->send();
+				
+				// load the success view
+				$data['content'] = $this->load->view('profile/unsubscribe_success', NULL, TRUE);
+			}
+			
+			// load the main view
+			$this->load->view('template',$data);	
 		}
 	}
 	
