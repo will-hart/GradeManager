@@ -1,4 +1,4 @@
-<h1 class="fancy">Welcome to Grade Boss!</h1>
+<h1 class="fancy">Welcome to GradeKeep!</h1>
 
 <p>This is a simple web program written by 
 	<a href="http://www.williamhart.info">William Hart</a> to 

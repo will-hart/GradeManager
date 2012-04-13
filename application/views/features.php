@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=1024" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<title>Welcome to Grade Manager by William Hart</title>
+		<title>Welcome to GradeKeep by William Hart</title>
 		<meta name="description" content="Grade Manager is a simple online tool that allows you to track your coursework and to share assessment structure with your students or other students" />
 		<meta name="author" content="William Hart" />
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
@@ -30,10 +30,10 @@
 			-->
 			
 			<div id="intro" class="step" data-x="0" data-y="0" data-z="-3000">
-				<h1>G<span class="make_smaller">RADE</span> B<span class="make_smaller">OSS</span></h1>
+				<h1>G<span class="make_smaller">RADE</span> K<span class="make_smaller">EEP</span></h1>
 				<p>is a <span class="green">free</span> online tool</p>
 				<p>for students and teachers</p>
-				<p class="small right">(use the arrow keys to find out more, or <?php echo anchor('login','log in now'); ?>)</p>
+				<p class="small">(use the arrow keys to find out more, or <?php echo anchor('login','log in now'); ?>)</p>
 			</div>
 			
 			<div id="track" class="step" data-x="0" data-y="600" data-z="0" data-rotate="180">
