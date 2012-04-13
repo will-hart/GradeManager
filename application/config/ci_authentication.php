@@ -29,7 +29,7 @@ $config['users_table'] = 'users';
  * The table to pull roles from. If you don't have a separate roles table, 
  * just leave this blank.
  */
-$config['roles_table'] = '';
+$config['roles_table'] = 'profile';
 
 // --------------------------------------------------------------------------
 /**
@@ -45,7 +45,7 @@ $config['user_id_field'] = 'id';
  *
  * The field in the db and session used for username.
  */
-$config['username_field'] = 'email_address';
+$config['username_field'] = 'username';
 
 // --------------------------------------------------------------------------
 /**
