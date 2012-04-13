@@ -126,10 +126,7 @@ abstract class Application extends CI_Controller
 	 * create a new record in the database
 	 */
 	public function create()
-	{
-		// check we have permission
-		$this->permission_checks();
-		
+	{		
 		// build initial data from the post variables
 		$this->fields = $this->model->meta['fields'];// get an array of the field meta data
 		$this->make_from_post();
