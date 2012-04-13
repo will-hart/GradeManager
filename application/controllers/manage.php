@@ -51,7 +51,7 @@
 					$this->postageapp->from('info@williamhart.info');
 					$this->postageapp->to($cw->user()->email);
 					$this->postageapp->subject('GradeBoss Alert - Upcoming Coursework!');
-					$this->postageapp->message('<p>Hi, this is just a friendly alert to let you know that you have some coursework due in the next five days.</p>');
+					$this->postageapp->message($this->load->view('emails/coursework_alert',array('coursework'=>$cw),TRUE));
 					$this->postageapp->template('sample_parent_layout');
 					$this->postageapp->variables(array(
 						'name'=>$cw->user()->profile()->first_name,
@@ -92,7 +92,7 @@
 				$this->postageapp->from('info@williamhart.info');
 				$this->postageapp->to($user_prof[0]->user()->email);
 				$this->postageapp->subject('GradeBoss Alert - Email alerts turned off!');
-				$this->postageapp->message('<p>Hi,</p><p>This is just letting you know that you have recently unsubscribed from email alerts through GradeKeep.  These can be turned back on at any time through your profile.</p>');
+				$this->postageapp->message($this->load->view('emails/unsubscribe_confirm',NULL,TRUE));
 				$this->postageapp->template('sample_parent_layout');
 				$this->postageapp->variables(array(
 						'name'=>$user_prof[0]->first_name,
