@@ -9,7 +9,6 @@ web1:
     - mysqli
     - mysql
     - curl
-    - eaccelerator
   
   after_build:
     # Move pagoda config file to app/config
