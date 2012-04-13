@@ -9,6 +9,8 @@
 			// call the parent constructor
 			parent::__construct();
 			
+			// load the email library
+			$this->load->library('PostageApp');
 		}
 	
 	
@@ -39,8 +41,6 @@
 			$total_cw = 0;
 			$email_cw = 0;
 
-			// load the email library
-			$this->load->library('PostageApp');
 			
 			// loop through our coursework and set the alert
 			foreach($coursework as $cw)
@@ -76,24 +76,28 @@
 		{
 			$user_prof = Model\Profile::find_by_unsubscribe_code($code, 1);
 			
-			if (empty($user_prof))
+			if (empty($user_prof) || is_null($user_prof))
 			{
 				// show the user and error screen and call for them to login
 				$data['content'] = $this->load->view('profile/unsubscribe_error',NULL,TRUE);
 			}
 			else
 			{
+				//var_dump($user_prof);die();
 				// perform the unsubscribe
-				$user_prof->allow_emails = 0;
-				$user_prof->save();
+				$user_prof[0]->emails_allowed = 0;
+				$user_prof[0]->save();
 				
 				// send a confirmation email
 				$this->postageapp->from('info@williamhart.info');
-				$this->postageapp->to($user_prof->user()->email);
+				$this->postageapp->to($user_prof[0]->user()->email);
 				$this->postageapp->subject('GradeBoss Alert - Email alerts turned off!');
 				$this->postageapp->message('<p>Hi,</p><p>This is just letting you know that you have recently unsubscribed from email alerts through GradeKeep.  These can be turned back on at any time through your profile.</p>');
 				$this->postageapp->template('sample_parent_layout');
-				$this->postageapp->variables(array('name'=>$user_prof->first_name));
+				$this->postageapp->variables(array(
+						'name'=>$user_prof[0]->first_name,
+						'unsub_code'=>$user_prof[0]->unsubscribe_code
+				));
 				$this->postageapp->send();
 				
 				// load the success view
