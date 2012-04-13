@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
 --
 
 INSERT INTO `profile` (`id`, `users_id`, `first_name`, `last_name`, `default_course`, `first_login`, `emails_allowed`, `unsubscribe_code`, `created_on`, `modified_on`) VALUES
-(1, 1, 'Will', 'Hart', 1, 0, 0, '4f8758d15c44c9.55071820', '2012-04-12 05:05:01', '2012-04-12 05:05:01');
+(1, 1, 'Will', 'Hart', 1, 0, 1, '4f8758d15c44c9.55071820', '2012-04-12 05:05:01', '2012-04-12 05:05:01');
 
 -- --------------------------------------------------------
 
