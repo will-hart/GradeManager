@@ -39,7 +39,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://grades.pagodabox.com/';
+$config['base_url']	= 'http://www.gradekeep.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -278,7 +278,7 @@ $config['encryption_key'] = '2-0345sfkxjdgj3q4w09udvf$#ASZDCVJ295urscxv';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'gradesess';
+$config['sess_cookie_name']		= 'grade_sess';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= TRUE;
