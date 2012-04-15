@@ -48,7 +48,7 @@
 				if ($this->usr->profile()->emails_allowed)
 				{
 					// send the email
-					$this->postageapp->from('info@williamhart.info');
+					$this->postageapp->from('info@gradekeep.com');
 					$this->postageapp->to($cw->user()->email);
 					$this->postageapp->subject('GradeBoss Alert - Upcoming Coursework!');
 					$this->postageapp->message($this->load->view('emails/coursework_alert',array('coursework'=>$cw),TRUE));
@@ -68,15 +68,13 @@
 				
 				$total_cw++;
 			}
-			
-			echo "Emailed $email_cw users about coursework and unflagged $total_cw coursework records";
 		}
 
 		public function unsubscribe($code = NULL)
 		{
 			$user_prof = Model\Profile::find_by_unsubscribe_code($code, 1);
 			
-			if (empty($user_prof) || is_null($user_prof))
+			if (empty($user_prof) OR is_null($user_prof))
 			{
 				// show the user and error screen and call for them to login
 				$data['content'] = $this->load->view('profile/unsubscribe_error',NULL,TRUE);
@@ -89,7 +87,7 @@
 				$user_prof[0]->save();
 				
 				// send a confirmation email
-				$this->postageapp->from('info@williamhart.info');
+				$this->postageapp->from('info@gradekeep.com');
 				$this->postageapp->to($user_prof[0]->user()->email);
 				$this->postageapp->subject('GradeBoss Alert - Email alerts turned off!');
 				$this->postageapp->message($this->load->view('emails/unsubscribe_confirm',NULL,TRUE));
@@ -105,7 +103,26 @@
 			}
 			
 			// load the main view
-			$this->load->view('template',$data);	
+			$this->load->view('template',$data);
+		}
+		
+		public function activate_account($code)
+		{
+			$user = Model\User::find_by_registration_token($code, 1);
+			
+			// check if we found a user
+			if (empty($user) OR is_null($user))
+			{
+				$data['content'] = $this->load->view('auth/activation_error', NULL, TRUE);
+			}
+			else
+			{
+				$user[0]->registration_token = '';
+				$user[0]->save();
+				$data['content'] = $this->load->view('auth/activation_success', NULL, TRUE);
+			}
+			
+			$this->load->view('splash_template', $data);
 		}
 	}
 	

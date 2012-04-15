@@ -342,8 +342,8 @@ abstract class Application extends CI_Controller
 			{
 				$data['message'] = '<div class="info">You have tried to login to an unactivated account.  '.
 									' For security reasons you cannot log in until your account has been activated.  '.
-									'If you have not received your activation email within a few hours of registering, you can request another one '.
-									anchor('manage/new_activation_email', 'from this link') . '</div>';
+									'If you have not received your activation email within a few hours of registering, you can '.
+									anchor('manage/resend_activation', 'request another one ') . '.</div>';
 				$this->ag_auth->view('message',$data);
 				return;
 			}
