@@ -261,7 +261,9 @@
 		// default callbacks
 		public function _before_view() 
 		{
-			$this->data['content'] = $this->load->view('template/view_one', $this->data, TRUE);
+			$json = json_decode($this->model->template, TRUE); 
+			$this->data['objects'] = $json['template']['data'];
+			$this->data['content'] = $this->load->view('template/view_one', $this->data, TRUE); 
 		}
 		public function _after_view() { return; }
 		public function _before_render() { $this->data['template'] = $this->model; }
