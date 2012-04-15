@@ -91,7 +91,7 @@
 				$profile->save();
 			}
 			
-			redirect('profile'); // redirect to the user profile
+			redirect('course'); // redirect to the user profile
 		}
 		
 		/*
