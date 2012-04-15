@@ -9,7 +9,11 @@
 			parent::__construct();
 			
 			// redirect to the login page if no session exists
-			if($this->session->userdata('logged_in') === FALSE) redirect('login');
+			if($this->session->userdata('logged_in') === FALSE) 
+			{
+				$this->session->set_userdata('attempted_uri', $this->uri->uri_string());
+				redirect('login');
+			}
 			
 			// set up the default conditions
 			$this->model = new Model\Course();
