@@ -323,8 +323,18 @@ abstract class Application extends CI_Controller
 			
 			$user_data = $this->ag_auth->get_user($username, $field_type);
 			
+			// check if we have a registration token 
+			if(isset($user_data['registration_token']) && strlen($user_data['registration_token'] > 0))
+			{
+				$data['message'] = '<div class="info">You have tried to login to an unactivated account.  '.
+									' For security reasons you cannot log in until your account has been activated.  '.
+									'If you have not received your activation email within a few hours of registering, you can request another one '.
+									anchor('manage/new_activation_email', 'from this link') . '</div>';
+				$this->ag_auth->view('message',$data);
+				return;
+			}
 			
-			if($user_data['password'] === $password)
+			if(isset($user_data['password']) && $user_data['password'] === $password)
 			{
 				
 				unset($user_data['password']);
@@ -342,7 +352,7 @@ abstract class Application extends CI_Controller
 			} // if($user_data['password'] === $password)
 			else
 			{
-				$this->session->set_flashdata('error','The username and password did not match.');
+				$this->session->set_flashdata('error','Unable to log you in with those details.  Please check your username and password again.');
 				$this->ag_auth->view('login');
 			}
 		} // if($this->form_validation->run() == FALSE)
