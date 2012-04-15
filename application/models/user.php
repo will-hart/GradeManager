@@ -21,12 +21,16 @@ class User extends ORM {
 		);
 		
 		self::$fields = array(
-			'id' 			=> 		ORM::field('auto[10]'),
-			'username' 		=> 		ORM::field('char[255]'),
-			'password' 		=> 		ORM::field('char[255]'),
-			'group_id' 		=> 		ORM::field('int[11]'),
-			'token' 		=> 		ORM::field('varchar[255]'),
-			'identifier' 	=> 		ORM::field('varchar[255]'),
+			'id' 						=> 		ORM::field('auto[10]'),
+			'username' 					=> 		ORM::field('char[255]'),
+			'password' 					=> 		ORM::field('char[255]'),
+			'group_id' 					=> 		ORM::field('int[11]'),
+			'token' 					=> 		ORM::field('varchar[255]'),
+			'registration_token'		=> 		ORM::field('varchar[64]'),
+			'registration_token_date' 	=>		ORM::field('datetime'),
+			'forgot_pass_token'			=>		ORM::field('varchar[64]'),
+			'forgot_pass_token_date'	=>		ORM::field('datetime'),
+			'identifier' 				=> 		ORM::field('varchar[255]'),
 		);
 
 	}
