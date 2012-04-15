@@ -7,7 +7,7 @@ class Migration_template_categorisation extends CI_Migration {
 	{
 		// add a "alert_sent" tinyint column to DB
 		$fields = array(
-			'official' => array ('type' => 'INT', 'constraint' => 1, 'default' => '0' ),
+			'is_official' => array ('type' => 'INT', 'constraint' => 1, 'default' => '0' ),
 			'is_course' => array ('type' => 'INT', 'constraint' => 1, 'default' => '0'),
 			
 		);
