@@ -11,6 +11,4 @@
 <p>
 	Here is the link: <br>
 	<?php echo anchor('manage/activate_account/'.$token,'ACTIVATE BY CLICKING HERE'); ?>
-	<br>
-	<?php echo site_url('manage/activate_account/'.$token); ?>
 </p>
