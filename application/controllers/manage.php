@@ -81,7 +81,6 @@
 			}
 			else
 			{
-				//var_dump($user_prof);die();
 				// perform the unsubscribe
 				$user_prof[0]->emails_allowed = 0;
 				$user_prof[0]->save();
@@ -154,7 +153,6 @@
 					// update the DB token
 					$token = random_string('sha1', 64);
 					$user[0]->registration_token = $token;
-					$user[0]->registration_token_date = time();
 					
 					if ($user[0]->save())
 					{
@@ -204,7 +202,7 @@
 				$this->load->helper('string');
 				$token = random_string('sha1',64);
 				$user[0]->forgot_pass_token = $token;
-				$user[0]->forgot_pass_token_time = time();
+				$user[0]->forgot_pass_token_date = time();
 				
 				// try to update the database
 				if ($user[0]->save())
