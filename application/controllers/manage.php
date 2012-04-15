@@ -124,5 +124,63 @@
 			
 			$this->load->view('splash_template', $data);
 		}
+		
+		
+		public function resend_activation()
+		{
+			
+			if ($_POST)
+			{
+				// check if we can find a user in the database
+				$user = Model\User::find_by_email($this->input->post('email'), 1);
+				
+				if (empty($user) OR is_null($user))
+				{
+					$this->set_flashdata('error','Unable to find a user for that email.  Please check your email and try again!'); 
+				}
+				else
+				{
+					
+					// check if the user is already activated
+					if (strlen($user[0]->registration_token) === 0)
+					{
+						$this->session->set_flashdata('notice','Your email address is already activated! Please try to login below');
+						redirect('login');
+					}
+					
+					// load the library to build the random token
+					$this->load->helper('string');
+					
+					// update the DB token
+					$token = random_string('sha1', 64);
+					$user[0]->registration_token = $token;
+					if ($user[0]->save())
+					{
+						// send a confirmation email
+						$this->load->library('PostageApp');
+						$this->postageapp->from('info@gradekeep.com');
+						$this->postageapp->to($user[0]->email);
+						$this->postageapp->subject('GradeKeep - resending activation token at your request');
+						$this->postageapp->message($this->load->view('emails/account_activation', array('token'=>$token), TRUE));
+						$this->postageapp->template('sample_parent_layout');
+						$this->postageapp->variables(array(
+							'token'=>$token,
+						));
+						$this->postageapp->send();
+						
+						$this->session->set_flashdata('success','Your token was successfully sent.  Please check your inbox for the email!');
+						redirect('login');
+					}
+					else
+					{
+						$this->set_flashdata('There was an error sending your application link.  Please try again.');
+					}
+				}
+			}
+			
+			// show the resend form
+			$data['content'] = $this->load->view('auth/pages/resend_token', NULL, TRUE);
+			$this->load->view('splash_template', $data);
+		}
 	}
 	
