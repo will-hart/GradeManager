@@ -28,6 +28,10 @@
  * By default development will show errors but testing and live will hide them.
  */
 
+// TEMP DEBUG
+error_reporting(E_ALL);
+ini_set('display_errors','On');
+	
 if (defined('ENVIRONMENT'))
 {
 	switch (ENVIRONMENT)
