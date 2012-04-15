@@ -22,50 +22,48 @@
 			</p>
 		</div>
 		
-		<div id="impress">
-			<!--
-			Each step of the presentation should be an element inside the `#impress` with a class name
-			of `step`. These step elements are positioned, rotated and scaled by impress.js, and
-			the 'camera' shows them on each step of the presentation. Positioning information is passed through data attributes.
-			-->
-			
-			<div id="intro" class="step" data-x="0" data-y="0" data-z="-3000">
-				<h1>G<span class="make_smaller">RADE</span> K<span class="make_smaller">EEP</span></h1>
-				<p>is a <span class="green">free</span> online tool</p>
-				<p>for students and teachers</p>
+		<div id="impress">			
+			<div id="intro" class="step">
+				<h1 class="app-title">
+					G<span class="make_smaller">RADE</span>K<span class="make_smaller">EEP</span>
+				</h1>
+				<p>is a <span class="green">free</span> online app for students</p>
 				<p class="small">(use the arrow keys to find out more, or <?php echo anchor('login','log in now'); ?>)</p>
 			</div>
 			
-			<div id="track" class="step" data-x="0" data-y="600" data-z="0" data-rotate="180">
-				<p>
-					<img style="float: left; padding-right: 15px; margin-top: 10px;" src="<?php echo base_url(); ?>assets/images/graph_sample.png" />
-					track your <br>assessments, <br>and your grades
+			<div id="track" class="step" data-x="2000">
+				<p class="app-title">
+					K<span class="make_smaller">EEP</span> S<span class="make_smaller">CORE</span>
+				</p>
+				<p class="app-detail">
+					<img style="float:left; padding-right: 15px;" src="<?php echo base_url(); ?>assets/images/graph_sample.png" />
+					Record and view your progress so you know exactly how you are going
 				</p>
 			</div>
 			
-			<div id="notify" class="step" data-x="-1000" data-y="0" data-z="3000" data-rotate-z="90">
-				<p>
-					get notified when something is due
+			<div id="notify" class="step" data-x="4000">
+				<p class="app-title">
+					N<span class="make_smaller">OTIFICATIONS</span> A<span class="make_smaller">ND</span> A<span class="make_smaller">LERTS</span>
+				</p>
+				<p class="app-detail">
+					Get an email when a deadline is near, or use the built in reports to see what is coming up
 				</p>
 			</div>
 			
-			<div id="borrow" class="step" data-x="0" data-y="0" data-z="2700" data-rotate-y="-45" data-rotate-z="90">
-				<p>
-					make your own course, <br>
-					or download a template
+			<div id="borrow" class="step" data-x="6000">
+				<p class="app-title">
+					C<span class="make_smaller">OURSE</span> T<span class="make_smaller">EMPLATES</span>
+				</p>
+				<p class="app-detail">
+					Install a ready made course template or share your own
 				</p>
 			</div>
 			
-			<div id="web" class="step" data-x="1500" data-y="1500" data-z="4000" data-rotate-x="90" data-rotate-z="90">
+			<div id="join" class="step round_border" data-x="8000">
 				<p>
-					<img style="float:left; padding-right: 15px;" src="<?php echo base_url(); ?>assets/images/www_splash.png" />
-					100% free, web based
-				</p>
-			</div>
-			
-			<div id="join" class="step round_border" data-x="1000" data-y="5000" data-z="2000" data-rotate-x="90" data-rotate-z="90">
-				<p>
-					<?php echo anchor('login','login'); ?> or <?php echo anchor('register','register'); ?> now!
+					<img style="float:left; padding-right: 15px;" src="<?php echo base_url(); ?>assets/images/gm_large_logo.png" />
+					<br>
+					<?php echo anchor('login','login'); ?> <br> or <br><?php echo anchor('register','register'); ?>
 				</p>
 			</div>
 
