@@ -11,6 +11,7 @@
 			
 			// load the email library
 			$this->load->library('PostageApp');
+			$this->load->library('ag_auth');
 		}
 	
 	
@@ -239,12 +240,13 @@
 		public function do_password_reset($code)
 		{
 			$user = Model\User::find_by_forgot_pass_token($code, 1);
-			$data['is_pw_reset'] = TRUE;
+			$data['content'] = $this->load->view('auth/pages/password_reset', NULL, TRUE); // LOAD THE FORM BY DEFAULT
 			
 			// check if we found a user
 			if (empty($user) OR is_null($user))
 			{
-				$data['content'] = $this->load->view('auth/activation_error', NULL, TRUE);
+				$data['is_pw_reset'] = 'YES';
+				$data['content'] = $this->load->view('auth/activation_error', $data, TRUE);
 			}
 			else
 			{
@@ -252,6 +254,7 @@
 				{
 					$user[0]->password = $this->ag_auth->salt($this->input->post('password'));
 					$user[0]->forgot_pass_token = '';
+					$user[0]->forgot_pass_date = 0;
 					if ($this->form_validation->run() === FALSE)
 					{
 						if ($user[0]->save())
@@ -265,7 +268,6 @@
 					}
 					else
 					{
-						$data['content'] = $this->load->view('auth/password_reset', NULL, TRUE);
 						$this->set->flashdata('error','There was an error resetting your password.  Please try again.');
 					}
 				}
