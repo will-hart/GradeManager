@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5deb1
+-- version 3.4.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Apr 15, 2012 at 07:25 PM
--- Server version: 5.1.61
--- PHP Version: 5.3.6-13ubuntu3.6
+-- Host: localhost:3306
+-- Generation Time: Apr 15, 2012 at 02:57 PM
+-- Server version: 5.0.83
+-- PHP Version: 5.3.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -22,12 +22,12 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `ci_sessions`;
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
-  `session_id` varchar(40) NOT NULL DEFAULT '0',
-  `ip_address` varchar(16) NOT NULL DEFAULT '0',
+  `session_id` varchar(40) NOT NULL default '0',
+  `ip_address` varchar(16) NOT NULL default '0',
   `user_agent` varchar(50) NOT NULL,
-  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
+  `last_activity` int(10) unsigned NOT NULL default '0',
   `user_data` text NOT NULL,
-  PRIMARY KEY (`session_id`)
+  PRIMARY KEY  (`session_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -45,12 +45,12 @@ INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activ
 
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE IF NOT EXISTS `course` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `users_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
@@ -68,20 +68,20 @@ INSERT INTO `course` (`id`, `users_id`, `title`, `created_on`, `modified_on`) VA
 
 DROP TABLE IF EXISTS `coursework`;
 CREATE TABLE IF NOT EXISTS `coursework` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL auto_increment,
   `users_id` int(10) NOT NULL,
   `subject_id` int(10) NOT NULL,
   `title` varchar(255) NOT NULL,
   `due_date` date NOT NULL,
-  `alert_sent` tinyint(4) NOT NULL DEFAULT '0',
+  `alert_sent` tinyint(4) NOT NULL default '0',
   `status_id` int(11) NOT NULL,
   `notes` text,
-  `score` int(3) DEFAULT NULL,
-  `weighting` int(3) DEFAULT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `score` int(3) default NULL,
+  `weighting` int(3) default NULL,
+  `deleted` tinyint(1) NOT NULL default '0',
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
 
 --
@@ -129,9 +129,9 @@ INSERT INTO `coursework` (`id`, `users_id`, `subject_id`, `title`, `due_date`, `
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(11) NOT NULL,
-  `title` varchar(20) NOT NULL DEFAULT '',
-  `description` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  `title` varchar(20) NOT NULL default '',
+  `description` varchar(100) NOT NULL default '',
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -167,17 +167,17 @@ INSERT INTO `migrations` (`version`) VALUES
 
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE IF NOT EXISTS `profile` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `users_id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `default_course` int(11) NOT NULL,
   `first_login` int(1) NOT NULL,
-  `emails_allowed` tinyint(4) NOT NULL DEFAULT '0',
+  `emails_allowed` tinyint(4) NOT NULL default '0',
   `unsubscribe_code` varchar(23) NOT NULL,
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
@@ -195,9 +195,9 @@ INSERT INTO `profile` (`id`, `users_id`, `first_name`, `last_name`, `default_cou
 
 DROP TABLE IF EXISTS `status`;
 CREATE TABLE IF NOT EXISTS `status` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(32) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
@@ -221,7 +221,7 @@ INSERT INTO `status` (`id`, `title`) VALUES
 
 DROP TABLE IF EXISTS `subject`;
 CREATE TABLE IF NOT EXISTS `subject` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL auto_increment,
   `users_id` int(10) NOT NULL,
   `course_id` int(11) NOT NULL,
   `code` varchar(32) NOT NULL,
@@ -229,10 +229,10 @@ CREATE TABLE IF NOT EXISTS `subject` (
   `notes` text,
   `score` int(3) NOT NULL,
   `complete` int(3) NOT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `deleted` tinyint(1) NOT NULL default '0',
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
@@ -255,25 +255,27 @@ INSERT INTO `subject` (`id`, `users_id`, `course_id`, `code`, `title`, `notes`, 
 
 DROP TABLE IF EXISTS `template`;
 CREATE TABLE IF NOT EXISTS `template` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `users_id` int(11) NOT NULL,
   `school_name` varchar(255) NOT NULL,
   `course_name` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `year_level` int(11) NOT NULL,
+  `is_official` tinyint(4) NOT NULL default '0',
+  `is_course` tinyint(4) NOT NULL default '0',
   `template` text NOT NULL,
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `template`
 --
 
-INSERT INTO `template` (`id`, `users_id`, `school_name`, `course_name`, `title`, `year_level`, `template`, `created_on`, `modified_on`) VALUES
-(1, 1, 'Oxford Brookes', 'Motorsport Engineering', 'Complete Course', 1, '{ "template" : { "type" : "course", "data" : [{ "code" : "U04501", "title" : "Thermodynamics", "notes" : "", "coursework" : [ { "title" : "Lab: Losses", "due_date" : "2011-10-21", "notes" : "", "weighting" : "10"},{ "title" : "Lab: Flow", "due_date" : "2012-03-09", "notes" : "", "weighting" : "10"},{ "title" : "Xmas Coursework", "due_date" : "2012-01-30", "notes" : "", "weighting" : "5"},{ "title" : "Matlab", "due_date" : "2012-03-23", "notes" : "", "weighting" : "5"},{ "title" : "Exam", "due_date" : "2012-05-12", "notes" : "", "weighting" : "70"}]},{ "code" : "U04500", "title" : "Maths", "notes" : "", "coursework" : [ { "title" : "Test 1", "due_date" : "2011-11-07", "notes" : "", "weighting" : "5"},{ "title" : "Test 2", "due_date" : "2011-12-05", "notes" : "", "weighting" : "5"},{ "title" : "Test 3", "due_date" : "2012-03-09", "notes" : "", "weighting" : "5"},{ "title" : "Test 4", "due_date" : "2012-04-02", "notes" : "", "weighting" : "5"},{ "title" : "Mathcad", "due_date" : "2012-03-19", "notes" : "", "weighting" : "10"},{ "title" : "Exam", "due_date" : "2012-05-16", "notes" : "", "weighting" : "70"}]},{ "code" : "U04502", "title" : "Mechanics", "notes" : "", "coursework" : [ { "title" : "Lab: Strain", "due_date" : "2011-10-21", "notes" : "", "weighting" : "8"},{ "title" : "Lab: Stress", "due_date" : "2012-02-24", "notes" : "", "weighting" : "5"},{ "title" : "Xmas Coursework", "due_date" : "2012-01-30", "notes" : "", "weighting" : "9"},{ "title" : "Spud Gun", "due_date" : "2012-03-30", "notes" : "", "weighting" : "9"},{ "title" : "Exam", "due_date" : "2012-05-10", "notes" : "", "weighting" : "70"}]},{ "code" : "U04507", "title" : "Materials", "notes" : "", "coursework" : [ { "title" : "Autolab", "due_date" : "2011-12-16", "notes" : "", "weighting" : "20"},{ "title" : "LCA", "due_date" : "2011-12-16", "notes" : "", "weighting" : "10"},{ "title" : "EA1", "due_date" : "2012-03-30", "notes" : "", "weighting" : "20"},{ "title" : "Exam", "due_date" : "2012-05-18", "notes" : "", "weighting" : "50"}]},{ "code" : "U04560", "title" : "Graphics", "notes" : "", "coursework" : [ { "title" : "Quiz 1", "due_date" : "2011-12-01", "notes" : "", "weighting" : "30"},{ "title" : "Quiz 2", "due_date" : "2012-03-01", "notes" : "", "weighting" : "30"},{ "title" : "Quiz 3", "due_date" : "2012-04-21", "notes" : "", "weighting" : "40"}]},{ "code" : "U04600", "title" : "Electronics", "notes" : "", "coursework" : [ { "title" : "Quiz 1", "due_date" : "2012-03-30", "notes" : "", "weighting" : "8"},{ "title" : "Quiz 2", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 3", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 4", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 5", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 6", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 7", "due_date" : "2012-03-30", "notes" : "", "weighting" : "4"},{ "title" : "Quiz 8", "due_date" : "2012-03-30", "notes" : "", "weighting" : "8"},{ "title" : "Simulation", "due_date" : "2012-03-30", "notes" : "", "weighting" : "6"},{ "title" : "Lab Book", "due_date" : "2012-03-30", "notes" : "", "weighting" : "39"}]},{ "code" : "U05800", "title" : "Management", "notes" : "", "coursework" : [ { "title" : "Assignment", "due_date" : "2012-03-30", "notes" : "", "weighting" : "50"},{ "title" : "Exam", "due_date" : "2012-03-30", "notes" : "", "weighting" : "50"}]}]}}', '2012-03-30 07:22:43', '0000-00-00 00:00:00'),
-(2, 1, 'Oxford Brookes', 'Motorsport Engineering', 'U04501 Thermodynamics', 1, '{ "template" : { "type" : "subject", "data" : [{ "code" : "U04500", "title" : "Maths", "notes" : "", "coursework" : [ { "title" : "Test 1", "due_date" : "2011-11-07", "notes" : "", "weighting" : "5"},{ "title" : "Test 2", "due_date" : "2011-12-05", "notes" : "", "weighting" : "5"},{ "title" : "Test 3", "due_date" : "2012-03-09", "notes" : "", "weighting" : "5"},{ "title" : "Test 4", "due_date" : "2012-04-02", "notes" : "", "weighting" : "5"},{ "title" : "Mathcad", "due_date" : "2012-03-19", "notes" : "", "weighting" : "10"},{ "title" : "Exam", "due_date" : "2012-05-16", "notes" : "", "weighting" : "70"}]}]}}', '2012-03-30 07:22:51', '0000-00-00 00:00:00');
+INSERT INTO `template` (`id`, `users_id`, `school_name`, `course_name`, `title`, `year_level`, `is_official`, `is_course`, `template`, `created_on`, `modified_on`) VALUES
+(1, 1, 'Oxford Brookes', 'Motorsport Engineering', 'Complete Course', 1, 0, 0, '{ "template" : { "type" : "course", "data" : [{ "code" : "U04501", "title" : "Thermodynamics", "notes" : "", "coursework" : [ { "title" : "Lab: Losses", "due_date" : "2011-10-21", "notes" : "", "weighting" : "10"},{ "title" : "Lab: Flow", "due_date" : "2012-03-09", "notes" : "", "weighting" : "10"},{ "title" : "Xmas Coursework", "due_date" : "2012-01-30", "notes" : "", "weighting" : "5"},{ "title" : "Matlab", "due_date" : "2012-03-23", "notes" : "", "weighting" : "5"},{ "title" : "Exam", "due_date" : "2012-05-12", "notes" : "", "weighting" : "70"}]},{ "code" : "U04500", "title" : "Maths", "notes" : "", "coursework" : [ { "title" : "Test 1", "due_date" : "2011-11-07", "notes" : "", "weighting" : "5"},{ "title" : "Test 2", "due_date" : "2011-12-05", "notes" : "", "weighting" : "5"},{ "title" : "Test 3", "due_date" : "2012-03-09", "notes" : "", "weighting" : "5"},{ "title" : "Test 4", "due_date" : "2012-04-02", "notes" : "", "weighting" : "5"},{ "title" : "Mathcad", "due_date" : "2012-03-19", "notes" : "", "weighting" : "10"},{ "title" : "Exam", "due_date" : "2012-05-16", "notes" : "", "weighting" : "70"}]},{ "code" : "U04502", "title" : "Mechanics", "notes" : "", "coursework" : [ { "title" : "Lab: Strain", "due_date" : "2011-10-21", "notes" : "", "weighting" : "8"},{ "title" : "Lab: Stress", "due_date" : "2012-02-24", "notes" : "", "weighting" : "5"},{ "title" : "Xmas Coursework", "due_date" : "2012-01-30", "notes" : "", "weighting" : "9"},{ "title" : "Spud Gun", "due_date" : "2012-03-30", "notes" : "", "weighting" : "9"},{ "title" : "Exam", "due_date" : "2012-05-10", "notes" : "", "weighting" : "70"}]},{ "code" : "U04507", "title" : "Materials", "notes" : "", "coursework" : [ { "title" : "Autolab", "due_date" : "2011-12-16", "notes" : "", "weighting" : "20"},{ "title" : "LCA", "due_date" : "2011-12-16", "notes" : "", "weighting" : "10"},{ "title" : "EA1", "due_date" : "2012-03-30", "notes" : "", "weighting" : "20"},{ "title" : "Exam", "due_date" : "2012-05-18", "notes" : "", "weighting" : "50"}]},{ "code" : "U04560", "title" : "Graphics", "notes" : "", "coursework" : [ { "title" : "Quiz 1", "due_date" : "2011-12-01", "notes" : "", "weighting" : "30"},{ "title" : "Quiz 2", "due_date" : "2012-03-01", "notes" : "", "weighting" : "30"},{ "title" : "Quiz 3", "due_date" : "2012-04-21", "notes" : "", "weighting" : "40"}]},{ "code" : "U04600", "title" : "Electronics", "notes" : "", "coursework" : [ { "title" : "Quiz 1", "due_date" : "2012-03-30", "notes" : "", "weighting" : "8"},{ "title" : "Quiz 2", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 3", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 4", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 5", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 6", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 7", "due_date" : "2012-03-30", "notes" : "", "weighting" : "4"},{ "title" : "Quiz 8", "due_date" : "2012-03-30", "notes" : "", "weighting" : "8"},{ "title" : "Simulation", "due_date" : "2012-03-30", "notes" : "", "weighting" : "6"},{ "title" : "Lab Book", "due_date" : "2012-03-30", "notes" : "", "weighting" : "39"}]},{ "code" : "U05800", "title" : "Management", "notes" : "", "coursework" : [ { "title" : "Assignment", "due_date" : "2012-03-30", "notes" : "", "weighting" : "50"},{ "title" : "Exam", "due_date" : "2012-03-30", "notes" : "", "weighting" : "50"}]}]}}', '2012-03-30 07:22:43', '0000-00-00 00:00:00'),
+(2, 1, 'Oxford Brookes', 'Motorsport Engineering', 'U04501 Thermodynamics', 1, 0, 0, '{ "template" : { "type" : "subject", "data" : [{ "code" : "U04500", "title" : "Maths", "notes" : "", "coursework" : [ { "title" : "Test 1", "due_date" : "2011-11-07", "notes" : "", "weighting" : "5"},{ "title" : "Test 2", "due_date" : "2011-12-05", "notes" : "", "weighting" : "5"},{ "title" : "Test 3", "due_date" : "2012-03-09", "notes" : "", "weighting" : "5"},{ "title" : "Test 4", "due_date" : "2012-04-02", "notes" : "", "weighting" : "5"},{ "title" : "Mathcad", "due_date" : "2012-03-19", "notes" : "", "weighting" : "10"},{ "title" : "Exam", "due_date" : "2012-05-16", "notes" : "", "weighting" : "70"}]}]}}', '2012-03-30 07:22:51', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -283,18 +285,18 @@ INSERT INTO `template` (`id`, `users_id`, `school_name`, `course_name`, `title`,
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `group_id` int(11) NOT NULL DEFAULT '100',
+  `group_id` int(11) NOT NULL default '100',
   `token` varchar(255) NOT NULL,
   `registration_token` varchar(64) NOT NULL,
   `registration_token_date` datetime NOT NULL,
   `forgot_pass_token` varchar(64) NOT NULL,
   `forgot_pass_token_date` datetime NOT NULL,
   `identifier` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
