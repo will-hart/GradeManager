@@ -8,6 +8,7 @@
 	echo img($img);
 ?>
 	<div style="padding-top:30px;">
+		<?php if (isset($message)) echo $message; ?>
 		<form method="POST">
 			Email:<br />
 			<input type="text" name="email" value="<?php echo set_value('email'); ?>" size="50" /><?php echo form_error('email', '<div class="error">','</div>'); ?><br /><br />

@@ -1,5 +1,5 @@
 <p>
-	You have successfully activated your account! 
+	Woohoo! We did it!
 </p>
 <p>
   You can now <?php echo anchor('login','login to your dashboard'); ?>.
