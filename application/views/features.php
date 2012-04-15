@@ -27,7 +27,7 @@
 				<h1 class="app-title">
 					G<span class="make_smaller">RADE</span>K<span class="make_smaller">EEP</span>
 				</h1>
-				<p>is a <span class="green">free</span> online app for students</p>
+				<p>is a <span class="green">free</span> grade tracking app made for students and teachers</p>
 				<p class="small">(use the arrow keys to find out more, or <?php echo anchor('login','log in now'); ?>)</p>
 			</div>
 			
@@ -43,19 +43,20 @@
 			
 			<div id="notify" class="step" data-x="4000">
 				<p class="app-title">
-					N<span class="make_smaller">OTIFICATIONS</span> A<span class="make_smaller">ND</span> A<span class="make_smaller">LERTS</span>
+					G<span class="make_smaller">ET</span> N<span class="make_smaller">OTIFIED</span>
 				</p>
 				<p class="app-detail">
-					Get an email when a deadline is near, or use the built in reports to see what is coming up
+					<img style="float:left; padding-right: 15px;" src="<?php echo base_url(); ?>assets/images/email_alert.png" />
+					Get an email when deadlines are near, or use built in reports to see what is coming up
 				</p>
 			</div>
 			
 			<div id="borrow" class="step" data-x="6000">
 				<p class="app-title">
-					C<span class="make_smaller">OURSE</span> T<span class="make_smaller">EMPLATES</span>
+					G<span class="make_smaller">ET</span> G<span class="make_smaller">OING</span>
 				</p>
 				<p class="app-detail">
-					Install a ready made course template or share your own
+					Get started fast by installing a ready made course template or make and share your own
 				</p>
 			</div>
 			
@@ -63,7 +64,9 @@
 				<p>
 					<img style="float:left; padding-right: 15px;" src="<?php echo base_url(); ?>assets/images/gm_large_logo.png" />
 					<br>
-					<?php echo anchor('login','login'); ?> <br> or <br><?php echo anchor('register','register'); ?>
+					<?php echo anchor('login','LOGIN'); ?> <br>
+					<img src="<?php echo base_url(); ?>assets/images/splash_separator.png" /><br>
+					 <?php echo anchor('register','REGISTER'); ?>
 				</p>
 			</div>
 

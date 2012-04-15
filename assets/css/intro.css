@@ -64,7 +64,7 @@ body {
 
 
 .app-title { background: #888; background-image: url(../images/gm_shield_logo_small.png); background-position: right; background-repeat: no-repeat; color: #555; border-radius: 5px 5px 0 0; border-bottom: 1px #222 solid; padding-left: 10px; padding-right: 10px;}
-.app-detail { background: #666; height: 200px; font-size: 0.8em; color: #888; padding: 40px; text-align: center; font-style: italic; display: table-cell; vertical-align: middle; }
+.app-detail { background: #666; height: 200px; font-size: 0.8em; color: #AAA; padding: 40px; text-align: center; font-style: italic; display: table-cell; vertical-align: middle; }
 b, strong { font-weight: bold }
 i, em { font-style: italic}
 .small { font-size: 0.4em; font-style: italic; color: #777;}
