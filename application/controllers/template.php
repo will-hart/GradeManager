@@ -10,17 +10,13 @@
 			
 			// redirect to the login page if no session exists
 			if($this->session->userdata('logged_in') === FALSE) redirect('login');
-		}
-	
-	
-		/*
-		 * If the index is called redirect to the user dashboard
-		 */
-		public function index()
-		{
-			redirect('dashboard');  // go back to the user dashboard
-		}
 			
+			// set up the model
+			$this->model = new Model\Template();
+			$this->model_name = 'template';
+			$this->check_user_permission = FALSE;
+		}
+	
 			
 		/*
 		 * Share an entire course template
@@ -147,11 +143,19 @@
 		/*
 		 * Browse for templates to install
 		 */
-		public function browse()
+		public function index()
 		{
 			$data['templates'] = Model\Template::limit(20)->all();
 			$data['content'] = $this->load->view('template/view_many',$data,true);
 			$this->load->view('template',$data);			
+		}
+		
+		/*
+		 * Browse action is an alias for index
+		 */
+		public function browse()
+		{
+			$this->index();
 		}
 		
 		
@@ -170,7 +174,7 @@
 			}
 			
 			// decode the json
-			$info = json_decode($tmp->template, true);
+			$info = json_decode($tmp->template, TRUE);
 			$type = $info['template']['type'];
 			$obj = $info['template']['data'];	
 			$log .= "Installing Template:  <em>" . $tmp->title . "</em>\n<br />\n";
@@ -233,7 +237,7 @@
 			$log .= anchor('dashboard','Continue to Dashboard');
 			
 			// check if we got this far without an error
-			if ($errors == false OR $this->db->trans_status() === FALSE)
+			if ($errors === FALSE OR $this->db->trans_status() === FALSE)
 			{
 				$this->db->trans_commit();
 				if ($this->db->trans_status() === FALSE) 
@@ -249,11 +253,18 @@
 			}
 			
 			$data['install_log'] = $log;
-			$data['content'] = $this->load->view('template/install_log', $data, true);
+			$data['content'] = $this->load->view('template/install_log', $data, TRUE);
 			
 			$this->load->view('template', $data);
 		}
 
+		// default callbacks
+		public function _before_view() 
+		{
+			$this->data['content'] = $this->load->view('template/view_one', $this->data, TRUE);
+		}
+		public function _after_view() { return; }
+		public function _before_render() { $this->data['template'] = $this->model; }
 
 		// define abstract methods
 		function _before_save() { throw new BadMethodCallException(); }
@@ -264,7 +275,4 @@
 		function _after_edit() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
-		function _before_view() { throw new BadMethodCallException(); }
-		function _after_view() { throw new BadMethodCallException(); }
-		function _before_render() { throw new BadMethodCallException(); }
 	}

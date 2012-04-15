@@ -22,7 +22,7 @@
 	<ul>
 		<li><?php echo anchor('reports/outstanding','See Outstanding Coursework'); ?></li>
 		<li>Share template (Coming soon)</li>
-		<li><?php echo anchor('template/browse','Search Templates'); ?></li>
+		<li><?php echo anchor('template','Search Templates'); ?></li>
 	</ul>
 </div>
 

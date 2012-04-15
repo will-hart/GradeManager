@@ -24,6 +24,8 @@ class Template extends ORM {
 			'course_name'	=> 		ORM::field('char[255]'),
 			'title'			=> 		ORM::field('char[255]'),
 			'year_level' 	=> 		ORM::field('int[11]'),
+			'official'		=>		ORM::field('int[1]'),
+			'is_course'		=>		ORM::field('int[1]'),
 			'template'		=>		ORM::field('string'),
 			'created_on' 	=> 		ORM::field('datetime'),
 			'modified_on' 	=> 		ORM::Field('datetime'),
