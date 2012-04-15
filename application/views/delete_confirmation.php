@@ -9,6 +9,6 @@
 
 <?php echo form_open(site_url($type_url.'/delete/'.$this->uri->segment(3))); ?>
 	<input type="submit" class="negative" name="delete" value="Yes" />, or 
-	<?php echo anchor('dashboard','Go back to your dashboard'); ?>
+	<?php echo anchor($this->uri->segment(1).'/view/'.$this->uri->segment(3),'Cancel'); ?>
 <?php echo form_close();?>
 </div>
