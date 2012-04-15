@@ -39,8 +39,10 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/grades';
-
+// Base URL config from http://codeigniter.com/wiki/Automatic_configbase_url
+// to handle multiple sub-domains, deployment, etc.
+$config['base_url'] = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 's' : '')
+                      .'://'.$_SERVER['HTTP_HOST'].str_replace('//','/',dirname($_SERVER['SCRIPT_NAME']).'/'); 
 /*
 |--------------------------------------------------------------------------
 | Index File
