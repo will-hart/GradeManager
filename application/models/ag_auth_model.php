@@ -38,7 +38,7 @@ class AG_Auth_model extends CI_Model
 		return $result;
 	}
 	
-	public function register($username, $password, $email)
+	public function register($username, $password, $email, $token)
 	{
 		// load the string helper
 		$this->load->helper('string');
@@ -48,7 +48,7 @@ class AG_Auth_model extends CI_Model
 				->set('password', $password)
 				->set('email', $email)
 				->set('group_id', '100')
-				->set('registration_token',random_string('sha1', 64))
+				->set('registration_token',$token)
 				->insert($this->user_table);
 		
 		// get the user id

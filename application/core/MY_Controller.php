@@ -274,10 +274,24 @@ abstract class Application extends CI_Controller
 			$username = set_value('username');
 			$password = $this->ag_auth->salt(set_value('password'));
 			$email = set_value('email');
+			$token = random_string('sha1', 64);
 
-			if($this->ag_auth->register($username, $password, $email) === TRUE)
+			if($this->ag_auth->register($username, $password, $email, $token) === TRUE)
 			{
-				$data['message'] = "The user account has now been created.";
+				
+				// send a confirmation email
+				$this->load->library('PostageApp');
+				$this->postageapp->from('info@gradekeep.com');
+				$this->postageapp->to($email);
+				$this->postageapp->subject('Welcome to GradeKeep - please activate your account');
+				$this->postageapp->message($this->load->view('emails/account_activation', array('token'=>$token), TRUE));
+				$this->postageapp->template('sample_parent_layout');
+				$this->postageapp->variables(array(
+					'token'=>$token,
+				));
+				$this->postageapp->send();
+				
+				$data['message'] = 'The user account has now been created and a confirmation email has been sent to the address you provided.  Please click the link in the email to finish registration';
 				$this->ag_auth->view('message', $data);
 				
 			} // if($this->ag_auth->register($username, $password, $email) === TRUE)

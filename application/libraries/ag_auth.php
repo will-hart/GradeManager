@@ -154,9 +154,9 @@ class AG_Auth
 	*
 	* Creates a new user account
 	*/
-	public function register($username, $password, $email)
+	public function register($username, $password, $email, $token)
 	{
-		return $this->CI->ag_auth_model->register($username, $password, $email);
+		return $this->CI->ag_auth_model->register($username, $password, $email, $token);
 	}
 	
 	
