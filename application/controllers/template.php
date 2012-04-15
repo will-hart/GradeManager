@@ -263,6 +263,7 @@
 		{
 			$json = json_decode($this->model->template, TRUE); 
 			$this->data['objects'] = $json['template']['data'];
+			$this->data['user_id'] = $this->usr->id;
 			$this->data['content'] = $this->load->view('template/view_one', $this->data, TRUE); 
 		}
 		public function _after_view() { return; }
