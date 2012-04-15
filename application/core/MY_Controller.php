@@ -293,13 +293,19 @@ abstract class Application extends CI_Controller
 	
 	
 	public function login($redirect = NULL)
-	{
-		//check if hte user is logged in and redirect if they are
-		if ($this->ag_auth->logged_in()) redirect('dashboard');
+	{		
+		//check if the user is logged in and redirect if they are		
+		if ($this->ag_auth->logged_in()) 
+		{
+			redirect('dashboard');
+		}
 		
 		if($redirect === NULL)
 		{
-			$redirect = $this->ag_auth->config['auth_login'];
+			// check if we attempted to directly access a url
+			$redirect = $this->session->userdata('attempted_uri') !== FALSE ?
+				$this->session->userdata('attempted_uri') : 
+				$this->ag_auth->config['auth_login'];
 		}
 		
 		$this->form_validation->set_rules('username', 'Username', 'required|min_length[6]');
@@ -327,13 +333,17 @@ abstract class Application extends CI_Controller
 
 				$this->ag_auth->login_user($user_data);
 
+				// check if we should delete a attempted_uri saved in session
+				if ($this->session->userdata('attempted_uri') !== FALSE) $this->session->unset_userdata('attempted_uri');
+				
+				// now redirect to the relevant page
 				redirect($redirect);
 				
 			} // if($user_data['password'] === $password)
 			else
 			{
-				$data['message'] = "The username and password did not match.";
-				$this->ag_auth->view('message', $data);
+				$this->session->set_flashdata('error','The username and password did not match.');
+				$this->ag_auth->view('login');
 			}
 		} // if($this->form_validation->run() == FALSE)
 		
