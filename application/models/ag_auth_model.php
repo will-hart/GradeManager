@@ -40,8 +40,16 @@ class AG_Auth_model extends CI_Model
 	
 	public function register($username, $password, $email)
 	{
+		// load the string helper
+		$this->load->helper('string');
+		
 		// insert the user record
-		$this->db->set('username', $username)->set('password', $password)->set('email', $email)->set('group_id', '100')->insert($this->user_table);
+		$this->db->set('username', $username)
+				->set('password', $password)
+				->set('email', $email)
+				->set('group_id', '100')
+				->set('registration_token',random_string('sha1', 64))
+				->insert($this->user_table);
 		
 		// get the user id
 		$id = $this->db->insert_id();
@@ -50,7 +58,7 @@ class AG_Auth_model extends CI_Model
 		// create a new profile
 		$flds = array (
 			'users_id' => $id,
-			'unsubscribe_id' => uniqid('',TRUE)
+			'unsubscribe_code' => uniqid('',TRUE)
 		);
 		if($this->db->set($flds)->insert('profile'))
 		{
