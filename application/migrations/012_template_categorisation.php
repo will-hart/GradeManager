@@ -16,7 +16,7 @@ class Migration_template_categorisation extends CI_Migration {
 
 	public function down()
 	{
-		$this->dbforge->drop_column('template','official');
+		$this->dbforge->drop_column('template','is_official');
 		$this->dbforge->drop_column('template','is_course');
 	}
 }
