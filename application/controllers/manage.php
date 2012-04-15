@@ -154,6 +154,8 @@
 					// update the DB token
 					$token = random_string('sha1', 64);
 					$user[0]->registration_token = $token;
+					$user[0]->registration_token_date = time();
+					
 					if ($user[0]->save())
 					{
 						// send a confirmation email
@@ -179,7 +181,98 @@
 			}
 			
 			// show the resend form
+			$data['message'] = '<p>Enter your email address below and click send.  An email will be sent to this address with a new link to activate your account</p>';
 			$data['content'] = $this->load->view('auth/pages/resend_token', NULL, TRUE);
+			$this->load->view('splash_template', $data);
+		}
+		
+		public function forgot_password()
+		{
+			// check if the user has submitted the form
+			if ($_POST)
+			{
+				// check if we can find a user in the database
+				$user = Model\User::find_by_email($this->input->post('email'), 1);
+				
+				if (empty($user) OR is_null($user))
+				{
+					$this->session->set_flashdata('error', 'Unable to find that email in the database.  Please check it and try again');
+					redirect('manage/forgot_password');
+				}
+				
+				// generate a new forgot_pass_token for the database
+				$this->load->helper('string');
+				$token = random_string('sha1',64);
+				$user[0]->forgot_pass_token = $token;
+				$user[0]->forgot_pass_token_time = time();
+				
+				// try to update the database
+				if ($user[0]->save())
+				{
+					// send a confirmation email
+					$this->load->library('PostageApp');
+					$this->postageapp->from('info@gradekeep.com');
+					$this->postageapp->to($user[0]->email);
+					$this->postageapp->subject('GradeKeep - Password Reset Request');
+					$this->postageapp->message($this->load->view('emails/forgot_password', array('token'=>$token), TRUE));
+					$this->postageapp->template('sample_parent_layout');
+					$this->postageapp->variables(array(
+						'token'=>$token,
+					));
+					$this->postageapp->send();
+					
+					// redirect the user
+					$this->session->set_flashdata('success','You have been sent an email with a link to reset your password.');
+					redirect('login');
+				}
+				else
+				{
+					$this->session->set_flashdata('error','There was an error sending your token.  Please try again!');
+					redirect('manage/forgot_password');
+				}
+			}
+			
+			// show the password reset form
+			$data['message'] = '<p>Enter your email address below and click send.  An email will be sent to this address with a link to reset your password</p><br>';
+			$data['content'] = $this->load->view('auth/pages/resend_token', $data, TRUE);
+			$this->load->view('splash_template', $data);
+		}
+		
+		public function do_password_reset($code)
+		{
+			$user = Model\User::find_by_forgot_pass_token($code, 1);
+			$data['is_pw_reset'] = TRUE;
+			
+			// check if we found a user
+			if (empty($user) OR is_null($user))
+			{
+				$data['content'] = $this->load->view('auth/activation_error', NULL, TRUE);
+			}
+			else
+			{
+				if ($_POST)
+				{
+					$user[0]->password = $this->ag_auth->salt($this->input->post('password'));
+					$user[0]->forgot_pass_token = '';
+					if ($this->form_validation->run() === FALSE)
+					{
+						if ($user[0]->save())
+						{
+							$data['content'] = $this->load->view('auth/activation_success', NULL, TRUE);
+						}
+						else
+						{
+							$data['content'] = $this->load->view('auth/activation_error', NULL, TRUE);
+						}
+					}
+					else
+					{
+						$data['content'] = $this->load->view('auth/password_reset', NULL, TRUE);
+						$this->set->flashdata('error','There was an error resetting your password.  Please try again.');
+					}
+				}
+			}
+			
 			$this->load->view('splash_template', $data);
 		}
 	}
