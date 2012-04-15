@@ -254,12 +254,14 @@
 				{
 					$user[0]->password = $this->ag_auth->salt($this->input->post('password'));
 					$user[0]->forgot_pass_token = '';
-					$user[0]->forgot_pass_date = 0;
+					$user[0]->forgot_pass_token_date = 0;
+					
 					if ($this->form_validation->run() === FALSE)
 					{
 						if ($user[0]->save())
 						{
-							$data['content'] = $this->load->view('auth/activation_success', NULL, TRUE);
+							$this->session->set_flashdata('success','Your password reset was successful! Please login to access your dashboard');
+							redirect('login');
 						}
 						else
 						{
