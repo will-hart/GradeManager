@@ -221,6 +221,8 @@
 					$coursework->due_date = $cw['due_date'];
 					$coursework->notes = $cw['notes'];
 					$coursework->weighting = $cw['weighting'];
+					$coursework->status_id = Model\Status::NONE;
+					$coursework->users_id = $this->usr->id;
 					$coursework->save();
 					$log .= "Adding coursework <em>" . $cw['title'] . "</em>\n<br/>\n";
 				}
