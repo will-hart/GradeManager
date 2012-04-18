@@ -29,5 +29,3 @@
 	<p class="center large"><?php echo $coursework->status()->title; ?></p>
 </div>
 
-<p>&nbsp;</p>
-
