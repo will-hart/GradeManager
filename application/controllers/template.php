@@ -243,13 +243,12 @@
 				if ($this->db->trans_status() === FALSE) 
 				{
 					$this->db->trans_rollback();
-					$log = "<div class='error'>An error was encountered importing the course, no changes were made! Please try again</div>";
+					$log .= "<div class='error'>1 An error was encountered importing the course, no changes were made! Please try again</div>";
 				}
 			}
 			else 
 			{
-				$this->db->trans_rollback();
-				$log = "<div class='error'>An error was encountered importing the course, no changes were made! Please try again</div>";
+				$log .= "<div class='success'>Course successfully imported!</div>";
 			}
 			
 			$data['install_log'] = $log;
