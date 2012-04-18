@@ -9,9 +9,9 @@
         <const name="ROOTPATH" value="TRUE"/>
     </php>
     <testsuites>
-        <testsuite name="Main">
-            <directory>./testCases</directory>
-            <directory suffix="Test.php" phpVersion="5.3.0" phpVersionOperator=">=">./testCases</directory>
+        <testsuite name="MainTest">
+            <directory>./test_cases</directory>
+            <directory suffix="Test.php" phpVersion="5.3.0" phpVersionOperator=">=">./test_cases</directory>
         </testsuite>
     </testsuites>
 </phpunit>
