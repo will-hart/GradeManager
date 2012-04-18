@@ -3,7 +3,9 @@
 	<head>
 		<title>GradeKeep by William Hart</title>
 		
-		<meta name="description" content="GradeKeep is a free student web app for tracking coursework and grades">
+		<meta charset="utf-8" />
+		<meta name="author" content="William Hart" />
+		<meta name="description" content="Grade Manager is a simple online tool that allows you to track your coursework and to share assessment structure with your students or other students" />
 		<meta name="keywords" content="student, coursework, assignment, subject, university, school, grades, marks, scores, GradeKeep">
 
 		
