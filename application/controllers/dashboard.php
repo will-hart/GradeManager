@@ -28,7 +28,9 @@
 						'status_id <' => Model\Status::COMPLETED,
 						'coursework.users_id' => $this->usr->id,
 						'subject.course_id' => $this->session->userdata('default_course')
-					))->all();
+					))
+					->order_by('due_date', 'ASC')
+					->all();
 			$data['course_id'] = $this->session->userdata('default_course');
 			
 			// load the dashboard, subject list and new subject form
