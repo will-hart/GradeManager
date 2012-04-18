@@ -33,16 +33,33 @@
 		 */
 		public function outstanding()
 		{
-			$data['courseworks'] = Model\Coursework::where( array(
+			$this->data['courseworks'] = Model\Coursework::where( array(
 				'users_id' => $this->usr->id,
-				'status_id <= ' => 4,
+				'status_id <= ' => Model\Status::HANDED_IN,
 			))
 			->order_by('due_date','ASC')
 			->all();
 			
 			// now load the views
-			$data['content'] = $this->load->view('reports/outstanding',$data,true);
-			$this->load->view('template',$data);
+			$this->data['content'] = $this->load->view('reports/outstanding',$this->data,TRUE);
+			$this->load->view('template',$this->data);
+		}
+		
+		/*
+		 * Show a list of coursework that has been handed in but not returned 
+		 */
+		public function not_returned()
+		{
+			$this->data['courseworks'] = Model\Coursework::where( array(
+				'users_id' => $this->usr->id,
+				'status_id' => Model\Status::HANDED_IN
+			))
+			->order_by('due_date','ASC')
+			->all();
+			
+			// now load the views
+			$this->data['content'] = $this->load->view('reports/marked_not_returned', $this->data, TRUE);
+			$this->load->view('template', $this->data);
 		}
 		
 		// define abstract methods
