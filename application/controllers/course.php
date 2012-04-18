@@ -40,6 +40,8 @@
 		public function _before_view()
 		{
 			$this->data['action'] = 'view';
+			$this->data['subjects'] = $this->model->subject();
+			$this->data['subject_listing'] = $this->load->view('subject/view_many', $this->data, TRUE);
 			$this->data['content'] = $this->load->view('course/view_one',$this->data, TRUE);
 		}
 		

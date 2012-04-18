@@ -9,5 +9,11 @@
 
 <div class="span-24 last">
 	<h2 class="fancy"><?php echo $course->title; ?></h1>
-	<?php echo anchor('course/set_default/'.$course->id,'Set as Default Course'); ?>
+	<?php if ($course->id !== $this->session->userdata('default_course')) 
+		echo anchor('course/set_default/'.$course->id,'Set as Default Course'); 
+	?>
 </div>
+
+<hr>
+
+<?php echo $subject_listing; ?>
