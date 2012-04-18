@@ -269,14 +269,24 @@
 		}
 		public function _after_view() { return; }
 		public function _before_render() { $this->data['template'] = $this->model; }
+		
+		
+		public function _after_edit()
+		{
+			redirect('template/view/'.$this->model->id);
+		}
+		
+		public function _before_edit()
+		{
+			$this->data['action'] = 'edit';
+			$this->data['content'] = $this->load->view('template/manage_single', $this->data, TRUE);
+		}
 
 		// define abstract methods
 		function _before_save() { throw new BadMethodCallException(); }
 		function _after_save() { throw new BadMethodCallException(); }
 		function _before_create() { throw new BadMethodCallException(); }
 		function _after_create() { throw new BadMethodCallException(); }
-		function _before_edit() { throw new BadMethodCallException(); }
-		function _after_edit() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }
 		function _after_delete() { throw new BadMethodCallException(); }
 	}
