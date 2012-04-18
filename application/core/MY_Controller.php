@@ -138,10 +138,9 @@ abstract class Application extends CI_Controller
 		$this->_before_save();
 		if ($this->model->save())
 		{
+			$this->model->id = $this->db->insert_id();
 			$this->_after_save();
 			$this->session->set_flashdata('success','Successfully created new '.$this->model_name);
-			//$this->model = $this->model->last_created();
-			$this->model->id = $this->db->insert_id();
 			$this->_after_create();
 		}
 		else 
