@@ -50,7 +50,7 @@ $route['admin/dashboard'] = "admin/admin/index";
 
 // set up a route for find out more
 $route['tell_me_more'] = "welcome/tell_me_more";
-
+$route['thanks'] = "welcome";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
