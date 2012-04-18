@@ -44,9 +44,14 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('features');
+		$this->load->view('welcome/features');
 	}
 	
+	public function tell_me_more()
+	{
+		$data['content'] = $this->load->view('welcome/tell_me_more', NULL, TRUE);
+		$this->load->view('splash_template', $data);
+	}
 	
 	
 	// define abstract methods
