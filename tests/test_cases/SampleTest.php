@@ -28,8 +28,7 @@ class SampleTest extends PHPUnit_Framework_TestCase {
     public function testSeeIfItWorks()
     {
         // Some basic tests to test testing
-        $this->assertInstanceOf('string', $this->abc);
-        $this->assertEquals('string','TEST');
+        $this->assertEquals($this->abc,"TEST");
         $this->assertFalse($this->abc === "MY TEST");
     }
 
