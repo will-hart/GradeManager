@@ -20,7 +20,9 @@
 			$data['subjects'] = Model\Subject::where(array(
 				'users_id' => $this->usr->id,
 				'course_id' => $this->session->userdata('default_course')
-			))->all();
+			))
+			->order_by('code','ASC')
+			->all();
 			$data['next_5'] = Model\Coursework::limit(5)
 					->select('coursework.*')
 					->join('subject', 'subject.id=coursework.subject_id')
