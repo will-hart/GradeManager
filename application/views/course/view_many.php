@@ -12,10 +12,14 @@
 			<tr>
 				<td>
 					<?php 
-						echo anchor('course/view/'.$c->id,$c->title);
 						if ($c->id === $this->session->userdata('default_course'))
 						{
+							echo anchor('dashboard',$c->title);
 							echo ' (default)';
+						}
+						else
+						{
+							echo anchor('course/view/'.$c->id,$c->title);
 						}
 					?>
 				</td>
