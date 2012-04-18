@@ -3,6 +3,9 @@
 	<head>
 		<title>GradeKeep by William Hart</title>
 		
+		<meta name="description" content="GradeKeep is a free student web app for tracking coursework and grades">
+		<meta name="keywords" content="student coursework subject university school grades marks scores GradeKeep">
+
 		
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>		
 		

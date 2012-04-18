@@ -3,13 +3,13 @@
 	<head>
 		<title>GradeKeep by William Hart</title>
 		
-		
+		<meta name="description" content="GradeKeep is a free student web app for tracking coursework and grades">
+		<meta name="keywords" content="student coursework subject university school grades marks scores GradeKeep">
+
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/datepicker.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/flot/jquery.flot.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/flot/jquery.flot.pie.js"></script>
-		
-		
 		
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/screen.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/print.css" type="text/css" media="print" />
