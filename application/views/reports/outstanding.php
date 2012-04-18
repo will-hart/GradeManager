@@ -10,6 +10,9 @@ if(is_null($courseworks)) {
 	$last_month = '';
 ?>
 <h1 class="fancy">Outstanding Coursework Report</h1>
+<p>
+	This report shows upcoming coursework that you haven't yet submitte
+</p>
 <table>
 	<tr>
 		<th>Due Date</th>
@@ -46,5 +49,6 @@ if(is_null($courseworks)) {
 ?>
 </table>
 
+<p>Retrieved <?php echo strftime("%Y-%m-%d %H:%M"); ?></p>
 
 <?php } ?>

@@ -20,11 +20,12 @@
 	
 	
 		/*
-		 * If the index is called redirect to the user dashboard
+		 * If the index is called show a list of available reports
 		 */
 		public function index()
 		{
-			redirect('dashboard');  // go back to the user dashboard
+			$this->data['content'] = $this->load->view('reports/index', $this->data, TRUE);
+			$this->load->view('template', $this->data);
 		}
 		
 		
