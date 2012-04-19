@@ -268,6 +268,8 @@ CREATE TABLE IF NOT EXISTS `template` (
   `course_name` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `year_level` int(11) NOT NULL,
+  `is_official` tinyint(4) NOT NULL,
+  `is_course` tinyint(4) NOT NULL,
   `template` text NOT NULL,
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
