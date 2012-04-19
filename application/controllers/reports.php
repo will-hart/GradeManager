@@ -24,6 +24,7 @@
 		 */
 		public function index()
 		{
+			$this->data['group_id'] = $this->usr->group_id;
 			$this->data['content'] = $this->load->view('reports/index', $this->data, TRUE);
 			$this->load->view('template', $this->data);
 		}
@@ -62,6 +63,28 @@
 			$this->data['content'] = $this->load->view('reports/marked_not_returned', $this->data, TRUE);
 			$this->load->view('template', $this->data);
 		}
+		
+		/*
+		 * Shows a list of registered users with some basic information.
+		 * This is admin only user group must be == 1
+		 */
+		public function registered_users()
+		{
+			// check we are an admin
+			if ($this->usr->group_id != Model\User::ADMINISTRATOR)
+			{
+				$this->session->set_flashdata('error','You do not have permission to view this report!');
+				redirect('reports');
+			}
+				
+			// build the user table
+			$this->data['users'] = Model\User::all();
+			
+			// load the views
+			$this->data['content'] = $this->load->view('reports/user_listing', $this->data, TRUE);
+			$this->load->view('template', $this->data);
+		}
+		
 		
 		// define abstract methods
 		function _before_save() { throw new BadMethodCallException(); }

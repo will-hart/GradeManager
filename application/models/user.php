@@ -10,6 +10,9 @@ class User extends ORM {
 	public $primary_key = 'id';
 	public $table = 'users'; // users table to satisfy ag_auth
 	
+	const ADMINISTRATOR = 1;
+	const USER = 100;
+	
 	function _init()
 	{
 		
