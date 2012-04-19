@@ -171,7 +171,7 @@ abstract class Application extends CI_Controller
 		if ($this->input->post('delete') == 'Yes')
 		{
 			$this->model->delete();
-			$this->session->set_flashdata('success','Successfully deleted coursework');
+			$this->session->set_flashdata('success','Successfully deleted '.$this->model_name);
 			$this->_after_delete();
 		}
 		

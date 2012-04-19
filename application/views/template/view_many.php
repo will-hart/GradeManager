@@ -24,6 +24,7 @@
 					echo anchor('template/install/'.$t->id,'Install'); 
 					if ($t->users_id == $user_id) {
 						echo ' | ' . anchor('template/edit/'.$t->id,'Edit');
+						echo ' | ' . anchor('template/delete/'.$t->id,'Delete');
 					}
 				?></td>
 			</tr>

@@ -286,10 +286,20 @@
 		}
 		function _before_save() { return; }
 		function _after_save() { return; }
+		
+		public function _before_delete()
+		{
+			$this->data['type_url'] = 'template';
+			$this->data['type_name'] = 'Template';
+			$this->data['content'] = $this->load->view('delete_confirmation', $this->data, TRUE);
+		}
+		
+		public function _after_delete()
+		{
+			redirect('template'); // redirect to the user profile
+		}
 
 		// define abstract methods
 		function _before_create() { throw new BadMethodCallException(); }
 		function _after_create() { throw new BadMethodCallException(); }
-		function _before_delete() { throw new BadMethodCallException(); }
-		function _after_delete() { throw new BadMethodCallException(); }
 	}
