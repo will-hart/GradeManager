@@ -35,6 +35,12 @@ class Migration_users extends CI_Migration {
 				'type' => 'VARCHAR',
 				'constraint' => 255,
 			),
+			'last_login' => array(
+				'type' => 'DATETIME'
+			),
+			'created_on' => array(
+				'type' => 'DATETIME'
+			),
 		));
 
 		$this->dbforge->add_key('id', TRUE);
