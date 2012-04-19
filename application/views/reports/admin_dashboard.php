@@ -1,5 +1,7 @@
-<h1 class="fancy"></h1>
-<div id="registrations_chart">
+<h1 class="fancy">Admin Dashboard Report</h1>
+
+<h2 class="fancy">User Registrations</h2>
+<div id="registrations_chart" style="width:600px;height:300px;">
 	<table>
 		<tr>
 			<th>Week</th>
@@ -20,14 +22,16 @@
 // build the chart data
 $points = '';
 $ticks = '';
-$i = 0;
+$i = 1;
 $bar_width = 0.35;
 $bar_center = 0.4;
+$max_y = 0;
 
 foreach($users as $u)
 {
 	$ticks .= "\n[".($i+$bar_center).", '".$u->date_registered."'],";
 	$points .= "\nusers.push([$i,".$u->users."]);";
+	$max_y = ($max_y > $u->users ? $u->users : $max_y);
 	$i++;
 }
 ?>
@@ -40,11 +44,18 @@ foreach($users as $u)
 		<?php echo $points; ?>
 		
 		// build the data
-		var data = [{ data: users, label: "Grades Earned", color: "#40C3DF" }];
+		var data = [{ data: users, label: "Registrations per Month", color: "#40C3DF" }];
 		
 		var pane = $("#registrations_chart");
 		
 		// plot the chart
-		var plot = $.plot(pane, data);
+		var plot = $.plot(pane,data, {
+				xaxis: { ticks: [ <?php echo $ticks; ?> ], min: 0, max: <?php echo $i; ?>, color: "#000000", tickColor: "#FFFFFF" },
+				yaxis: { min: 0 },
+			}
+		);
 	});
 </script>
+
+
+<p>Retrieved <?php echo strftime("%Y-%m-%d %H:%M"); ?></p>

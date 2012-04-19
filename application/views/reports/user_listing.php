@@ -18,3 +18,6 @@
 	<?php endforeach; ?>
 
 </table>
+
+
+<p>Retrieved <?php echo strftime("%Y-%m-%d %H:%M"); ?></p>

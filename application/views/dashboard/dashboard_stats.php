@@ -67,7 +67,8 @@ foreach($subjects as $s)
 		// plot the chart
 		var plot = $.plot(pane, data, {
 			bars: { show: true, barWidth: <?php echo $bar_width; ?>, fill: 0.7 },
-			xaxis: { ticks: [ <?php echo $ticks; ?>
+			xaxis: { ticks: [ 
+				<?php echo $ticks; ?>
 				], min: -0.1, max: <?php echo ($i - 0.1); ?>, color: "#000000", tickColor: "#FFFFFF" },
 			yaxis: { min: 0, max:100 },
 			grid: { markings: markings, hoverable: true, clickable: false },

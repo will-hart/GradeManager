@@ -99,7 +99,7 @@
 			
 			// get the users registering per week for the last year
 			$this->data['users'] = $this->db
-				->query('SELECT DATE_FORMAT(created_on, \'%x %v\') AS date_registered, COUNT(id) AS users '.
+				->query('SELECT DATE_FORMAT(created_on, \'%x-WK%v\') AS date_registered, COUNT(id) AS users '.
 						' FROM users '.
 						' WHERE created_on > CURRENT_DATE - INTERVAL 1 YEAR '.
 						' GROUP BY date_registered ORDER BY created_on ASC')
