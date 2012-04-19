@@ -54,6 +54,8 @@ class AG_Auth_model extends CI_Model
 				->set('email', $email)
 				->set('group_id', '100')
 				->set('registration_token',$token)
+				->set('registration_token_date', strftime("%Y-%m-%d %H:%M"))
+				->set('created_on', strftime("%Y-%m-%d %H:%M"))
 				->insert($this->user_table);
 		
 		// get the user id
