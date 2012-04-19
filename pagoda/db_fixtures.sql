@@ -303,4 +303,4 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `group_id`, `token`, `registration_token`, `registration_token_date`, `forgot_pass_token`, `forgot_pass_token_date`, `identifier`) VALUES
-(1, 'WillHart', '11082131@brookes.ac.uk', '9a56d1a4a52b2eb3caee6bb5c811f202af7d8a08f3a7b5fb6f58ef4153e75201', 100, '', '', '0000-00-00 00:00:00', '', '2012-04-15 00:00:00', '');
+(1, 'WillHart', '11082131@brookes.ac.uk', '9a56d1a4a52b2eb3caee6bb5c811f202af7d8a08f3a7b5fb6f58ef4153e75201', 1, '', '', '0000-00-00 00:00:00', '', '2012-04-15 00:00:00', '');
