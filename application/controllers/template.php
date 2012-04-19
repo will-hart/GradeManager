@@ -189,7 +189,7 @@
 				$log.= "Creating new course... ";
 				$course = new Model\Course();
 				$course->users_id = $this->usr->id;
-				$course->title = $tmp->course_name & " " & $tmp->year_level;
+				$course->title = $tmp->course_name . " (Year " . $tmp->year_level . ")";
 				$course->save();
 				$c_id = Model\Course::last_created()->id;
 				$log .= "done\n<br/>\n";
