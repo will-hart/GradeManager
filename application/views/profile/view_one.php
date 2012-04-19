@@ -82,7 +82,8 @@
 	<br>
 	<?php echo anchor('course','View Courses'); ?><br>
 	<?php echo anchor('course/create','Create a new course'); ?> <br>
-	<?php echo anchor('template/browse','Load an existing course template'); ?><br>&nbsp;
+	<?php echo anchor('template/browse','Load an existing course template'); ?><br>
+	<?php if (isset($default_course)) echo anchor('template/share_course/'.$default_course, 'Share Default Course'); ?><br>&nbsp;
 </div>
 
 <div class="span-24 last error">

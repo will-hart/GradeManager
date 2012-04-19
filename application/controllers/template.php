@@ -26,7 +26,7 @@
 			$id OR redirect('dashboard');
 			
 			// get the yearlevel
-			$course = Model\Yearlevel::find($id);
+			$course = Model\Course::find($id);
 			
 			// check this user owns the course
 			if (!$this->usr->id == $course->users_id)
@@ -47,12 +47,14 @@
 			// now build and populate the template
 			$tmp = new Model\Template();
 			$tmp->users_id = $this->usr->id;
+			$tmp->title = $course->title;
 			$tmp-> template = $json;
 			
 			if($tmp->save())
 			{
+				$new_id = $this->db->insert_id();
 				$this->session->set_flashdata('success','Successfully generated template');
-				redirect('template/manage/'.Model\Template::last_created()->id);
+				redirect('template/edit/'.$new_id);
 			} 
 			else 
 			{

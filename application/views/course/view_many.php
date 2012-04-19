@@ -30,7 +30,10 @@
 					<?php 
 						if ($c->id !== $this->session->userdata('default_course'))
 						{
-							echo '|' . anchor('course/set_default/'.$c->id, 'Set as default');
+							echo ' | ' . anchor('course/set_default/'.$c->id, 'Set as default');
+						}
+						if ($this->session->userdata('default_course') !== FALSE) {
+							echo ' | ' . anchor('template/share_course/'.$c->id, 'Share Template'); 
 						}
 					?>
 				</td>
