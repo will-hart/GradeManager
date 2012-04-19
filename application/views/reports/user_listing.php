@@ -12,8 +12,8 @@
 	<tr>
 		<td><?php echo $u->id; ?></td>
 		<td><?php echo $u->username; ?></td>
-		<td><?php echo $u->registration_token_date; ?></td>
-		<td><?php echo "N/A"; ?></td>
+		<td><?php echo $u->created_on; ?></td>
+		<td><?php echo $u->last_login; ?></td>
 	</tr>
 	<?php endforeach; ?>
 
