@@ -88,12 +88,14 @@
 
 			$tmp = new Model\Template();
 			$tmp->users_id = $this->usr->id;
+			$tmp->title = $sub->title;
 			$tmp->template = $json;
 
 			if ($tmp->save())
 			{
+				$new_id = $this->db->insert_id();
 				$this->session->set_flashdata('success','Successfully generated template!');
-				redirect('template/manage/'.Model\Template::last_created()->id);
+				redirect('template/edit/'.$new_id);
 			}
 			else 
 			{
