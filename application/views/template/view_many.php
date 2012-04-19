@@ -20,7 +20,12 @@
 				<td><?php echo $t->course_name; ?></td>
 				<td><?php echo anchor('template/view/'.$t->id,$t->title); ?></td>
 				<td><?php echo $t->year_level; ?></td>
-				<td><?php echo anchor('template/install/'.$t->id,'Install'); ?></td>
+				<td><?php
+					echo anchor('template/install/'.$t->id,'Install'); 
+					if ($t->users_id == $user_id) {
+						echo ' | ' . anchor('template/edit/'.$t->id,'Edit');
+					}
+				?></td>
 			</tr>
 	<?php endforeach; ?>
 		</tbody>

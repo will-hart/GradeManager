@@ -146,6 +146,7 @@
 		public function index()
 		{
 			$data['templates'] = Model\Template::limit(20)->all();
+			$data['user_id'] = $this->usr->id;
 			$data['content'] = $this->load->view('template/view_many',$data,true);
 			$this->load->view('template',$data);			
 		}
@@ -281,10 +282,10 @@
 			$this->data['action'] = 'edit';
 			$this->data['content'] = $this->load->view('template/manage_single', $this->data, TRUE);
 		}
+		function _before_save() { return; }
+		function _after_save() { return; }
 
 		// define abstract methods
-		function _before_save() { throw new BadMethodCallException(); }
-		function _after_save() { throw new BadMethodCallException(); }
 		function _before_create() { throw new BadMethodCallException(); }
 		function _after_create() { throw new BadMethodCallException(); }
 		function _before_delete() { throw new BadMethodCallException(); }

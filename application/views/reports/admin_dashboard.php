@@ -23,13 +23,11 @@
 $points = '';
 $ticks = '';
 $i = 1;
-$bar_width = 0.35;
-$bar_center = 0.4;
 $max_y = 0;
 
 foreach($users as $u)
 {
-	$ticks .= "\n[".($i+$bar_center).", '".$u->date_registered."'],";
+	$ticks .= "\n[". $i .", '".$u->date_registered."'],";
 	$points .= "\nusers.push([$i,".$u->users."]);";
 	$max_y = ($max_y > $u->users ? $u->users : $max_y);
 	$i++;
@@ -49,9 +47,16 @@ foreach($users as $u)
 		var pane = $("#registrations_chart");
 		
 		// plot the chart
-		var plot = $.plot(pane,data, {
-				xaxis: { ticks: [ <?php echo $ticks; ?> ], min: 0, max: <?php echo $i; ?>, color: "#000000", tickColor: "#FFFFFF" },
-				yaxis: { min: 0 },
+		var plot = $.plot(pane, data, {
+				xaxis: { 
+					ticks: [ <?php echo $ticks; ?> ], 
+					min: 0, 
+					max: <?php echo $i; ?>, 
+					color: "#000000", 
+					tickColor: "#FFFFFF" },
+				yaxis: { 
+					min: 0
+				},
 			}
 		);
 	});
