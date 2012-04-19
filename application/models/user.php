@@ -34,7 +34,11 @@ class User extends ORM {
 			'forgot_pass_token'			=>		ORM::field('varchar[64]'),
 			'forgot_pass_token_date'	=>		ORM::field('datetime'),
 			'identifier' 				=> 		ORM::field('varchar[255]'),
+			'last_login'				=>		ORM::field('datetime'),
+			'created_on'				=> 		ORM::field('datetime'),
 		);
+		
+		$this->ts_fields = array('[created_on]');
 
 	}
 }

@@ -38,6 +38,11 @@ class AG_Auth_model extends CI_Model
 		return $result;
 	}
 	
+	public function save_login_time($user_id)
+	{
+		$this->db->set('last_login',strftime("%Y-%m-%d %H:%M"))->where('id',$user_id)->update('users');
+	}
+	
 	public function register($username, $password, $email, $token)
 	{
 		// load the string helper

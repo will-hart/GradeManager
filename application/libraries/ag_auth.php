@@ -170,6 +170,7 @@ class AG_Auth
 	{
 		$user['logged_in'] = TRUE;
 		$this->CI->session->set_userdata($user);
+		$this->CI->ag_auth_model->save_login_time($user['user_id']);
 	}
 	
 	
