@@ -85,6 +85,30 @@
 			$this->load->view('template', $this->data);
 		}
 		
+		/*
+		 * Show an admin dashboard report with a few key stats
+		 */
+		public function admin_dashboard()
+		{
+			// check we are an admin
+			if ($this->usr->group_id != Model\User::ADMINISTRATOR)
+			{
+				$this->session->set_flashdata('error','You do not have permission to view this report!');
+				redirect('reports');
+			}
+			
+			// get the users registering per week for the last year
+			$this->data['users'] = $this->db
+				->query('SELECT DATE_FORMAT(created_on, \'%x %v\') AS date_registered, COUNT(id) AS users '.
+						' FROM users '.
+						' WHERE created_on > CURRENT_DATE - INTERVAL 1 YEAR '.
+						' GROUP BY date_registered ORDER BY created_on ASC')
+				->result();
+			
+			// show teh views
+			$this->data['content'] = $this->load->view('reports/admin_dashboard', $this->data, TRUE);
+			$this->load->view('template', $this->data);
+		} 
 		
 		// define abstract methods
 		function _before_save() { throw new BadMethodCallException(); }
