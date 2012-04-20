@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2012 at 02:05 PM
+-- Generation Time: Apr 20, 2012 at 03:19 PM
 -- Server version: 5.1.61
 -- PHP Version: 5.3.6-13ubuntu3.6
 
@@ -13,6 +13,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `grades`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `api_logs`
+--
+
+DROP TABLE IF EXISTS `api_logs`;
+CREATE TABLE IF NOT EXISTS `api_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uri` varchar(255) NOT NULL,
+  `method` varchar(6) NOT NULL,
+  `params` text,
+  `api_key` varchar(40) NOT NULL,
+  `ip_address` varchar(15) NOT NULL,
+  `time` int(11) NOT NULL,
+  `authorized` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `api_logs`
+--
+
+INSERT INTO `api_logs` (`id`, `uri`, `method`, `params`, `api_key`, `ip_address`, `time`, `authorized`) VALUES
+(1, 'api/coursework', 'get', NULL, '', '127.0.0.1', 1334931495, 0);
 
 -- --------------------------------------------------------
 
@@ -35,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('825b21c42112d2cbd667b4c5fc2cb0ee', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19', 1334840709, 'a:2:{s:9:"user_data";s:0:"";s:13:"attempted_uri";s:7:"reports";}');
+('b48893a8372c6d138514ff6281156bb2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19', 1334931456, '');
 
 -- --------------------------------------------------------
 
@@ -274,15 +300,15 @@ CREATE TABLE IF NOT EXISTS `template` (
   `created_on` datetime NOT NULL,
   `modified_on` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `template`
 --
 
-INSERT INTO `template` (`id`, `users_id`, `school_name`, `course_name`, `title`, `year_level`, `template`, `created_on`, `modified_on`) VALUES
-(1, 1, 'Oxford Brookes', 'Motorsport Engineering', 'Complete Course', 1, '{ "template" : { "type" : "course", "data" : [{ "code" : "U04501", "title" : "Thermodynamics", "notes" : "", "coursework" : [ { "title" : "Lab: Losses", "due_date" : "2011-10-21", "notes" : "", "weighting" : "10"},{ "title" : "Lab: Flow", "due_date" : "2012-03-09", "notes" : "", "weighting" : "10"},{ "title" : "Xmas Coursework", "due_date" : "2012-01-30", "notes" : "", "weighting" : "5"},{ "title" : "Matlab", "due_date" : "2012-03-23", "notes" : "", "weighting" : "5"},{ "title" : "Exam", "due_date" : "2012-05-12", "notes" : "", "weighting" : "70"}]},{ "code" : "U04500", "title" : "Maths", "notes" : "", "coursework" : [ { "title" : "Test 1", "due_date" : "2011-11-07", "notes" : "", "weighting" : "5"},{ "title" : "Test 2", "due_date" : "2011-12-05", "notes" : "", "weighting" : "5"},{ "title" : "Test 3", "due_date" : "2012-03-09", "notes" : "", "weighting" : "5"},{ "title" : "Test 4", "due_date" : "2012-04-02", "notes" : "", "weighting" : "5"},{ "title" : "Mathcad", "due_date" : "2012-03-19", "notes" : "", "weighting" : "10"},{ "title" : "Exam", "due_date" : "2012-05-16", "notes" : "", "weighting" : "70"}]},{ "code" : "U04502", "title" : "Mechanics", "notes" : "", "coursework" : [ { "title" : "Lab: Strain", "due_date" : "2011-10-21", "notes" : "", "weighting" : "8"},{ "title" : "Lab: Stress", "due_date" : "2012-02-24", "notes" : "", "weighting" : "5"},{ "title" : "Xmas Coursework", "due_date" : "2012-01-30", "notes" : "", "weighting" : "9"},{ "title" : "Spud Gun", "due_date" : "2012-03-30", "notes" : "", "weighting" : "9"},{ "title" : "Exam", "due_date" : "2012-05-10", "notes" : "", "weighting" : "70"}]},{ "code" : "U04507", "title" : "Materials", "notes" : "", "coursework" : [ { "title" : "Autolab", "due_date" : "2011-12-16", "notes" : "", "weighting" : "20"},{ "title" : "LCA", "due_date" : "2011-12-16", "notes" : "", "weighting" : "10"},{ "title" : "EA1", "due_date" : "2012-03-30", "notes" : "", "weighting" : "20"},{ "title" : "Exam", "due_date" : "2012-05-18", "notes" : "", "weighting" : "50"}]},{ "code" : "U04560", "title" : "Graphics", "notes" : "", "coursework" : [ { "title" : "Quiz 1", "due_date" : "2011-12-01", "notes" : "", "weighting" : "30"},{ "title" : "Quiz 2", "due_date" : "2012-03-01", "notes" : "", "weighting" : "30"},{ "title" : "Quiz 3", "due_date" : "2012-04-21", "notes" : "", "weighting" : "40"}]},{ "code" : "U04600", "title" : "Electronics", "notes" : "", "coursework" : [ { "title" : "Quiz 1", "due_date" : "2012-03-30", "notes" : "", "weighting" : "8"},{ "title" : "Quiz 2", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 3", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 4", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 5", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 6", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 7", "due_date" : "2012-03-30", "notes" : "", "weighting" : "4"},{ "title" : "Quiz 8", "due_date" : "2012-03-30", "notes" : "", "weighting" : "8"},{ "title" : "Simulation", "due_date" : "2012-03-30", "notes" : "", "weighting" : "6"},{ "title" : "Lab Book", "due_date" : "2012-03-30", "notes" : "", "weighting" : "39"}]},{ "code" : "U05800", "title" : "Management", "notes" : "", "coursework" : [ { "title" : "Assignment", "due_date" : "2012-03-30", "notes" : "", "weighting" : "50"},{ "title" : "Exam", "due_date" : "2012-03-30", "notes" : "", "weighting" : "50"}]}]}}', '2012-03-30 07:22:43', '0000-00-00 00:00:00'),
-(2, 1, 'Oxford Brookes', 'Motorsport Engineering', 'U04501 Thermodynamics', 1, '{ "template" : { "type" : "subject", "data" : [{ "code" : "U04500", "title" : "Maths", "notes" : "", "coursework" : [ { "title" : "Test 1", "due_date" : "2011-11-07", "notes" : "", "weighting" : "5"},{ "title" : "Test 2", "due_date" : "2011-12-05", "notes" : "", "weighting" : "5"},{ "title" : "Test 3", "due_date" : "2012-03-09", "notes" : "", "weighting" : "5"},{ "title" : "Test 4", "due_date" : "2012-04-02", "notes" : "", "weighting" : "5"},{ "title" : "Mathcad", "due_date" : "2012-03-19", "notes" : "", "weighting" : "10"},{ "title" : "Exam", "due_date" : "2012-05-16", "notes" : "", "weighting" : "70"}]}]}}', '2012-03-30 07:22:51', '0000-00-00 00:00:00');
+INSERT INTO `template` (`id`, `users_id`, `school_name`, `course_name`, `title`, `year_level`, `is_official`, `is_course`, `template`, `created_on`, `modified_on`) VALUES
+(1, 1, 'Oxford Brookes', 'Motorsport Engineering', 'Complete Course', 1, 0, 0, '{ "template" : { "type" : "course", "data" : [{ "code" : "U04501", "title" : "Thermodynamics", "notes" : "", "coursework" : [ { "title" : "Lab: Losses", "due_date" : "2011-10-21", "notes" : "", "weighting" : "10"},{ "title" : "Lab: Flow", "due_date" : "2012-03-09", "notes" : "", "weighting" : "10"},{ "title" : "Xmas Coursework", "due_date" : "2012-01-30", "notes" : "", "weighting" : "5"},{ "title" : "Matlab", "due_date" : "2012-03-23", "notes" : "", "weighting" : "5"},{ "title" : "Exam", "due_date" : "2012-05-12", "notes" : "", "weighting" : "70"}]},{ "code" : "U04500", "title" : "Maths", "notes" : "", "coursework" : [ { "title" : "Test 1", "due_date" : "2011-11-07", "notes" : "", "weighting" : "5"},{ "title" : "Test 2", "due_date" : "2011-12-05", "notes" : "", "weighting" : "5"},{ "title" : "Test 3", "due_date" : "2012-03-09", "notes" : "", "weighting" : "5"},{ "title" : "Test 4", "due_date" : "2012-04-02", "notes" : "", "weighting" : "5"},{ "title" : "Mathcad", "due_date" : "2012-03-19", "notes" : "", "weighting" : "10"},{ "title" : "Exam", "due_date" : "2012-05-16", "notes" : "", "weighting" : "70"}]},{ "code" : "U04502", "title" : "Mechanics", "notes" : "", "coursework" : [ { "title" : "Lab: Strain", "due_date" : "2011-10-21", "notes" : "", "weighting" : "8"},{ "title" : "Lab: Stress", "due_date" : "2012-02-24", "notes" : "", "weighting" : "5"},{ "title" : "Xmas Coursework", "due_date" : "2012-01-30", "notes" : "", "weighting" : "9"},{ "title" : "Spud Gun", "due_date" : "2012-03-30", "notes" : "", "weighting" : "9"},{ "title" : "Exam", "due_date" : "2012-05-10", "notes" : "", "weighting" : "70"}]},{ "code" : "U04507", "title" : "Materials", "notes" : "", "coursework" : [ { "title" : "Autolab", "due_date" : "2011-12-16", "notes" : "", "weighting" : "20"},{ "title" : "LCA", "due_date" : "2011-12-16", "notes" : "", "weighting" : "10"},{ "title" : "EA1", "due_date" : "2012-03-30", "notes" : "", "weighting" : "20"},{ "title" : "Exam", "due_date" : "2012-05-18", "notes" : "", "weighting" : "50"}]},{ "code" : "U04560", "title" : "Graphics", "notes" : "", "coursework" : [ { "title" : "Quiz 1", "due_date" : "2011-12-01", "notes" : "", "weighting" : "30"},{ "title" : "Quiz 2", "due_date" : "2012-03-01", "notes" : "", "weighting" : "30"},{ "title" : "Quiz 3", "due_date" : "2012-04-21", "notes" : "", "weighting" : "40"}]},{ "code" : "U04600", "title" : "Electronics", "notes" : "", "coursework" : [ { "title" : "Quiz 1", "due_date" : "2012-03-30", "notes" : "", "weighting" : "8"},{ "title" : "Quiz 2", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 3", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 4", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 5", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 6", "due_date" : "2012-03-30", "notes" : "", "weighting" : "7"},{ "title" : "Quiz 7", "due_date" : "2012-03-30", "notes" : "", "weighting" : "4"},{ "title" : "Quiz 8", "due_date" : "2012-03-30", "notes" : "", "weighting" : "8"},{ "title" : "Simulation", "due_date" : "2012-03-30", "notes" : "", "weighting" : "6"},{ "title" : "Lab Book", "due_date" : "2012-03-30", "notes" : "", "weighting" : "39"}]},{ "code" : "U05800", "title" : "Management", "notes" : "", "coursework" : [ { "title" : "Assignment", "due_date" : "2012-03-30", "notes" : "", "weighting" : "50"},{ "title" : "Exam", "due_date" : "2012-03-30", "notes" : "", "weighting" : "50"}]}]}}', '2012-03-30 07:22:43', '2012-04-19 07:09:29'),
+(2, 1, 'Oxford Brookes', 'Motorsport Engineering', 'U04501 Thermodynamics', 1, 0, 0, '{ "template" : { "type" : "subject", "data" : [{ "code" : "U04500", "title" : "Maths", "notes" : "", "coursework" : [ { "title" : "Test 1", "due_date" : "2011-11-07", "notes" : "", "weighting" : "5"},{ "title" : "Test 2", "due_date" : "2011-12-05", "notes" : "", "weighting" : "5"},{ "title" : "Test 3", "due_date" : "2012-03-09", "notes" : "", "weighting" : "5"},{ "title" : "Test 4", "due_date" : "2012-04-02", "notes" : "", "weighting" : "5"},{ "title" : "Mathcad", "due_date" : "2012-03-19", "notes" : "", "weighting" : "10"},{ "title" : "Exam", "due_date" : "2012-05-16", "notes" : "", "weighting" : "70"}]}]}}', '2012-03-30 07:22:51', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -303,6 +329,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `forgot_pass_token` varchar(64) NOT NULL,
   `forgot_pass_token_date` datetime NOT NULL,
   `identifier` varchar(255) NOT NULL,
+  `key` varchar(40) NOT NULL,
+  `level` int(2) NOT NULL,
+  `ignore_limits` tinyint(1) NOT NULL,
   `last_login` datetime NOT NULL,
   `created_on` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -313,5 +342,5 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `group_id`, `token`, `registration_token`, `registration_token_date`, `forgot_pass_token`, `forgot_pass_token_date`, `identifier`, `last_login`, `created_on`) VALUES
-(1, 'WillHart', '11082131@brookes.ac.uk', '9a56d1a4a52b2eb3caee6bb5c811f202af7d8a08f3a7b5fb6f58ef4153e75201', 1, '', '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '2012-04-15 00:00:00');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `group_id`, `token`, `registration_token`, `registration_token_date`, `forgot_pass_token`, `forgot_pass_token_date`, `identifier`, `key`, `level`, `ignore_limits`, `last_login`, `created_on`) VALUES
+(1, 'WillHart', '11082131@brookes.ac.uk', '9a56d1a4a52b2eb3caee6bb5c811f202af7d8a08f3a7b5fb6f58ef4153e75201', 1, '', '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '', 'wh-api-key-test', 0, 0, '2012-04-19 18:58:00', '2012-04-15 00:00:00');
