@@ -61,7 +61,7 @@ class Api extends REST_Controller
 		$this->response($data, 200);
 	}
 	
-			
+	
 	/*
 	 * Gets either a single subject or a list of subjects.
 	 * A single subject is obtained if an id is passed in get variables
@@ -82,6 +82,34 @@ class Api extends REST_Controller
 		else {
 			$data = $this->db
 				->get('subject')
+				->result();
+		}
+		
+		// now return the response
+		$this->response($data, 200);
+	}
+	
+	
+	/*
+	 * Gets either a single course or a list of courses.
+	 * A single course is obtained if an id is passed in get variables
+	 */
+	function course_get()
+	{
+		
+		$data = NULL;
+		
+		// if an id was passed only return one record
+		if ($this->get('id'))
+		{
+			$data = $this->db
+				->where(array('id'=>$this->get('id')))
+				->get('course')
+				->result();
+		}
+		else {
+			$data = $this->db
+				->get('course')
 				->result();
 		}
 		
