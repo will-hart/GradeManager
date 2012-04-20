@@ -61,19 +61,24 @@ class Api extends REST_Controller
 		
 		$data = NULL;
 		
-		// if an id was passed only return one record
-		if ($this->get('id'))
+		// check if filters were passed
+		$get = $this->get();		
+		if (! empty($get) )
 		{
-			$data = $this->db
-				->where(array('id'=>$this->get('id')))
-				->get('coursework')
-				->result();
+			// parse the filters, checking they are in the whitelist first
+			foreach ($get as $key => $arg)
+			{
+				if (in_array($key, $this->filter_whitelist['coursework']))
+				{
+					$this->db->where($key, $arg);
+				}
+			}
 		}
-		else {
-			$data = $this->db
-				->get('coursework')
-				->result();
-		}
+		
+		//perform the query
+		$data = $this->db
+			->get('coursework')
+			->result();
 		
 		// now return the response
 		$this->response($data, 200);
@@ -89,19 +94,24 @@ class Api extends REST_Controller
 		
 		$data = NULL;
 		
-		// if an id was passed only return one record
-		if ($this->get('id'))
+		// check if filters were passed
+		$get = $this->get();		
+		if (! empty($get) )
 		{
-			$data = $this->db
-				->where(array('id'=>$this->get('id')))
-				->get('subject')
-				->result();
+			// parse the filters, checking they are in the whitelist first
+			foreach ($get as $key => $arg)
+			{
+				if (in_array($key, $this->filter_whitelist['subject']))
+				{
+					$this->db->where($key, $arg);
+				}
+			}
 		}
-		else {
-			$data = $this->db
-				->get('subject')
-				->result();
-		}
+		
+		//perform the query
+		$data = $this->db
+			->get('subject')
+			->result();
 		
 		// now return the response
 		$this->response($data, 200);
@@ -117,19 +127,24 @@ class Api extends REST_Controller
 		
 		$data = NULL;
 		
-		// if an id was passed only return one record
-		if ($this->get('id'))
+		// check if filters were passed
+		$get = $this->get();		
+		if (! empty($get) )
 		{
-			$data = $this->db
-				->where(array('id'=>$this->get('id')))
-				->get('course')
-				->result();
+			// parse the filters, checking they are in the whitelist first
+			foreach ($get as $key => $arg)
+			{
+				if (in_array($key, $this->filter_whitelist['course']))
+				{
+					$this->db->where($key, $arg);
+				}
+			}
 		}
-		else {
-			$data = $this->db
-				->get('course')
-				->result();
-		}
+		
+		//perform the query
+		$data = $this->db
+			->get('course')
+			->result();
 		
 		// now return the response
 		$this->response($data, 200);
