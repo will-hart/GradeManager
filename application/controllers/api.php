@@ -28,19 +28,24 @@ class Api extends REST_Controller
 		
 		$data = NULL;
 		
-		// if an id was passed only return one record
-		if ($this->get('id'))
+		// check if filters were passed
+		$get = $this->get();		
+		if (! empty($get) )
 		{
-			$data = $this->db
-				->where(array('id'=>$this->get('id')))
-				->get('users')
-				->result();
+			// parse the filters, checking they are in the whitelist first
+			foreach ($get as $key => $arg)
+			{
+				if (in_array($key, $this->filter_whitelist['user']))
+				{
+					$this->db->where($key, $arg);
+				}
+			}
 		}
-		else {
-			$data = $this->db
-				->get('users')
-				->result();
-		}
+		
+		//perform the query
+		$data = $this->db
+			->get('users')
+			->result();
 		
 		// now return the response
 		$this->response($data, 200);
