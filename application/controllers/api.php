@@ -30,6 +30,43 @@ class Api extends REST_Controller
 		"coursework" => array('title','due_date','alert_sent','status_id','notes','score','weighting'),
 	);
 	
+	/**
+	 * A variable to hold the user instance
+	 */
+	private $usr;
+	
+	/**
+	 * Calls the constructor - checks for API key or key get variable passed
+	 * 
+	 * TODO: GET access has been allowed during development but will be switched off during prod
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		
+		
+		// check if an API key was passed
+		if (! isset($_SERVER['X_API_KEY']) AND ! isset($_GET['API_KEY']))
+		{
+			// no API key was passed - disaster!!
+			$this->response(array('status'=>FALSE, 'error_message'=>'Unrecognised method'), 405);
+		}
+		else
+		{
+			// an api key was passed - lets see if it was valid
+			// start by getting the api key
+			$api_key = isset($_SERVER['X_API_KEY']) ? $_SERVER['X_API_KEY'] : $this->get('API_KEY');
+			
+			// see if we can find a corresponding user in the database
+			$this->usr = Model\User::find_by_api_key($api_key);
+			
+			// see if we found a user
+			if($this->usr == NULL OR empty($this->usr))
+				$this->response(array('status'=>FALSE, 'error_message'=>'API Authentication failed.  Access denied'), 401);
+		}
+		
+	}
+	
 	/*
 	 * Gets either a single user or a list of users.
 	 * A single user is obtained if an id is passed in get variables
