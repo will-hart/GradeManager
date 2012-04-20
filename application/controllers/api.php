@@ -7,6 +7,19 @@ class Api extends REST_Controller
 {
 	
 	/*
+	 * Add a filter whitelist which allows or restricts api filtering
+	 * by certain fields - note this is not for read/write, but GET 
+	 * method filtering only
+	 */
+	private $filter_whitelist = array(
+		"user" => array('id', 'username', 'email'),
+		"profile" => array('id', 'users_id', 'first_name','last_name','default_course','emails_allowed'),
+		"course" => array('id', 'users_id'),
+		"subject" => array('id','course_id','code','title'),
+		"coursework" => array('id', 'users_id', 'subject_id', 'title', 'due_date', 'status_id'),
+	);
+	
+	/*
 	 * Gets either a single user or a list of users.
 	 * A single user is obtained if an id is passed in get variables
 	 */
