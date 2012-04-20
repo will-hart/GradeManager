@@ -18,10 +18,15 @@ class Api extends REST_Controller
 		// if an id was passed only return one record
 		if ($this->get('id'))
 		{
-			$data = Model\User::find($this->get('id'));
+			$data = $this->db
+				->where(array('id'=>$this->get('id')))
+				->get('users')
+				->result();
 		}
 		else {
-			$data = Model\User::all();
+			$data = $this->db
+				->get('users')
+				->result();
 		}
 		
 		// now return the response
@@ -41,10 +46,15 @@ class Api extends REST_Controller
 		// if an id was passed only return one record
 		if ($this->get('id'))
 		{
-			$data = Model\Coursework::find($this->get('id'));
+			$data = $this->db
+				->where(array('id'=>$this->get('id')))
+				->get('coursework')
+				->result();
 		}
 		else {
-			$data = Model\Coursework::all();
+			$data = $this->db
+				->get('coursework')
+				->result();
 		}
 		
 		// now return the response
