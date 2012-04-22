@@ -329,9 +329,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `forgot_pass_token` varchar(64) NOT NULL,
   `forgot_pass_token_date` datetime NOT NULL,
   `identifier` varchar(255) NOT NULL,
-  `key` varchar(40) NOT NULL,
-  `level` int(2) NOT NULL,
+  `api_key` varchar(40) NOT NULL,
+  `api_level` int(2) NOT NULL,
   `ignore_limits` tinyint(1) NOT NULL,
+  `last_remote_update` datetime NOT NULL,
   `last_login` datetime NOT NULL,
   `created_on` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -342,5 +343,5 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `group_id`, `token`, `registration_token`, `registration_token_date`, `forgot_pass_token`, `forgot_pass_token_date`, `identifier`, `key`, `level`, `ignore_limits`, `last_login`, `created_on`) VALUES
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `group_id`, `token`, `registration_token`, `registration_token_date`, `forgot_pass_token`, `forgot_pass_token_date`, `identifier`, `api_key`, `api_level`, `ignore_limits`, `last_login`, `created_on`) VALUES
 (1, 'WillHart', '11082131@brookes.ac.uk', '9a56d1a4a52b2eb3caee6bb5c811f202af7d8a08f3a7b5fb6f58ef4153e75201', 1, '', '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '', 'wh-api-key-test', 0, 0, '2012-04-19 18:58:00', '2012-04-15 00:00:00');
