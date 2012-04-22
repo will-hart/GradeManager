@@ -43,7 +43,7 @@ class Api extends REST_Controller
 	public function __construct()
 	{
 		parent::__construct();
-				
+		
 		// check if an API key was passed
 		if (! isset($_SERVER['HTTP_X_API_KEY']) AND $this->get('API_KEY') === FALSE)
 		{
@@ -58,12 +58,31 @@ class Api extends REST_Controller
 			
 			// see if we can find a corresponding user in the database
 			$this->usr = Model\User::find_by_api_key($api_key);
-			
-			// see if we found a user
-			if($this->usr == NULL OR empty($this->usr))
-				$this->response(array('status'=>FALSE, 'error_message'=>'API Authentication failed.  Access denied'), 401);
 		}
 		
+		// if we found a user, save the recored
+		$this->usr = $this->usr[0];
+		
+		// see if we found a user - this will deny all access apart from 
+		// register_post and login_get without an API key
+		if ($this->uri->segment(2) !== "register" AND $this->uri->segment(2) !== "login")
+		{
+			if(is_null($this->usr) OR empty($this->usr)) 
+			{
+				$this->response(array('status'=>FALSE, 'error_message'=>'API Authentication failed.  Access denied'), 401);
+				exit();
+			}
+		}
+	}
+	
+	
+	/*
+	 * Gets the GMT time that this user last updated a record online 
+	 */
+	function last_update_get()
+	{
+		$time_ud = $this->usr->last_remote_update;
+		$this->response(array('status'=>TRUE, 'last_update_time'=>$time_ud));
 	}
 	
 	/*
