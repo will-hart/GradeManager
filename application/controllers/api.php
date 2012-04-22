@@ -46,7 +46,7 @@ class Api extends REST_Controller
 		
 		
 		// check if an API key was passed
-		if (! isset($_SERVER['X_API_KEY']) AND ! isset($_GET['API_KEY']))
+		if (! isset($_SERVER['X_API_KEY']) AND $this->get('API_KEY') === FALSE)
 		{
 			// no API key was passed - disaster!!
 			$this->response(array('status'=>FALSE, 'error_message'=>'Unrecognised method'), 405);
