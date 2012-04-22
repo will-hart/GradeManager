@@ -26,7 +26,7 @@ class User extends ORM {
 		self::$fields = array(
 			'id' 						=> 		ORM::field('auto[10]'),
 			'username' 					=> 		ORM::field('char[255]'),
-			'email'						=>		ORM::filed('char[255]'),
+			'email'						=>		ORM::field('char[255]'),
 			'password' 					=> 		ORM::field('char[255]'),
 			'group_id' 					=> 		ORM::field('int[11]'),
 			'token' 					=> 		ORM::field('char[255]'),
