@@ -49,7 +49,8 @@ class Api extends REST_Controller
 		if (! isset($_SERVER['X_API_KEY']) AND $this->get('API_KEY') === FALSE)
 		{
 			// no API key was passed - disaster!!
-			$this->response(array('status'=>FALSE, 'error_message'=>'Unrecognised method'), 405);
+			// TODO: Get rid of "other" response field
+			$this->response(array('status'=>FALSE, 'error_message'=>'Unrecognised method', 'other' => $this->get('API_KEY')), 405);
 		}
 		else
 		{
