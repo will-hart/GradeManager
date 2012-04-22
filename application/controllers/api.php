@@ -43,20 +43,19 @@ class Api extends REST_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
-		
+				
 		// check if an API key was passed
-		if (! isset($_SERVER['X_API_KEY']) AND $this->get('API_KEY') === FALSE)
+		if (! isset($_SERVER['HTTP_X_API_KEY']) AND $this->get('API_KEY') === FALSE)
 		{
 			// no API key was passed - disaster!!
 			// TODO: Get rid of "other" response field
-			$this->response(array('status'=>FALSE, 'error_message'=>'Unrecognised method', 'other' => $_SERVER['X_API_KEY']), 405);
+			$this->response(array('status'=>FALSE, 'error_message'=>'Unrecognised method', 'other' => $_SERVER['HTTP_X_API_KEY']), 405);
 		}
 		else
 		{
 			// an api key was passed - lets see if it was valid
 			// start by getting the api key
-			$api_key = isset($_SERVER['X_API_KEY']) ? $_SERVER['X_API_KEY'] : $this->get('API_KEY');
+			$api_key = isset($_SERVER['HTTP_X_API_KEY']) ? $this->input->server('X_API_KEY') : $this->get('API_KEY');
 			
 			// see if we can find a corresponding user in the database
 			$this->usr = Model\User::find_by_api_key($api_key);
