@@ -3,11 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
-<<<<<<< HEAD
--- Generation Time: Apr 20, 2012 at 03:19 PM
-=======
 -- Generation Time: Apr 23, 2012 at 06:15 PM
->>>>>>> 4dc44dfe2d5480db7b20b05c4cd1ce418b30a5d7
 -- Server version: 5.1.61
 -- PHP Version: 5.3.6-13ubuntu3.6
 
@@ -65,12 +61,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-<<<<<<< HEAD
-('b48893a8372c6d138514ff6281156bb2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19', 1334931456, '');
-=======
 ('b48893a8372c6d138514ff6281156bb2', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19', 1334931456, ''),
 ('09d655f22a9b24dcbfb50e29e858adc8', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19', 1335201249, 'a:19:{s:9:"user_data";s:0:"";s:8:"username";s:8:"WillHart";s:5:"email";s:22:"11082131@brookes.ac.uk";s:8:"group_id";s:1:"1";s:5:"token";s:0:"";s:18:"registration_token";s:0:"";s:23:"registration_token_date";s:19:"0000-00-00 00:00:00";s:17:"forgot_pass_token";s:0:"";s:22:"forgot_pass_token_date";s:19:"0000-00-00 00:00:00";s:10:"identifier";s:0:"";s:7:"api_key";s:15:"wh-api-key-test";s:9:"api_level";s:1:"0";s:13:"ignore_limits";s:1:"0";s:18:"last_remote_update";s:19:"0000-00-00 00:00:00";s:10:"last_login";s:19:"2012-04-19 18:58:00";s:10:"created_on";s:19:"2012-04-15 00:00:00";s:7:"user_id";s:1:"1";s:9:"logged_in";b:1;s:14:"default_course";s:1:"1";}');
->>>>>>> 4dc44dfe2d5480db7b20b05c4cd1ce418b30a5d7
 
 -- --------------------------------------------------------
 
@@ -352,10 +344,5 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-<<<<<<< HEAD
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `group_id`, `token`, `registration_token`, `registration_token_date`, `forgot_pass_token`, `forgot_pass_token_date`, `identifier`, `api_key`, `api_level`, `ignore_limits`, `last_login`, `created_on`) VALUES
-(1, 'WillHart', '11082131@brookes.ac.uk', '9a56d1a4a52b2eb3caee6bb5c811f202af7d8a08f3a7b5fb6f58ef4153e75201', 1, '', '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '', 'wh-api-key-test', 0, 0, '2012-04-19 18:58:00', '2012-04-15 00:00:00');
-=======
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `group_id`, `token`, `registration_token`, `registration_token_date`, `forgot_pass_token`, `forgot_pass_token_date`, `identifier`, `api_key`, `api_level`, `ignore_limits`, `last_remote_update`, `last_login`, `created_on`) VALUES
 (1, 'WillHart', '11082131@brookes.ac.uk', '9a56d1a4a52b2eb3caee6bb5c811f202af7d8a08f3a7b5fb6f58ef4153e75201', 1, '', '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '', 'wh-api-key-test', 0, 0, '0000-00-00 00:00:00', '2012-04-23 18:14:00', '2012-04-15 00:00:00');
->>>>>>> 4dc44dfe2d5480db7b20b05c4cd1ce418b30a5d7
