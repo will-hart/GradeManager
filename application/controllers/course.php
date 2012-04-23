@@ -88,9 +88,20 @@
 				$s->delete();
 			}
 			
+			// check how many courses the user has left
+			$c = $this->db
+				->select('COUNT(id) AS num')
+				->where('users_id', $this->usr->id)
+				->get('course')
+				->result();
+			
+			$no_courses_left = FALSE;
+			if(empty($c) OR $c[0]->num == 0) {
+				$no_courses_left = TRUE;
+			}
+			
 			// check if we deleted the user's default course
-			if ($this->course_id == $this->session->userdata('default_course'))
-			{
+			if ($this->course_id == $this->session->userdata('default_course') OR $no_courses_left) {
 				$profile = $this->usr->profile();
 				$profile->default_course = 0;
 				$profile->first_login = 1;
