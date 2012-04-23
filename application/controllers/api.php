@@ -110,6 +110,7 @@ class Api extends REST_Controller
 		
 		//perform the query
 		$data = $this->db
+			->where('id', $this->usr->id)
 			->get('users')
 			->result();
 		
@@ -142,6 +143,7 @@ class Api extends REST_Controller
 		
 		//perform the query
 		$data = $this->db
+			->where('users_id', $this->usr->id)
 			->get('coursework')
 			->result();
 		
@@ -220,6 +222,7 @@ class Api extends REST_Controller
 		
 		//perform the query
 		$data = $this->db
+			->where('users_id', $this->usr->id)
 			->get('subject')
 			->result();
 		
@@ -253,6 +256,7 @@ class Api extends REST_Controller
 		
 		//perform the query
 		$data = $this->db
+			->where('users_id', $this->usr->id)
 			->get('course')
 			->result();
 		
