@@ -8,7 +8,7 @@
 		echo img($img);
 	?>
 
-	<form method="post">
+	<form method="post" style="float:right;">
 	<?php if(empty($username)) { ?>
 	Username:<br />
 	<input type="text" name="username" size="50" class="form" value="<?php echo set_value('username'); ?>" /><br /><?php echo form_error('username', '<div class="error">','</div>'); ?><br />
