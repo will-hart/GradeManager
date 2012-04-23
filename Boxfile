@@ -19,8 +19,10 @@ web1:
     - "mv pagoda/config/config.php application/config/config.php"
   
   before_deploy:
-    # Import sample database file
-    - "mysql -v -h $DB1_HOST --port $DB1_PORT -u $DB1_USER -p$DB1_PASS $DB1_NAME < /var/www/pagoda/db_fixtures.sql"
+    # Import sample database file - fixtures no longer required
+    # Current DB version @ gradekeep.com is v1 loaded from db_fixtures.sql below:
+    # - "mysql -v -h $DB1_HOST --port $DB1_PORT -u $DB1_USER -p$DB1_PASS $DB1_NAME < /var/www/pagoda/db_fixtures.sql"
+    # for future versions, a migration script will be used
 
 db1:
   name: blog
