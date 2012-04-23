@@ -78,10 +78,10 @@
 		public function _after_delete()
 		{
 			// now remove remaining objects tied to this course
-			foreach($subject as $s)
+			foreach($this->subjects as $s)
 			{
 				$courseworks = $s->coursework();
-				foreach($coursework as $c)
+				foreach($courseworks as $c)
 				{
 					$c->delete();
 				}
