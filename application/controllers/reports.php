@@ -33,12 +33,16 @@
 		/*
 		 * Show a list of all outstanding assessments
 		 */
-		public function outstanding()
+		public function outstanding($course_id = null)
 		{
-			$this->data['courseworks'] = Model\Coursework::where( array(
+			// set up the default filters
+			$filter = array(
 				'users_id' => $this->usr->id,
-				'status_id <= ' => Model\Status::HANDED_IN,
-			))
+				'status_id < ' => Model\Status::HANDED_IN,
+			);
+			
+			// get the coursework
+			$this->data['courseworks'] = Model\Coursework::where($filter)
 			->order_by('due_date','ASC')
 			->all();
 			
