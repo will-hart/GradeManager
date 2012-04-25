@@ -3,6 +3,7 @@
 	
 	class Manage extends CI_Controller {
 			
+		private $usr;
 		
 		public function __construct()
 		{
@@ -12,6 +13,16 @@
 			// load the email library
 			$this->load->library('PostageApp');
 			$this->load->library('ag_auth');
+			
+			// get the user record if there is one
+			if (! isset($this->session->userdata['user_id']))
+			{
+				$this->usr = null;
+			} 
+			else 
+			{
+				$this->usr = Model\User::find($this->session->userdata['user_id']);
+			}
 		}
 	
 	
@@ -40,8 +51,9 @@
 			
 			// NOW: 
 			// check that we are an admin user and send the alerts
-			if ($this->usr->group_id != Model\User::ADMINISTRATOR)
+			if ($this->usr == null OR $this->usr->group_id != Model\User::ADMINISTRATOR)
 			{
+				die($this->usr->group_id . " " + Model\User::ADMINISTRATOR);
 				$this->session->set_flashdata('error', 'You attempted to access a report that you don\'t have permission to access!');
 				redirect('reports');
 			}
