@@ -33,9 +33,18 @@
 		public function send_alerts()
 		{
 			
+			// FUTURE:
 			// firstly check if this is being called from the command line
 			// as this should only be run by CRON or a pagoda background worker
-			if (! $this->input->is_cli_request()) die("No direct access allowed");
+			//if (! $this->input->is_cli_request()) die("No direct access allowed");
+			
+			// NOW: 
+			// check that we are an admin user and send the alerts
+			if ($this->usr->group_id != Model\User::ADMINISTRATOR)
+			{
+				$this->session->set_flashdata('error', 'You attempted to access a report that you don\'t have permission to access!');
+				redirect('reports');
+			}
 			
 			// get all the coursework needing an alert
 			$coursework = Model\Coursework::where(array(
