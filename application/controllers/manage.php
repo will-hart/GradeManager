@@ -32,6 +32,12 @@
 		 */
 		public function send_alerts()
 		{
+			
+			// firstly check if this is being called from the command line
+			// as this should only be run by CRON or a pagoda background worker
+			if (! $this->input->is_cli_request()) die("No direct access allowed");
+			
+			// get all the coursework needing an alert
 			$coursework = Model\Coursework::where(array(
 				'status_id <' => Model\Status::HANDED_IN,
 				'due_date <=' => addDays(5,time('Y-m-d')),
@@ -41,12 +47,11 @@
 				
 			$total_cw = 0;
 			$email_cw = 0;
-
 			
 			// loop through our coursework and set the alert
 			foreach($coursework as $cw)
 			{
-				if ($this->usr->profile()->emails_allowed)
+				if ($cw->user()->profile()->emails_allowed)
 				{
 					// send the email
 					$this->postageapp->from('info@gradekeep.com');
@@ -64,11 +69,15 @@
 				}
 				
 				// flag the alert as sent regardless of whether an email was sent
+				// so that we don't have to handle it every time
 				$cw->alert_sent = 1;
 				$cw->save(); 
 				
 				$total_cw++;
 			}
+			
+			echo "$total_cw coursework records required alert, sent $email_cw emails";
+			return;
 		}
 
 		public function unsubscribe($code = NULL)
