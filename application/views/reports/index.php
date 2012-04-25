@@ -21,6 +21,7 @@
 	Some basic administrative reports to track the application's health
 </p>
 <ul>
+	<li><?php echo anchor('manage/send_alerts','Send email alerts'); ?> - alert users about upcoming coursework</li>
 	<li><?php echo anchor('reports/registered_users', 'Registered Users'); ?> - a list of registered users with some key stats</li>
 	<li><?php echo anchor('reports/admin_dashboard', 'Admin Dashboard'); ?> - some headline administrative stats</li>
 </ul>
