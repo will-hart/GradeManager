@@ -1,8 +1,5 @@
 web1:
-  name: codeigniter
-  
-  cron:
-    - "0 * * * *": "wget -v -O application/logs/cron.log 'http://grades.pagodabox.com/index.php/manage/send_alerts'"
+  name: GradeKeep
   
   shared_writable_dirs: 
     - application/cache
@@ -25,4 +22,4 @@ web1:
     # for future versions, a migration script will be used
 
 db1:
-  name: blog
+  name: grades

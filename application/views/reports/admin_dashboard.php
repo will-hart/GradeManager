@@ -42,7 +42,7 @@ foreach($users as $u)
 		<?php echo $points; ?>
 		
 		// build the data
-		var data = [{ data: users, label: "Registrations per Month", color: "#40C3DF" }];
+		var data = [{ data: users, label: "Registrations per Week", color: "#40C3DF" }];
 		
 		var pane = $("#registrations_chart");
 		
