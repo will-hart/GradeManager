@@ -57,15 +57,16 @@
 			<?php echo $content; ?>
 		</div>
 		
-		<div id="footer">
-			If you found GradeKeep useful, please consider donating - any amount helps!
+		<div id="footer">		
+			<p>GradeKeep 1.0 is open source software by William Hart.  You can find out more by visiting <a href="http://www.williamhart.info/software/gradekeep">http://www.williamhart.info/software/gradekeep</a>.</p>
+
+			If you found GradeKeep useful, please consider supporting it!
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 				<input type="hidden" name="cmd" value="_s-xclick">
 				<input type="hidden" name="hosted_button_id" value="92UZ5RC7NJUVS">
 				<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
 				<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
 			</form>
-
 		</div>
 	
 	</body>

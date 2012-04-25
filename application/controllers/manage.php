@@ -3,6 +3,7 @@
 	
 	class Manage extends CI_Controller {
 			
+		private $usr;
 		
 		public function __construct()
 		{
@@ -12,6 +13,16 @@
 			// load the email library
 			$this->load->library('PostageApp');
 			$this->load->library('ag_auth');
+			
+			// get the user record if there is one
+			if (! isset($this->session->userdata['user_id']))
+			{
+				$this->usr = null;
+			} 
+			else 
+			{
+				$this->usr = Model\User::find($this->session->userdata['user_id']);
+			}
 		}
 	
 	
@@ -32,6 +43,22 @@
 		 */
 		public function send_alerts()
 		{
+			
+			// FUTURE:
+			// firstly check if this is being called from the command line
+			// as this should only be run by CRON or a pagoda background worker
+			//if (! $this->input->is_cli_request()) die("No direct access allowed");
+			
+			// NOW: 
+			// check that we are an admin user and send the alerts
+			if ($this->usr == null OR $this->usr->group_id != Model\User::ADMINISTRATOR)
+			{
+				die($this->usr->group_id . " " + Model\User::ADMINISTRATOR);
+				$this->session->set_flashdata('error', 'You attempted to access a report that you don\'t have permission to access!');
+				redirect('reports');
+			}
+			
+			// get all the coursework needing an alert
 			$coursework = Model\Coursework::where(array(
 				'status_id <' => Model\Status::HANDED_IN,
 				'due_date <=' => addDays(5,time('Y-m-d')),
@@ -41,12 +68,11 @@
 				
 			$total_cw = 0;
 			$email_cw = 0;
-
 			
 			// loop through our coursework and set the alert
 			foreach($coursework as $cw)
 			{
-				if ($this->usr->profile()->emails_allowed)
+				if ($cw->user()->profile()->emails_allowed)
 				{
 					// send the email
 					$this->postageapp->from('info@gradekeep.com');
@@ -64,11 +90,15 @@
 				}
 				
 				// flag the alert as sent regardless of whether an email was sent
+				// so that we don't have to handle it every time
 				$cw->alert_sent = 1;
 				$cw->save(); 
 				
 				$total_cw++;
 			}
+			
+			echo "$total_cw coursework records required alert, sent $email_cw emails";
+			return;
 		}
 
 		public function unsubscribe($code = NULL)
