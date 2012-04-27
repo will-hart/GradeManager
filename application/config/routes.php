@@ -39,7 +39,7 @@
 */
 
 $route['default_controller'] = "welcome";
-$route['404_override'] = 'error/error_404';
+$route['404_override'] = '';
 
 // BEGIN AUTHENTICATION LIBRARY ROUTES
 $route['login'] = "admin/admin/login";
