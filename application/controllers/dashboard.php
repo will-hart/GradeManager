@@ -15,6 +15,7 @@
 	
 		public function index()
 		{
+			
 			// build the data used in the dashboard
 			$data['username'] = $this->usr->username;
 			$data['subjects'] = Model\Subject::where(array(

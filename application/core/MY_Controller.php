@@ -40,17 +40,25 @@ abstract class Application extends CI_Controller
 		// get the user and default_course if we are logged in
 		if ($this->ag_auth->logged_in()) {
 			// get the user object
-			$this->usr = Model\User::find($this->session->userdata("user_id"));
+			$this->usr = Model\User::find($this->session->userdata("user_id"))->with('profile');
 
 			// if we are logged in set the default_course id
 			$this->session->set_userdata('default_course', $this->usr->profile()->default_course);
 			
-			// check if this is the user's first login and redirect
-			if ($this->usr->profile()->first_login == '1') 
+			// check if this is the user's first login and redirect to setup if it is
+			if ($this->usr->profile()->first_login == 1 && $this->uri->segment(1) !== 'profile') 
 			{
-				//$this->session->set_flashdata('notice',"You don't currently have a default course! Please create one or set one from the 'View Courses' link");
-				//if ($this->uri->segment(1) == 'dashboard') redirect('profile');
 				redirect('profile/setup');
+			}
+			
+			// check if the user has a default course set and we aren't accessing the profile
+			// or a top level course
+			if ($this->usr->profile()->default_course < 1
+				&& $this->uri->segment(1) !== 'profile' 
+				&& $this->uri->segment(1) !== 'course')
+			{
+				$this->session->set_flashdata('error','You don\'t currently have a default course set.  Please set one, or create or install a new course');
+				redirect('profile');
 			}
 		}
 		
