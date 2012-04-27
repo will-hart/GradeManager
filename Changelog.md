@@ -33,6 +33,7 @@ Version 1.1
 \# Confirm with a user before sharing a course/subject template<br>
 \# Improve new user registration - prompt for allowing email alerts on first login
 \# Installing a course template now gives you the option to set it as your default
+\# Remove empty data tables if now subjects/coursework/courses found
 
 
 Version 1.0

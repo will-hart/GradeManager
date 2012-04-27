@@ -58,6 +58,7 @@ abstract class Application extends CI_Controller
 			if ($this->usr->profile()->default_course < 1
 				&& $this->uri->segment(1) !== 'profile' 
 				&& $this->uri->segment(1) !== 'course'
+				&& $this->uri->segment(1) !== 'template'
 				&& $this->uri->segment(1) !== 'logout')
 			{
 				$this->session->set_flashdata('error','You don\'t currently have a default course set.  Please set one, or create or install a new course');

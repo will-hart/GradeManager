@@ -1,4 +1,5 @@
 <div class="span-24 last">
+	<?php if (!empty($courseworks) AND $courseworks != NULL) : ?>
 	<table>
 		<thead>
 			<tr>
@@ -26,4 +27,6 @@
 	<?php endforeach; ?>
 		</tbody>
 	</table>
+	
+	<?php endif; ?>
 </div>
