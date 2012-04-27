@@ -28,6 +28,7 @@ Version 1.1
 \# Update footer text to show link to support pages<br>
 \# Enhance security on email alert sending<br>
 \# Enhance subject / course sharing<br>
+\# Confirm with a user before sharing a course/subject template<br>
 \# Improve new user registration - prompt for allowing email alerts on first login
 
 
