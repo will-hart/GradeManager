@@ -61,7 +61,7 @@
 			// get all the coursework needing an alert
 			$coursework = Model\Coursework::where(array(
 				'status_id <' => Model\Status::HANDED_IN,
-				'due_date <=' => addDays(5,time('Y-m-d')),
+				'due_date <=' => strftime("%Y-%m-%d", addDays(Model\Coursework::STANDARD_ALERT_DAYS,time('Y-m-d'))),
 				'alert_sent' => 0))
 				->with('users')
 				->all();
