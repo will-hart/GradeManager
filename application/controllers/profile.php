@@ -66,6 +66,29 @@
 			$this->load->view('template', $data);
 		}
 		
+		/** 
+		 * Allow the user to update their password
+		 */
+		public function change_password()
+		{
+			// generate a new forgot_pass_token for the database
+			$this->load->helper('string');
+			$token = random_string('sha1',64);
+			$this->usr->forgot_pass_token = $token;
+			$this->usr->forgot_pass_token_date = time();
+		
+			// attempt to save the password forgotten token to the user record
+			if ($this->usr->save())
+			{
+				redirect('manage/do_password_reset/'.$token);
+			}
+			else
+			{
+				$this->session->set_flashdata('error','Unable to reset password, please try again');
+				redirect('profile');
+			}
+		}
+		
 		/**
 		 * A function to enable email alerts for the logged in user
 		 * and remove the "first_login" flag

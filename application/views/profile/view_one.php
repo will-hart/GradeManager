@@ -86,14 +86,29 @@
 	<?php if (isset($default_course)) echo anchor('template/share_course/'.$default_course, 'Share Default Course'); ?><br>&nbsp;
 </div>
 
+<div class="span-24">
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+</div>
+
+<hr>
+
 <div class="span-24 last error">
 	<h2 class="fancy">Danger Zone</h2>
+	<p>The options below are dangerous!! Be very careful before you click any buttons...</p>
+</div>
+
+<hr>
+<div class="span-24">
+	<p><?php echo anchor('profile/change_password', 'Click here to change your password'); ?></p>
+</div>
+
+<hr>
+
+<div class="span-24">
 	<p>If you want to close your account and delete all your personal information all you need to do is click the link below.</p>
 
 	<p><strong>Warning</strong>, if you do this then all of your data will be deleted and <strong>can not be recovered</strong>.  Please be certain before you proceed.</p>
 	<a class="button negative" href="profile/delete/<?php echo $user_id; ?>">Delete your profile</a>
 	<p>&nbsp;</p>
 </div>
-
-
-
