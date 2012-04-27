@@ -104,7 +104,6 @@
 			if ($this->course_id == $this->session->userdata('default_course') OR $no_courses_left) {
 				$profile = $this->usr->profile();
 				$profile->default_course = 0;
-				$profile->first_login = 1;
 				$profile->save();
 			}
 			
