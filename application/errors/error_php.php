@@ -1,10 +1,8 @@
-<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+<?php 
+$error_title = "A PHP Error was Encountered";
+$error_message = "Severity: $severity<br>";
+$error_message .= "Message: $message<br>";
+$error_message .= "Filename: $filepath <br>";
+$error_message .= "Line Number: $line <br>";
 
-<h4>A PHP Error was encountered</h4>
-
-<p>Severity: <?php echo $severity; ?></p>
-<p>Message:  <?php echo $message; ?></p>
-<p>Filename: <?php echo $filepath; ?></p>
-<p>Line Number: <?php echo $line; ?></p>
-
-</div>
+include_once('error_template.php');
