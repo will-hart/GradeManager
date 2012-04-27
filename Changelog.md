@@ -9,6 +9,14 @@ GradeKeep Change log
 >  \# Enhancement
 
 
+Version 2.0
+-----------
+
+*Unreleased*
+
+This version adds significant improvements including a public API and 
+a more advanced template engine.
+
 
 Version 1.1
 -----------
