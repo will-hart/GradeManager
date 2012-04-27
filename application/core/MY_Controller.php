@@ -48,8 +48,9 @@ abstract class Application extends CI_Controller
 			// check if this is the user's first login and redirect
 			if ($this->usr->profile()->first_login == '1') 
 			{
-				$this->session->set_flashdata('notice',"You don't currently have a default course! Please create one or set one from the 'View Courses' link");
-				if ($this->uri->segment(1) == 'dashboard') redirect('profile');
+				//$this->session->set_flashdata('notice',"You don't currently have a default course! Please create one or set one from the 'View Courses' link");
+				//if ($this->uri->segment(1) == 'dashboard') redirect('profile');
+				redirect('profile/setup');
 			}
 		}
 		

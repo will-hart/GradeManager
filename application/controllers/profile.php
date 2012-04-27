@@ -33,7 +33,6 @@
 				$data['profile']->last_name = $this->input->post('last_name');
 				$data['profile']->default_course = $this->input->post('default_course');
 				$data['profile']->emails_allowed = $this->input->post('emails_allowed') == 1 ? 1 : 0;
-				$data['profile']->first_login = 0;
 				
 				// attempt to save
 				if ($data['profile']->save(TRUE))
@@ -58,7 +57,38 @@
 			$this->load->view('template',$data);
 		}
 
-
+		/**
+		 * Shown on the first login to setup a profile
+		 */
+		public function setup()
+		{
+			$data['content'] = $this->load->view('profile/ask_about_alerts', NULL, TRUE);
+			$this->load->view('template', $data);
+		}
+		
+		/**
+		 * A function to enable email alerts for the logged in user
+		 * and remove the "first_login" flag
+		 */
+		public function enable_alerts($yes_to_emails = 0)
+		{
+			// update the user record
+			$profile = $this->usr->profile();
+			$profile->emails_allowed = $yes_to_emails;
+			$profile->first_login = 0;
+			
+			// try to save
+			if ($profile->save()) 
+			{
+				$this->session->set_flashdata('success','Emails have been activated! Get started by creating or installing a course below.');
+				redirect('profile');
+			} 
+			else 
+			{
+				$this->session->set_flashdata('error','There was an error updating your profile.  Please try again');
+				redirect('profile/setup');
+			}
+		}
 
 		/*
 		 * Delete a profile and all the associated data - do not use
