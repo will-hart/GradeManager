@@ -20,6 +20,7 @@ Version 1.1
 \+ Add a link to send email alerts on admin dashboard<br>
 \+ Allow users to change their password from their profile<br>
 \+ Added pretty error pages
+\+ Allow filtering of reports by course
 
 \* Fix incorrect chart text in admin dashboard charts<br>
 \* Deleting courses now deletes all subjects and coursework<br>
