@@ -32,19 +32,35 @@
 		
 		/*
 		 * Show a list of all outstanding assessments
+		 * 
+		 * @param course_id an integer id of a course. if null, all outstanding coursework is retrieved
 		 */
 		public function outstanding($course_id = null)
 		{
 			// set up the default filters
 			$filter = array(
-				'users_id' => $this->usr->id,
+				'coursework.users_id' => $this->usr->id,
 				'status_id < ' => Model\Status::HANDED_IN,
 			);
 			
-			// get the coursework
-			$this->data['courseworks'] = Model\Coursework::where($filter)
-			->order_by('due_date','ASC')
-			->all();
+			if ($course_id == null) {
+				// get the coursework
+				$this->data['courseworks'] = Model\Coursework::where($filter)
+					->order_by('due_date','ASC')
+					->all();
+			} 
+			else 
+			{
+				// add our course_id to the filter
+				$filter['subject.course_id'] = $course_id;
+				
+				// now get the extended query - use the CI active record class for now
+				$this->data['courseworks'] = Model\Coursework::select('coursework.*')
+					->join('subject','subject.id = coursework.subject_id')
+					->where($filter)
+					->order_by('due_date','ASC')
+					->all();
+			}
 			
 			// now load the views
 			$this->data['content'] = $this->load->view('reports/outstanding',$this->data,TRUE);
