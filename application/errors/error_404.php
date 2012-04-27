@@ -5,7 +5,7 @@ $error_type = "Page not found";
 $error_message = <<<CODE
 
 	<div class="span-16">
-		<img src="$basepath/assets/images/GradeKeepShieldKnight" alt=""/></div>
+		<img src="$basepath/assets/images/GradeKeepShieldKnight.png" alt=""/></div>
 
 		<div class="span-8 last">
 			<h1>None Shall Pass!!</h1>
