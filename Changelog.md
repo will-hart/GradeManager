@@ -16,9 +16,10 @@ Version 1.1
 
 *Unreleased* 
 
-\+ Added this change log!
-\+ Add a link to send email alerts on admin dashboard
-\+ Allow users to change their password from their profile
+\+ Added this change log!<br>
+\+ Add a link to send email alerts on admin dashboard<br>
+\+ Allow users to change their password from their profile<br>
+\+ Added pretty error pages
 
 \* Fix incorrect chart text in admin dashboard charts<br>
 \* Deleting courses now deletes all subjects and coursework<br>
