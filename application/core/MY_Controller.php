@@ -46,7 +46,9 @@ abstract class Application extends CI_Controller
 			$this->session->set_userdata('default_course', $this->usr->profile()->default_course);
 			
 			// check if this is the user's first login and redirect to setup if it is
-			if ($this->usr->profile()->first_login == 1 && $this->uri->segment(1) !== 'profile') 
+			if ($this->usr->profile()->first_login == 1 
+				&& $this->uri->segment(1) !== 'profile'
+				&& $this->uri->segment(1) !== 'logout') 
 			{
 				redirect('profile/setup');
 			}
@@ -55,7 +57,8 @@ abstract class Application extends CI_Controller
 			// or a top level course
 			if ($this->usr->profile()->default_course < 1
 				&& $this->uri->segment(1) !== 'profile' 
-				&& $this->uri->segment(1) !== 'course')
+				&& $this->uri->segment(1) !== 'course'
+				&& $this->uri->segment(1) !== 'logout')
 			{
 				$this->session->set_flashdata('error','You don\'t currently have a default course set.  Please set one, or create or install a new course');
 				redirect('profile');
