@@ -14,7 +14,7 @@ GradeKeep Change log
 Version 1.1
 -----------
 
-*Unreleased* 
+*Released - 2012-04-27* 
 
 \+ Added this change log!<br>
 \+ Add a link to send email alerts on admin dashboard<br>
