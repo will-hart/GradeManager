@@ -83,10 +83,14 @@
 		 */
 		public function share_subject($id = 0)
 		{
-			$id OR redirect('dashboard');
-
 			// get the subject
 			$sub = Model\Subject::find($id);
+			
+			if ($sub == null OR empty($sub))
+			{
+				$this->session->set_flashdata('error','Unable to find the subject you asked to share');
+				redirect('dashboard');
+			}
 
 			// check this user owns the subject
 			if (!$this->usr->id == $sub->users_id)
@@ -95,29 +99,38 @@
 				redirect('dashboard');
 			}
 
-			// build a json string from the subject
-			$json = '{ "template" : { "type" : "subject", "data" : [';
-			$json .= substr($this->generate_subject_json($sub),0,-1);
-			$json .= "]}}";
+			if ($_POST)
+			{	
+				// build a json string from the subject
+				$json = '{ "template" : { "type" : "subject", "data" : [';
+				$json .= substr($this->generate_subject_json($sub),0,-1);
+				$json .= "]}}";
 
-			$tmp = new Model\Template();
-			$tmp->users_id = $this->usr->id;
-			$tmp->title = $sub->title;
-			$tmp->template = $json;
+				$tmp = new Model\Template();
+				$tmp->users_id = $this->usr->id;
+				$tmp->title = $sub->title;
+				$tmp->template = $json;
 
-			if ($tmp->save())
-			{
-				$new_id = $this->db->insert_id();
-				$this->session->set_flashdata('success','Successfully generated template!');
-				redirect('template/edit/'.$new_id);
+				if ($tmp->save())
+				{
+					$new_id = $this->db->insert_id();
+					$this->session->set_flashdata('success','Successfully generated template!');
+					redirect('template/edit/'.$new_id);
+				}
+				else 
+				{
+					$this->session->set_flashdata('error','Error generating template, please try again');
+					redirect('dashboard');
+				}
 			}
-			else 
+			else
 			{
-				$this->session->set_flashdata('error','Error generating template, please try again');
-				redirect('dashboard');
+				$data['type_name'] = 'subject';
+				$data['content'] = $this->load->view('sharing_confirmation', $data, TRUE);
+				$this->load->view('template', $data);
 			}
 		}
-				
+		
 		/*
 		 * Generates JSON format for one subject template
 		 * including parsing all the coursework attached
