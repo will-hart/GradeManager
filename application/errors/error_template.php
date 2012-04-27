@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML> 
 <html>
 	<head>
@@ -9,22 +8,20 @@
 		<meta name="description" content="Grade Manager is a simple online tool that allows you to track your coursework and to share assessment structure with your students or other students" />
 		<meta name="keywords" content="student, coursework, assignment, subject, university, school, grades, marks, scores, GradeKeep">
 
-		<link rel="stylesheet" href="../assets/css/screen.css" type="text/css" media="screen, projection" />
-		<link rel="stylesheet" href="../assets/css/print.css" type="text/css" media="print" />
+		<link rel="stylesheet" href="<?php echo $basepath; ?>/assets/css/screen.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="<?php echo $basepath; ?>/assets/css/print.css" type="text/css" media="print" />
 		<!--[if IE]>
 		<link rel="stylesheet" href="../assets/css/ie.css" type="text/css" media="screen, projection" />
 		<![endif]-->
-		<link rel="stylesheet" href="../assets/css/style.css" type="text/css" media="screen, projection" />
-		<link rel="stylesheet" href="../assets/css/datepicker.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="<?php echo $basepath; ?>/assets/css/style.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="<?php echo $basepath; ?>/assets/css/datepicker.css" type="text/css" media="screen, projection" />
 		
 	</head>
 	<body>
-		<div id="header"><img src="../assets/images/gm_header_logo.png" class="logo_image" alt=""/></div>
+		<div id="header"><img src="<?php echo $basepath; ?>/assets/images/gm_header_logo.png" class="logo_image" alt=""/></div>
 		<div id="nav">
 			ERROR >> <?php echo $error_type; ?>
 		</div>
-		
-		
 		<div id="container" class="container">
 			<?php echo $error_message; ?>
 		</div>

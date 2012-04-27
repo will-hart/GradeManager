@@ -1,9 +1,11 @@
-<?php 
+<?php
+
+$basepath = "http://".str_replace('/index.php','', $_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']);
 $error_type = "Database Error";
 $error_message = <<<CODE
 
 	<div class="span-16">
-		<img src="../assets/images/knight_slip.png" alt="Error - Knight falling over" /></div>
+		<img src="$basepath/assets/images/knight_slip.png" alt="Error - Knight falling over" /></div>
 
 		<div class="span-8 last">
 			<h1>Oopsie!</h1>
