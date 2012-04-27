@@ -25,7 +25,8 @@ Version 1.1
 \* Fix incorrect chart text in admin dashboard charts<br>
 \* Deleting courses now deletes all subjects and coursework<br>
 \* Fix error when deleting your last course<br>
-\* Fix alignment of buttons and fields on register page
+\* Fix alignment of buttons and fields on register page<br>
+\* Fix error where alerts were sent out for all coursework regardless of date
 
 \# Update footer text to show link to support pages<br>
 \# Enhance security on email alert sending<br>
