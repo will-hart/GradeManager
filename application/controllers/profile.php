@@ -33,7 +33,6 @@
 				$data['profile']->last_name = $this->input->post('last_name');
 				$data['profile']->default_course = $this->input->post('default_course');
 				$data['profile']->emails_allowed = $this->input->post('emails_allowed') == 1 ? 1 : 0;
-				$data['profile']->first_login = 0;
 				
 				// attempt to save
 				if ($data['profile']->save(TRUE))
@@ -58,7 +57,61 @@
 			$this->load->view('template',$data);
 		}
 
-
+		/**
+		 * Shown on the first login to setup a profile
+		 */
+		public function setup()
+		{
+			$data['content'] = $this->load->view('profile/ask_about_alerts', NULL, TRUE);
+			$this->load->view('template', $data);
+		}
+		
+		/** 
+		 * Allow the user to update their password
+		 */
+		public function change_password()
+		{
+			// generate a new forgot_pass_token for the database
+			$this->load->helper('string');
+			$token = random_string('sha1',64);
+			$this->usr->forgot_pass_token = $token;
+			$this->usr->forgot_pass_token_date = time();
+		
+			// attempt to save the password forgotten token to the user record
+			if ($this->usr->save())
+			{
+				redirect('manage/do_password_reset/'.$token);
+			}
+			else
+			{
+				$this->session->set_flashdata('error','Unable to reset password, please try again');
+				redirect('profile');
+			}
+		}
+		
+		/**
+		 * A function to enable email alerts for the logged in user
+		 * and remove the "first_login" flag
+		 */
+		public function enable_alerts($yes_to_emails = 0)
+		{
+			// update the user record
+			$profile = $this->usr->profile();
+			$profile->emails_allowed = $yes_to_emails;
+			$profile->first_login = 0;
+			
+			// try to save
+			if ($profile->save()) 
+			{
+				$this->session->set_flashdata('success','Emails have been activated! Get started by creating or installing a course below.');
+				redirect('profile');
+			} 
+			else 
+			{
+				$this->session->set_flashdata('error','There was an error updating your profile.  Please try again');
+				redirect('profile/setup');
+			}
+		}
 
 		/*
 		 * Delete a profile and all the associated data - do not use

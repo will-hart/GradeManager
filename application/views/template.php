@@ -58,7 +58,7 @@
 		</div>
 		
 		<div id="footer">		
-			<p>GradeKeep 1.0 is open source software by William Hart.  You can find out more by visiting <a href="http://www.williamhart.info/software/gradekeep">http://www.williamhart.info/software/gradekeep</a>.</p>
+			<p>GradeKeep 1.1 is open source software by William Hart.  You can find out more by visiting <a href="http://www.williamhart.info/software/gradekeep">http://www.williamhart.info/software/gradekeep</a>.</p>
 
 			If you found GradeKeep useful, please consider supporting it!
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">

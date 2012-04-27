@@ -20,8 +20,8 @@
 	
 	<h5 class="fancy">Other Actions</h5>
 	<ul>
-		<li><?php echo anchor('reports/outstanding','See Outstanding Coursework'); ?></li>
-		<li>Share template (Coming soon)</li>
+		<li><?php echo anchor('reports/outstanding/'.$course_id,'See Outstanding Coursework'); ?></li>
+		<li><?php echo anchor('template/share_course/'.$course_id, 'Share course'); ?></li>
 		<li><?php echo anchor('template','Search Templates'); ?></li>
 	</ul>
 </div>

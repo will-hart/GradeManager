@@ -1,5 +1,5 @@
 <?php 	// this report lists all outstanding assignments grouped by month and year
-if(is_null($courseworks)) {
+if(is_null($courseworks) or empty($courseworks)) {
 ?>
 <div class="notice">There is no more coursework to finish!</div>
 <?php 

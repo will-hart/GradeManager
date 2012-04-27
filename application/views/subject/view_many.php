@@ -1,5 +1,6 @@
 <div class="span-24 last">
 
+	<?php if (! empty($subjects) AND $subjects != NULL) : ?>
 	<h2 class="fancy">Your Subjects</h2>
 
 	<table>
@@ -28,4 +29,6 @@
 	<?php endforeach; ?>
 		</tbody>
 	</table>
+	
+	<?php endif; ?>
 </div>

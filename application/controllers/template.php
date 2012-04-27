@@ -22,12 +22,16 @@
 		 * Share an entire course template
 		 */
 		public function share_course($id=0)
-		{
-			$id OR redirect('dashboard');
-			
+		{			
 			// get the yearlevel
 			$course = Model\Course::find($id);
-			
+		
+			if($course == null OR empty($course))
+			{
+				$this->session->set_flashdata('error','Unable to find the course you asked to share');
+				redirect('dashboard');
+			}
+		
 			// check this user owns the course
 			if (!$this->usr->id == $course->users_id)
 			{
@@ -35,32 +39,42 @@
 				redirect('dashboard');
 			}
 			
-			// now build the json string
-			$json = '{ "template" : { "type" : "course", "data" : [';
-			foreach($course->subject() as $sub) {
-				$json .= $this->generate_subject_json($sub);
+			// check if the user hit submit
+			if ($_POST) 
+			{
+				// now build the json string
+				$json = '{ "template" : { "type" : "course", "data" : [';
+				foreach($course->subject() as $sub) {
+					$json .= $this->generate_subject_json($sub);
+				}
+				
+				// remove the final comma and close off the template
+				$json = substr($json, 0, -1)."]}}";
+				
+				// now build and populate the template
+				$tmp = new Model\Template();
+				$tmp->users_id = $this->usr->id;
+				$tmp->title = $course->title;
+				$tmp-> template = $json;
+				
+				if($tmp->save())
+				{
+					$new_id = $this->db->insert_id();
+					$this->session->set_flashdata('success','Successfully generated template');
+					redirect('template/edit/'.$new_id);
+				} 
+				else 
+				{
+					$this->session->set_flashdata('error','Error generating template, please try again');
+					redirect('dashboard');
+				}
 			}
-			
-			// remove the final comma and close off the template
-			$json = substr($json, 0, -1)."]}}";
-			
-			// now build and populate the template
-			$tmp = new Model\Template();
-			$tmp->users_id = $this->usr->id;
-			$tmp->title = $course->title;
-			$tmp-> template = $json;
-			
-			if($tmp->save())
+			else
 			{
-				$new_id = $this->db->insert_id();
-				$this->session->set_flashdata('success','Successfully generated template');
-				redirect('template/edit/'.$new_id);
-			} 
-			else 
-			{
-				$this->session->set_flashdata('error','Error generating template, please try again');
-				redirect('dashboard');
-			}		
+				$data['type_name'] = 'course';
+				$data['content'] = $this->load->view('sharing_confirmation', $data, TRUE);
+				$this->load->view('template', $data);
+			}
 		}
 		
 		
@@ -69,10 +83,14 @@
 		 */
 		public function share_subject($id = 0)
 		{
-			$id OR redirect('dashboard');
-
 			// get the subject
 			$sub = Model\Subject::find($id);
+			
+			if ($sub == null OR empty($sub))
+			{
+				$this->session->set_flashdata('error','Unable to find the subject you asked to share');
+				redirect('dashboard');
+			}
 
 			// check this user owns the subject
 			if (!$this->usr->id == $sub->users_id)
@@ -81,29 +99,38 @@
 				redirect('dashboard');
 			}
 
-			// build a json string from the subject
-			$json = '{ "template" : { "type" : "subject", "data" : [';
-			$json .= substr($this->generate_subject_json($sub),0,-1);
-			$json .= "]}}";
+			if ($_POST)
+			{	
+				// build a json string from the subject
+				$json = '{ "template" : { "type" : "subject", "data" : [';
+				$json .= substr($this->generate_subject_json($sub),0,-1);
+				$json .= "]}}";
 
-			$tmp = new Model\Template();
-			$tmp->users_id = $this->usr->id;
-			$tmp->title = $sub->title;
-			$tmp->template = $json;
+				$tmp = new Model\Template();
+				$tmp->users_id = $this->usr->id;
+				$tmp->title = $sub->title;
+				$tmp->template = $json;
 
-			if ($tmp->save())
-			{
-				$new_id = $this->db->insert_id();
-				$this->session->set_flashdata('success','Successfully generated template!');
-				redirect('template/edit/'.$new_id);
+				if ($tmp->save())
+				{
+					$new_id = $this->db->insert_id();
+					$this->session->set_flashdata('success','Successfully generated template!');
+					redirect('template/edit/'.$new_id);
+				}
+				else 
+				{
+					$this->session->set_flashdata('error','Error generating template, please try again');
+					redirect('dashboard');
+				}
 			}
-			else 
+			else
 			{
-				$this->session->set_flashdata('error','Error generating template, please try again');
-				redirect('dashboard');
+				$data['type_name'] = 'subject';
+				$data['content'] = $this->load->view('sharing_confirmation', $data, TRUE);
+				$this->load->view('template', $data);
 			}
 		}
-				
+		
 		/*
 		 * Generates JSON format for one subject template
 		 * including parsing all the coursework attached
@@ -196,7 +223,8 @@
 				$course->users_id = $this->usr->id;
 				$course->title = $tmp->course_name . " (Year " . $tmp->year_level . ")";
 				$course->save();
-				$c_id = Model\Course::last_created()->id;
+				$c_id = $this->db->insert_id();
+				$data['course_id'] = $c_id; //for a link to set as default
 				$log .= "done\n<br/>\n";
 			} else {
 				$c_id = $this->session->userdata('default_course');
@@ -240,9 +268,7 @@
 				$profile->default_course = $c_id;
 				$profile->save();
 			}
-			
-			$log .= anchor('dashboard','Continue to Dashboard');
-			
+				
 			// check if we got this far without an error
 			if ($errors === FALSE OR $this->db->trans_status() === FALSE)
 			{
@@ -255,7 +281,7 @@
 			}
 			else 
 			{
-				$log .= "<div class='success'>Course successfully imported!</div>";
+				$log .= "<strong>Course successfully imported!</strong>";
 			}
 			
 			$data['install_log'] = $log;

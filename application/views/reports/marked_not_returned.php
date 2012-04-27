@@ -1,5 +1,5 @@
 <?php 	// this report lists all coursework that has been marked but not returned
-if(is_null($courseworks)) {
+if(is_null($courseworks) or empty($courseworks)) {
 ?>
 <div class="notice">There is no more coursework that has been handed in without a grade!</div>
 <?php 

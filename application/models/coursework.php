@@ -9,6 +9,11 @@ class Coursework extends ORM {
 	
 	public $primary_key = 'id';
 	
+	/**
+	 * The number of days ahead to alert a user about coursework
+	 */
+	const STANDARD_ALERT_DAYS = 7;
+	
 	function _init()
 	{
 			

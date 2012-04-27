@@ -1,4 +1,9 @@
 <div class="span-24 last">
+	<?php if(empty($courses) OR $courses == NULL) : ?>
+	
+	<h2 class="fancy">No courses were found! You may want to add one from your <?php echo anchor('profile','Profile');?></h2>
+	
+	<?php else : ?>
 	<table>
 		<thead>
 			<tr>
@@ -41,4 +46,6 @@
 	<?php endforeach; ?>
 		</tbody>
 	</table>
+	
+	<?php endif; ?>
 </div>
