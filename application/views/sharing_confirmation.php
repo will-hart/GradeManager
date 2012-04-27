@@ -27,7 +27,7 @@
 	Are you sure you wish to proceed
 </p>
 
-<?php echo form_open(site_url("te,plate/share_$type_name/".$this->uri->segment(3))); ?>
+<?php echo form_open(site_url("template/share_$type_name/".$this->uri->segment(3))); ?>
 	<input type="submit" class="positive" name="share" value="Yes" />, or 
 	<?php echo anchor("$type_name/view/".$this->uri->segment(3),'Cancel'); ?>
 <?php echo form_close();?>
