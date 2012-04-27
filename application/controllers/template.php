@@ -223,7 +223,8 @@
 				$course->users_id = $this->usr->id;
 				$course->title = $tmp->course_name . " (Year " . $tmp->year_level . ")";
 				$course->save();
-				$c_id = Model\Course::last_created()->id;
+				$c_id = $this->db->insert_id();
+				$data['course_id'] = $c_id; //for a link to set as default
 				$log .= "done\n<br/>\n";
 			} else {
 				$c_id = $this->session->userdata('default_course');
@@ -267,9 +268,7 @@
 				$profile->default_course = $c_id;
 				$profile->save();
 			}
-			
-			$log .= anchor('dashboard','Continue to Dashboard');
-			
+				
 			// check if we got this far without an error
 			if ($errors === FALSE OR $this->db->trans_status() === FALSE)
 			{
@@ -282,7 +281,7 @@
 			}
 			else 
 			{
-				$log .= "<div class='success'>Course successfully imported!</div>";
+				$log .= "<strong>Course successfully imported!</strong>";
 			}
 			
 			$data['install_log'] = $log;
