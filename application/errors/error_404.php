@@ -20,7 +20,12 @@ $error_message = <<<CODE
 			</p>
 			<p class="notice">
 				The Techy stuff: <br> 
-				<span class="fancy">A 404 error occurred trying to access the URL "error101"</span>
+				<span class="fancy">
+					A 404 error occurred trying to access <br>
+CODE;
+$error_message .= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $_SERVER['REQUEST_URI'];
+$error_message .= <<<CODE
+				</span>
 			</p>
 		</div>
 CODE;
