@@ -133,7 +133,7 @@
 			foreach($sub->coursework() as $c)
 			{
 				$total_complete += $c->weighting;
-				if ($c->status_id >= Model\Status::COMPLETED ) $complete += $c->weighting;
+				if ($c->status_id >= Model\Status::HANDED_IN ) $complete += $c->weighting;
 				if ($c->status_id >= Model\Status::HANDED_IN ) $score += ($c->score/100) * $c->weighting;
 			}
 			
