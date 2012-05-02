@@ -9,7 +9,7 @@ class MY_CI_Validation extends CI_Validation {
 
 
 	// check that a date is valid - must be in the format 
-	function validdate($str)
+	function valid_date($str)
 	{
 	     if ( ereg("([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})", $str) ) {
 	        $arr = split("-",$str);     // splitting the array
