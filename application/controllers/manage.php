@@ -77,7 +77,7 @@
 					// send the email
 					$this->postageapp->from('info@gradekeep.com');
 					$this->postageapp->to($cw->user()->email);
-					$this->postageapp->subject('GradeBoss Alert - Upcoming Coursework!');
+					$this->postageapp->subject('GradeKeep Alert - Upcoming Coursework!');
 					$this->postageapp->message($this->load->view('emails/coursework_alert',array('coursework'=>$cw),TRUE));
 					$this->postageapp->template('sample_parent_layout');
 					$this->postageapp->variables(array(
@@ -119,7 +119,7 @@
 				// send a confirmation email
 				$this->postageapp->from('info@gradekeep.com');
 				$this->postageapp->to($user_prof[0]->user()->email);
-				$this->postageapp->subject('GradeBoss Alert - Email alerts turned off!');
+				$this->postageapp->subject('GradeKeep Alert - Email alerts turned off!');
 				$this->postageapp->message($this->load->view('emails/unsubscribe_confirm',NULL,TRUE));
 				$this->postageapp->template('sample_parent_layout');
 				$this->postageapp->variables(array(
