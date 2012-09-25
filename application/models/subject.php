@@ -15,7 +15,7 @@ class Subject extends ORM {
 		self::$relationships = array (
 			'user'			=> 		ORM::belongs_to('\\Model\\User'),
 			'course'		=>		ORM::belongs_to('\\Model\\Course'),
-			'coursework'	=>		ORM::has_many('\\Model\\Coursework'),
+			'coursework'	=>		ORM::has_many('\\Model\\Coursework', array('order_by:due_date[asc]')),
 		);
 		
 		
