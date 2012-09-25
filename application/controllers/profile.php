@@ -45,10 +45,9 @@
 				else
 				{
                     // TEMP EMERGENCY DEBUGGING CODE
-                    echo $data['profile']->errors('<p class="error">', '</p>');
                     echo 'The raw errors were : ';
                     print_r($data['profile']->errors);
-                    
+                    die();
 					$this->session->set_flashdata('error','Error updating profile, please try again!');
 					redirect('profile');
 				}
