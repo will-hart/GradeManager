@@ -8,7 +8,10 @@
 </div>
 
 <div class="span-24 last">
-	<h2 class="fancy"><?php echo $coursework->title; ?></h1>
+	<h2 class="fancy">
+        <?php echo $coursework->title; ?> 
+        (<?php echo $coursework->subject()->code.": ".$coursework->subject()->title; ?>)
+    </h2>
 	<p><em><?php echo $coursework->due_date; ?></em></p>
 	<blockquote><?php echo $coursework->notes; ?></blockquote>
 </div>
