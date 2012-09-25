@@ -40,7 +40,7 @@
 			// set up the default filters
 			$filter = array(
 				'coursework.users_id' => $this->usr->id,
-				'status_id < ' => Model\Status::HANDED_IN,
+				'status_id < ' => Model\Status::COMPLETED,
 			);
 			
 			if ($course_id == null) {
