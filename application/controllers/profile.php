@@ -33,9 +33,6 @@
 				$data['profile']->last_name = $this->input->post('last_name');
 				$data['profile']->default_course = $this->input->post('default_course');
 				$data['profile']->emails_allowed = $this->input->post('emails_allowed') == 1 ? 1 : 0;
-				$data['profile']->created_on = time('D-m-y H:i:s'); // fix for dodgy datetimes
-				$data['profile']->modified_on = time('D-m-y H:i:s'); // fix for dodgy datetimes
-                
                 
 				// attempt to save
 				if ($data['profile']->save(TRUE))
@@ -48,9 +45,9 @@
 				else
 				{
                     //TEMP EMERGENCY DEBUGGING CODE
-                    echo 'The raw errors were : ';
-                    print_r($data['profile']->errors);
-                    die();
+                    //echo 'The raw errors were : ';
+                    //print_r($data['profile']->errors);
+                    //die();
 					$this->session->set_flashdata('error','Error updating profile, please try again!');
 					redirect('profile');
 				}
