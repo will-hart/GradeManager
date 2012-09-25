@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'grades_dba';
-$db['default']['password'] = 'pa55word';
-$db['default']['database'] = 'grades';
+$db['default']['username'] = 'gradekeepdba';
+$db['default']['password'] = 'Pa55word';
+$db['default']['database'] = 'gradekeepdb';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
