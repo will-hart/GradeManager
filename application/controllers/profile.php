@@ -34,6 +34,13 @@
 				$data['profile']->default_course = $this->input->post('default_course');
 				$data['profile']->emails_allowed = $this->input->post('emails_allowed') == 1 ? 1 : 0;
 				
+                // fix invalid created dates
+                if (! strtotime($data['profile']->created_on))
+                {
+                    $data['profile']->created_on = time('D-m-y H:i:s');
+                }
+                
+                
 				// attempt to save
 				if ($data['profile']->save(TRUE))
 				{
