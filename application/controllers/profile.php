@@ -48,9 +48,9 @@
 				else
 				{
                     //TEMP EMERGENCY DEBUGGING CODE
-                    //echo 'The raw errors were : ';
-                    //print_r($data['profile']->errors);
-                    //die();
+                    echo 'The raw errors were : ';
+                    print_r($data['profile']->errors);
+                    die();
 					$this->session->set_flashdata('error','Error updating profile, please try again!');
 					redirect('profile');
 				}
