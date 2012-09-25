@@ -252,6 +252,13 @@
 					$coursework->title = $cw['title'];
 					$coursework->subject_id = $s_id;
 					$coursework->due_date = $cw['due_date'];
+
+					// if the due date is in the past, set email alerted to true
+					if (strtotime(date("Y-m-d")) > strtotime($cw['due_date'])) {
+						$coursework->alert_sent = 1;
+						$log .= "Coursework past due date - email alert disabled<br/>";
+					}
+
 					$coursework->notes = $cw['notes'];
 					$coursework->weighting = $cw['weighting'];
 					$coursework->status_id = Model\Status::NONE;
