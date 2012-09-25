@@ -32,7 +32,7 @@ class Template extends ORM {
 		);
 		
 		
-		$this->ts_fields = array('modified_on','[created_on');
+		$this->ts_fields = array('modified_on','[created_on]');
 
 	}
 }

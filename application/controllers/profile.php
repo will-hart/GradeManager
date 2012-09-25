@@ -34,6 +34,7 @@
 				$data['profile']->default_course = $this->input->post('default_course');
 				$data['profile']->emails_allowed = $this->input->post('emails_allowed') == 1 ? 1 : 0;
 				$data['profile']->created_on = time('D-m-y H:i:s'); // fix for dodgy datetimes
+				$data['profile']->modified_on = time('D-m-y H:i:s'); // fix for dodgy datetimes
                 
                 
 				// attempt to save

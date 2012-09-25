@@ -26,7 +26,7 @@ class Course extends ORM {
 			'modified_on' 	=> 		ORM::field('datetime'),
 		);
 		
-		$this->ts_fields = array('modified_on','[created_on');
+		$this->ts_fields = array('modified_on','[created_on]');
 
 	}
 }

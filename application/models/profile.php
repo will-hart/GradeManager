@@ -26,10 +26,10 @@ class Profile extends ORM {
 			'emails_allowed'    =>		ORM::field('int[1]'),
 			'unsubscribe_code'  =>	    ORM::field('char[23]'),
 			'created_on'	    => 		ORM::field('datetime'),
-			'modified_on' 	    => 		ORM::field('datetime'),
+			//'modified_on' 	    => 		ORM::field('datetime'),
 		);
 		
-		$this->ts_fields = array('modified_on','[created_on');
+		$this->ts_fields = array('[created_on]');
 
 	}
 }
