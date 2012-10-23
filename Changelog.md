@@ -16,13 +16,13 @@ Minor bug fix release
 
 *Released - 2012-09-25*
 
-\* Fixed bug where users couldn't save changes to their profile (**MAJOR**)
-\* Fixed some incorrect text in email templates
+\* Fixed bug where users couldn't save changes to their profile (**MAJOR**)<br>
+\* Fixed some incorrect text in email templates<br>
 \* Update links in footer
 
-\# Stopped alert emails being sent when templates are imported past coursework due date
-\# Coursework now sorted by ascending due date in subject page
-\# Coursework now only marked as complete once handed in
+\# Stopped alert emails being sent when templates are imported past coursework due date<br>
+\# Coursework now sorted by ascending due date in subject page<br>
+\# Coursework now only marked as complete once handed in<br>
 \# Subject name now visible when viewing coursework
 
 Version 1.1
